@@ -15,15 +15,15 @@ theme                  : "minimal-mistakes-jekyll"
 minimal_mistakes_skin    : "air" #"default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 # Site Settings
-locale                   : "en-US"
-title                    : "Soyoung Yoon"
+locale                   : "ko-KR"
+title                    : "Site Title"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "Soyoung Yoon"
 description              : "Soyoung's personal website."
-url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+url                      : #"https://soyoung97.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
-repository               : "soyoung97/soyoung97.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
+repository               : #"soyoung97/soyoung97.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo                     : # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
 masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
@@ -70,7 +70,7 @@ naver_site_verification  :
 
 # Social Sharing
 twitter:
-  username               :
+  username               : recoprin
 facebook:
   username               :
   app_id                 :
@@ -78,46 +78,45 @@ facebook:
 og_image                 : # Open Graph/Twitter default site image
 # For specifying social profiles
 # - https://developers.google.com/structured-data/customize/social-profiles
-social:
+social: 
   type                   : # Person or Organization (defaults to Person)
   name                   : # If the user or organization name differs from the site's name
   links: # An array of links to social media profiles
 
 # Analytics
 analytics:
-  provider               : false # false (default), "google", "google-universal", "google-gtag", "custom"
+  provider               : "google" #false # false (default), "google", "google-universal", "google-gtag", "custom"
   google:
     tracking_id          :
     anonymize_ip         : # true, false (default)
 
 
-# Site Author                                                                                                                                                  
-author:                                                                        
+# Site Author
+author:
   name             : "Soyoung Yoon"
   avatar           : "/assets/images/profile.png" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "KAIST CS 4th year student"
   location         : "Seongnam, Korea"
   email            : "soyoungyoon (at) kaist.ac.kr"
-  links:                                                                       
-    - label: "Email"                                                           
+  links:
+    - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
       url: "soyoungyoon@kaist.ac.kr"
     - label: "Website"
-      icon: "fas fa-fw fa-link"                                                
+      icon: "fas fa-fw fa-link"
       url: "https://soyoung97.github.io"
-    - label: "Twitter"                 
+    - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
       url: "https://twitter.com/soyoung971030"
-    - label: "Facebook"           
+    - label: "Facebook"
       icon: "fab fa-fw fa-facebook-square"
       url: "https://facebook.com/jenny.yoon.334"
     - label: "GitHub"
-      icon: "fab fa-fw fa-github"      
+      icon: "fab fa-fw fa-github"
       url: "https://github.com/soyoung97"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       url: "https://instagram.com/recoprin_soyoung"
-
 
 # Site Footer
 footer:
