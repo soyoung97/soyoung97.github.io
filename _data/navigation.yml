@@ -3,7 +3,7 @@ main:
   - title: "Quick-Start Guide"
     url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
   - title: "About"
-    url: https://soyoung97.github.io/about/
+    url: https://soyoung97.github.io/profile/ # redirects into another github repo(for profile)
   - title: "Posts"
     url: https://soyoung97.github.io/posts/
   #   url: /year-archive/

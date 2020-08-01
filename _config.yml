@@ -15,12 +15,12 @@ remote_theme           : "mmistakes/minimal-mistakes"
 minimal_mistakes_skin    : "air" #"default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 # Site Settings
-locale                   : "ko-KR"
-title                    : "Soyoung's homepage"
+locale                   : "en-US"
+title                    : "Soyoung's blog"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "Soyoung Yoon"
-description              : "Soyoung's personal website."
+description              : "Soyoung's blog that records about what I learned"
 url                      : #"https://soyoung97.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : #"soyoung97/soyoung97.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
