@@ -1,4 +1,59 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-08-04T01:21:12+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Soyoung’s blog</title><subtitle>Soyoung's blog that records about what I learned</subtitle><author><name>Soyoung Yoon</name></author><entry><title type="html">Gec With Copy Attention</title><link href="http://localhost:4000/GEC-with-copy-attention/" rel="alternate" type="text/html" title="Gec With Copy Attention" /><published>2020-08-03T00:00:00+09:00</published><updated>2020-08-03T00:00:00+09:00</updated><id>http://localhost:4000/GEC-with-copy-attention</id><content type="html" xml:base="http://localhost:4000/GEC-with-copy-attention/">&lt;h1 id=&quot;improving-grammatical-error-correction-via-pre-training-a-copy-augmented-architecture-with-unlabeled-data&quot;&gt;Improving Grammatical Error Correction via Pre-Training a Copy-Augmented Architecture with Unlabeled Data&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-08-04T01:33:04+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Soyoung’s blog</title><subtitle>Soyoung's blog that records about what I learned</subtitle><author><name>Soyoung Yoon</name></author><entry><title type="html">Pie</title><link href="http://localhost:4000/pie/" rel="alternate" type="text/html" title="Pie" /><published>2020-08-04T00:00:00+09:00</published><updated>2020-08-04T00:00:00+09:00</updated><id>http://localhost:4000/pie</id><content type="html" xml:base="http://localhost:4000/pie/">&lt;h1 id=&quot;parallel-iterative-edit-models-for-local-sequence-transduction&quot;&gt;Parallel Iterative Edit Models for Local Sequence Transduction&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.aclweb.org/anthology/D19-1435.pdf&quot;&gt;pdf&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-1.png&quot; alt=&quot;slide1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-2.png&quot; alt=&quot;slide2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-3.png&quot; alt=&quot;slide3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-4.png&quot; alt=&quot;slide4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-5.png&quot; alt=&quot;slide5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-6.png&quot; alt=&quot;slide6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-7.png&quot; alt=&quot;slide7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-8.png&quot; alt=&quot;slide8&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-9.png&quot; alt=&quot;slide9&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-10.png&quot; alt=&quot;slide10&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-11.png&quot; alt=&quot;slide11&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-12.png&quot; alt=&quot;slide12&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-13.png&quot; alt=&quot;slide13&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-14.png&quot; alt=&quot;slide14&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-15.png&quot; alt=&quot;slide15&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-16.png&quot; alt=&quot;slide16&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Parallel Iterative Edit Models for Local Sequence Transduction</summary></entry><entry><title type="html">Unilm</title><link href="http://localhost:4000/unilm/" rel="alternate" type="text/html" title="Unilm" /><published>2020-08-04T00:00:00+09:00</published><updated>2020-08-04T00:00:00+09:00</updated><id>http://localhost:4000/unilm</id><content type="html" xml:base="http://localhost:4000/unilm/">&lt;h1 id=&quot;unified-language-model-pre-training-for-natural-language-understanding-and-generation&quot;&gt;Unified Language Model Pre-training for Natural Language Understanding and Generation&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://arxiv.org/pdf/1905.03197.pdf&quot;&gt;pdf&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-1.png&quot; alt=&quot;slide1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-2.png&quot; alt=&quot;slide2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-3.png&quot; alt=&quot;slide3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-4.png&quot; alt=&quot;slide4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-5.png&quot; alt=&quot;slide5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-6.png&quot; alt=&quot;slide6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-7.png&quot; alt=&quot;slide7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-8.png&quot; alt=&quot;slide8&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-9.png&quot; alt=&quot;slide9&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-10.png&quot; alt=&quot;slide10&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Unified Language Model Pre-training for Natural Language Understanding and Generation pdf</summary></entry><entry><title type="html">Grammatical Error Correction</title><link href="http://localhost:4000/Grammatical-Error-Correction/" rel="alternate" type="text/html" title="Grammatical Error Correction" /><published>2020-08-03T00:00:00+09:00</published><updated>2020-08-03T00:00:00+09:00</updated><id>http://localhost:4000/Grammatical-Error-Correction</id><content type="html" xml:base="http://localhost:4000/Grammatical-Error-Correction/">&lt;h1 id=&quot;improving-grammatical-error-correction-via-pre-training-a-copy-augmented-architecture-with-unlabeled-data&quot;&gt;Improving Grammatical Error Correction via Pre-Training a Copy-Augmented Architecture with Unlabeled Data&lt;/h1&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://www.aclweb.org/anthology/N19-1014.pdf&quot;&gt;pdf&lt;/a&gt;&lt;/p&gt;
 

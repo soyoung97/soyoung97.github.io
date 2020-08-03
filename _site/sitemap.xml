@@ -5,7 +5,7 @@
 <lastmod>2020-08-02T00:00:00+09:00</lastmod>
 </url>
 <url>
-<loc>http://localhost:4000/GEC-with-copy-attention/</loc>
+<loc>http://localhost:4000/Grammatical-Error-Correction/</loc>
 <lastmod>2020-08-03T00:00:00+09:00</lastmod>
 </url>
 <url>
@@ -17,6 +17,17 @@
 <lastmod>2020-08-03T00:00:00+09:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/pie/</loc>
+<lastmod>2020-08-04T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/unilm/</loc>
+<lastmod>2020-08-04T00:00:00+09:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/page2/</loc>
 </url>
 </urlset>

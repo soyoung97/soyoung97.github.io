@@ -1,11 +1,11 @@
 # main links
 main:
-  - title: "Quick-Start Guide"
-    url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
+  #  - title: "Quick-Start Guide"
+  #   url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
   - title: "About Me"
     url: https://soyoung97.github.io/profile/ # redirects into another github repo(for profile)
-  - title: "Posts"
-    url: https://soyoung97.github.io/posts/
+    #  - title: "Posts"
+    #  url: https://soyoung97.github.io/posts/
   #   url: /year-archive/
   # - title: "Sample Collections"
   #   url: /collection-archive/

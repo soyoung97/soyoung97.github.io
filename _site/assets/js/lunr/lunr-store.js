@@ -5,10 +5,10 @@ var store = [{
         "url": "http://localhost:4000/initial-post/",
         "teaser": null
       },{
-        "title": "Gec With Copy Attention",
+        "title": "Grammatical Error Correction",
         "excerpt":"Improving Grammatical Error Correction via Pre-Training a Copy-Augmented Architecture with Unlabeled Data   pdf                                            ","categories": [],
         "tags": [],
-        "url": "http://localhost:4000/GEC-with-copy-attention/",
+        "url": "http://localhost:4000/Grammatical-Error-Correction/",
         "teaser": null
       },{
         "title": "Electra",
@@ -21,5 +21,17 @@ var store = [{
         "excerpt":"Reformer: the efficient Transformer  pdf   처음에 이 논문이 나왔을떄는 정말 놀랐다. locality-sensitive hashing을 이용해서 원래 sequence length의 제곱에 비례하는 attention 과정의 time complexity를 linear하게 단축시킬 수 있다니! 후속 연구가 활발히 이루어져서 더 발전되었으면 좋겠다.                                 ","categories": [],
         "tags": [],
         "url": "http://localhost:4000/reformer/",
+        "teaser": null
+      },{
+        "title": "Pie",
+        "excerpt":"Parallel Iterative Edit Models for Local Sequence Transduction   pdf                                                  ","categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/pie/",
+        "teaser": null
+      },{
+        "title": "Unilm",
+        "excerpt":"Unified Language Model Pre-training for Natural Language Understanding and Generation  pdf                                ","categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/unilm/",
         "teaser": null
       }]
