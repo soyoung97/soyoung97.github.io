@@ -1,11 +1,40 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-08-04T00:49:30+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Soyoung’s blog</title><subtitle>Soyoung's blog that records about what I learned</subtitle><author><name>Soyoung Yoon</name></author><entry><title type="html">Electra</title><link href="http://localhost:4000/electra/" rel="alternate" type="text/html" title="Electra" /><published>2020-08-03T00:00:00+09:00</published><updated>2020-08-03T00:00:00+09:00</updated><id>http://localhost:4000/electra</id><content type="html" xml:base="http://localhost:4000/electra/">&lt;h1 id=&quot;electra-pre-training-text-encoders-as-discriminators-rather-than-generators&quot;&gt;ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-08-04T01:03:56+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Soyoung’s blog</title><subtitle>Soyoung's blog that records about what I learned</subtitle><author><name>Soyoung Yoon</name></author><entry><title type="html">Electra</title><link href="http://localhost:4000/electra/" rel="alternate" type="text/html" title="Electra" /><published>2020-08-03T00:00:00+09:00</published><updated>2020-08-03T00:00:00+09:00</updated><id>http://localhost:4000/electra</id><content type="html" xml:base="http://localhost:4000/electra/">&lt;h1 id=&quot;electra-pre-training-text-encoders-as-discriminators-rather-than-generaors&quot;&gt;ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generaors&lt;/h1&gt;
 &lt;h5 id=&quot;openreview-link&quot;&gt;&lt;a href=&quot;https://openreview.net/forum?id=r1xMH1BtvB&quot;&gt;(openreview link)&lt;/a&gt;&lt;/h5&gt;
 
 &lt;p&gt;첫 글은 연구실 논문리딩그룹에서 내가 발표했던 슬라이드를 활용하기로 하였다. 시간이 있을 때 설명을 더 추가할 예정!&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-1.png&quot; alt=&quot;slide1&quot; /&gt;
-&lt;img src=&quot;../assets/images/slides/electra-2.png&quot; alt=&quot;slide2&quot; /&gt;
-&lt;img src=&quot;../assets/images/slides/electra-3.png&quot; alt=&quot;slide3&quot; /&gt;
-&lt;img src=&quot;../assets/images/slides/electra-4.png&quot; alt=&quot;slide4&quot; /&gt;
-&lt;img src=&quot;../assets/images/slides/electra-5.png&quot; alt=&quot;slide5&quot; /&gt;
-&lt;img src=&quot;../assets/images/slides/electra-6.png&quot; alt=&quot;slide6&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators (openreview link)</summary></entry><entry><title type="html">Initial Post</title><link href="http://localhost:4000/initial-post/" rel="alternate" type="text/html" title="Initial Post" /><published>2020-08-02T00:00:00+09:00</published><updated>2020-08-02T00:00:00+09:00</updated><id>http://localhost:4000/initial-post</id><content type="html" xml:base="http://localhost:4000/initial-post/">&lt;p&gt;This is the first post!&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">This is the first post!</summary></entry></feed>
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-1.png&quot; alt=&quot;slide1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-2.png&quot; alt=&quot;slide2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-3.png&quot; alt=&quot;slide3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-4.png&quot; alt=&quot;slide4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-5.png&quot; alt=&quot;slide5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-6.png&quot; alt=&quot;slide6&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generaors (openreview link)</summary></entry><entry><title type="html">Reformer</title><link href="http://localhost:4000/reformer/" rel="alternate" type="text/html" title="Reformer" /><published>2020-08-03T00:00:00+09:00</published><updated>2020-08-03T00:00:00+09:00</updated><id>http://localhost:4000/reformer</id><content type="html" xml:base="http://localhost:4000/reformer/">&lt;p&gt;#Reformer: the efficient Transformer&lt;/p&gt;
+
+&lt;p&gt;처음에 이 논문이 나왔을떄는 정말 놀랐다. locality-sensitive hashing을 이용해서
+원래 sequence length의 제곱에 비례하는 attention 과정의 time complexity를
+linear하게 단축시킬 수 있다니! 후속 연구가 활발히 이루어져서 더 발전되었으면 좋겠다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/reformer-1.png&quot; alt=&quot;slide1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/reformer-2.png&quot; alt=&quot;slide2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/reformer-3.png&quot; alt=&quot;slide3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/reformer-4.png&quot; alt=&quot;slide4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/reformer-5.png&quot; alt=&quot;slide5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/reformer-6.png&quot; alt=&quot;slide6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/reformer-7.png&quot; alt=&quot;slide7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/reformer-8.png&quot; alt=&quot;slide8&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/reformer-9.png&quot; alt=&quot;slide9&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/reformer-10.png&quot; alt=&quot;slide10&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">#Reformer: the efficient Transformer</summary></entry><entry><title type="html">Initial Post</title><link href="http://localhost:4000/initial-post/" rel="alternate" type="text/html" title="Initial Post" /><published>2020-08-02T00:00:00+09:00</published><updated>2020-08-02T00:00:00+09:00</updated><id>http://localhost:4000/initial-post</id><content type="html" xml:base="http://localhost:4000/initial-post/">&lt;p&gt;This is the first post!&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">This is the first post!</summary></entry></feed>
