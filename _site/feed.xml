@@ -1,4 +1,116 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-08-04T01:33:04+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Soyoung’s blog</title><subtitle>Soyoung's blog that records about what I learned</subtitle><author><name>Soyoung Yoon</name></author><entry><title type="html">Pie</title><link href="http://localhost:4000/pie/" rel="alternate" type="text/html" title="Pie" /><published>2020-08-04T00:00:00+09:00</published><updated>2020-08-04T00:00:00+09:00</updated><id>http://localhost:4000/pie</id><content type="html" xml:base="http://localhost:4000/pie/">&lt;h1 id=&quot;parallel-iterative-edit-models-for-local-sequence-transduction&quot;&gt;Parallel Iterative Edit Models for Local Sequence Transduction&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-08-04T20:57:28+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Soyoung’s blog</title><subtitle>Soyoung's blog that records about what I learned</subtitle><author><name>Soyoung Yoon</name></author><entry><title type="html">Docker 컨테이너 Commit하고 Push하기</title><link href="http://localhost:4000/docker-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-commit%ED%95%98%EA%B3%A0-push%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="Docker 컨테이너 Commit하고 Push하기" /><published>2020-08-04T00:00:00+09:00</published><updated>2020-08-04T00:00:00+09:00</updated><id>http://localhost:4000/docker-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-commit%ED%95%98%EA%B3%A0-push%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/docker-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-commit%ED%95%98%EA%B3%A0-push%ED%95%98%EA%B8%B0/">&lt;p&gt;&lt;a href=&quot;https://ai.nsml.navercorp.com/intro&quot;&gt;NSML&lt;/a&gt; 을 사내에서 사용하게 되면서 docker image를 띄우고, 컨테이너에 넣어서 수정하고, 다시 push해야하는 일이 생겼다.
+나중에 까먹지 않도록, 각자 과정에 대해서 간단하게 기록해보려고 한다.&lt;/p&gt;
+
+&lt;p&gt;기본적으로 docker run을 하게 되면 해당 container안에 있는 process가 다 돌아가게 되면 container는 exit하게 되고, 그 후에 다시 그 container를 run시킨다면 그 전에 작업했던 결과물들이 다 날라가게 된다(초기의 값으로 돌아가게 된다 TT)&lt;/p&gt;
+
+&lt;p&gt;따라서 나는 &lt;code class=&quot;highlighter-rouge&quot;&gt;docker run -it [CONTAINER_NAME] [COMMAND(보통 /bin/bash)] &lt;/code&gt; 로 처음에 실행해놓은 docker를 &lt;code class=&quot;highlighter-rouge&quot;&gt;exit&lt;/code&gt; 시키지 않고 그 쉘은 작업이 끝날때까지 놔둔다…ㅎㅎ&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;현재 돌고 있는 Container 확인: &lt;code class=&quot;highlighter-rouge&quot;&gt;docker ps -al&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;user@AL01333530 ~ % docker ps -al
+CONTAINER ID        IMAGE                  COMMAND             CREATED             STATUS              PORTS               NAMES
+6eb43f8766c0        msyoon8/fairseq-nsml   &quot;/bin/bash&quot;         8 hours ago         Up 8 hours                              sad_buck
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;해당 container “commit” 하기: &lt;code class=&quot;highlighter-rouge&quot;&gt;docker commit [CONTAINER_NAME] [NEW_IMAGE_NAME]&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;user@AL01333530 ~ % docker commit sad_buck modified-nsml
+sha256:59e86dfa8921492b020d0d258d05c47f0049e35141c291fe6e38cde645ee0fed
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;만들어진 docker image 확인: &lt;code class=&quot;highlighter-rouge&quot;&gt;docker images&lt;/code&gt;를 하면 된다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;user@AL01333530 ~ % docker images
+REPOSITORY             TAG                                      IMAGE ID            CREATED              SIZE
+modified-nsml          latest                                   59e86dfa8921        About a minute ago   11GB
+msyoon8/new-nsml       latest                                   106f53376a55        8 hours ago          11GB
+start                  latest                                   7789300f795a        8 hours ago          10.9GB
+msyoon8/fairseq-nsml   latest                                   7789300f795a        8 hours ago          10.9GB
+&amp;lt;none&amp;gt;                 &amp;lt;none&amp;gt;                                   34ad76557739        9 hours ago          110MB
+python                 alpine                                   bcf3965d8456        4 days ago           80.3MB
+node                   12-alpine                                18f4bc975732        6 days ago           89.3MB
+nginx                  alpine                                   ecd67fe340f9        3 weeks ago          21.6MB
+msyoon8/nsml           start                                    d4cb5f857197        12 months ago        7.28GB
+nsml/ml                cuda9.0-cudnn7-tf-1.11torch1.0keras2.2   d4cb5f857197        12 months ago        7.28GB
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;(예시입니다)&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;docker login&lt;/code&gt; 하기 (나는 했으므로 pass)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;docker image에 tag 달기: &lt;code class=&quot;highlighter-rouge&quot;&gt;docker image tag [NEW_IMAGE_NAME]:latest [USER_NAME]/[NEW_IMAGE_NAME]:[WANTED_TAG]&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;user@AL01333530 ~ % docker image tag modified-nsml:latest msyoon8/modified-nsml:start
+user@AL01333530 ~ % docker images
+REPOSITORY              TAG                                      IMAGE ID            CREATED             SIZE
+msyoon8/modified-nsml   start                                    59e86dfa8921        5 minutes ago       11GB
+modified-nsml           latest                                   59e86dfa8921        5 minutes ago       11GB
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;(참고: docker image tag를 지우고 싶다면 &lt;code class=&quot;highlighter-rouge&quot;&gt;docker rmi [IMAGE_NAME]:[TAG]&lt;/code&gt; -&amp;gt; actual image를 지우는건 아님)&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;docker hub에 push: &lt;code class=&quot;highlighter-rouge&quot;&gt;docker push [USER_NAME]/[IMAGE_NAME]:[TAG]&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;user@AL01333530 ~ % docker push msyoon8/modified-nsml:start
+The push refers to repository [docker.io/msyoon8/modified-nsml]
+29f8768524e6: Pushing [==================================================&amp;gt;]  24.02MB
+345828a8dc7c: Mounted from msyoon8/new-nsml
+4acf1ac205fc: Mounted from msyoon8/new-nsml
+36bc5cc3b649: Mounted from msyoon8/new-nsml
+8f4ebc5eb43a: Mounted from msyoon8/new-nsml
+ebd4ce6c3d15: Waiting
+59535ac5fd47: Waiting
+2b023f1e40f7: Waiting
+55a5c5838665: Waiting
+68297ea5d26b: Waiting
+6c0a7acf624e: Waiting
+6c5aa0fe4fdd: Waiting
+19021c46eb92: Waiting
+01f46e800c43: Waiting
+92d3f22d44f3: Waiting
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;시간이 조금 지나고 …..&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;user@AL01333530 ~ % docker push msyoon8/modified-nsml:start
+The push refers to repository [docker.io/msyoon8/modified-nsml]
+29f8768524e6: Pushed 
+345828a8dc7c: Mounted from msyoon8/new-nsml 
+4acf1ac205fc: Mounted from msyoon8/new-nsml 
+36bc5cc3b649: Mounted from msyoon8/new-nsml 
+8f4ebc5eb43a: Mounted from msyoon8/new-nsml 
+ebd4ce6c3d15: Mounted from msyoon8/new-nsml 
+59535ac5fd47: Mounted from msyoon8/new-nsml 
+2b023f1e40f7: Mounted from msyoon8/new-nsml 
+55a5c5838665: Mounted from msyoon8/new-nsml 
+68297ea5d26b: Mounted from msyoon8/new-nsml 
+6c0a7acf624e: Mounted from msyoon8/new-nsml 
+6c5aa0fe4fdd: Mounted from msyoon8/new-nsml 
+19021c46eb92: Mounted from msyoon8/new-nsml 
+01f46e800c43: Mounted from msyoon8/new-nsml 
+92d3f22d44f3: Mounted from msyoon8/new-nsml 
+10e46f329a25: Mounted from msyoon8/new-nsml 
+24ab7de5faec: Mounted from msyoon8/new-nsml 
+1ea5a27b0484: Mounted from msyoon8/new-nsml 
+start: digest: sha256:126df160f8899f7bf0bb4c21a724d41e39239afe27084229f78c06bb67277dcd size: 4116
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;요렇게 뜨면 제대로 push가 된 것이다!
+&lt;img src=&quot;../assets/images/docker.jpg&quot; alt=&quot;dockerhub-image&quot; /&gt;
+(docker hub에 제대로 push가 된 걸 볼 수 있다.)&lt;/p&gt;
+
+&lt;p&gt;쨘!
+그리고 이 이미지를 가져오면 된다 ㅎㅎ&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">NSML 을 사내에서 사용하게 되면서 docker image를 띄우고, 컨테이너에 넣어서 수정하고, 다시 push해야하는 일이 생겼다. 나중에 까먹지 않도록, 각자 과정에 대해서 간단하게 기록해보려고 한다.</summary></entry><entry><title type="html">논문 리뷰_pie</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_PIE/" rel="alternate" type="text/html" title="논문 리뷰_pie" /><published>2020-08-04T00:00:00+09:00</published><updated>2020-08-04T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_PIE</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_PIE/">&lt;h1 id=&quot;parallel-iterative-edit-models-for-local-sequence-transduction&quot;&gt;Parallel Iterative Edit Models for Local Sequence Transduction&lt;/h1&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://www.aclweb.org/anthology/D19-1435.pdf&quot;&gt;pdf&lt;/a&gt;&lt;/p&gt;
 
@@ -32,7 +144,7 @@
 
 &lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-15.png&quot; alt=&quot;slide15&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-16.png&quot; alt=&quot;slide16&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Parallel Iterative Edit Models for Local Sequence Transduction</summary></entry><entry><title type="html">Unilm</title><link href="http://localhost:4000/unilm/" rel="alternate" type="text/html" title="Unilm" /><published>2020-08-04T00:00:00+09:00</published><updated>2020-08-04T00:00:00+09:00</updated><id>http://localhost:4000/unilm</id><content type="html" xml:base="http://localhost:4000/unilm/">&lt;h1 id=&quot;unified-language-model-pre-training-for-natural-language-understanding-and-generation&quot;&gt;Unified Language Model Pre-training for Natural Language Understanding and Generation&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-16.png&quot; alt=&quot;slide16&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Parallel Iterative Edit Models for Local Sequence Transduction</summary></entry><entry><title type="html">논문 리뷰_unilm</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_unilm/" rel="alternate" type="text/html" title="논문 리뷰_unilm" /><published>2020-08-04T00:00:00+09:00</published><updated>2020-08-04T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_unilm</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_unilm/">&lt;h1 id=&quot;unified-language-model-pre-training-for-natural-language-understanding-and-generation&quot;&gt;Unified Language Model Pre-training for Natural Language Understanding and Generation&lt;/h1&gt;
 &lt;p&gt;&lt;a href=&quot;https://arxiv.org/pdf/1905.03197.pdf&quot;&gt;pdf&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-1.png&quot; alt=&quot;slide1&quot; /&gt;&lt;/p&gt;
@@ -53,7 +165,7 @@
 
 &lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-9.png&quot; alt=&quot;slide9&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-10.png&quot; alt=&quot;slide10&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Unified Language Model Pre-training for Natural Language Understanding and Generation pdf</summary></entry><entry><title type="html">Grammatical Error Correction</title><link href="http://localhost:4000/Grammatical-Error-Correction/" rel="alternate" type="text/html" title="Grammatical Error Correction" /><published>2020-08-03T00:00:00+09:00</published><updated>2020-08-03T00:00:00+09:00</updated><id>http://localhost:4000/Grammatical-Error-Correction</id><content type="html" xml:base="http://localhost:4000/Grammatical-Error-Correction/">&lt;h1 id=&quot;improving-grammatical-error-correction-via-pre-training-a-copy-augmented-architecture-with-unlabeled-data&quot;&gt;Improving Grammatical Error Correction via Pre-Training a Copy-Augmented Architecture with Unlabeled Data&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-10.png&quot; alt=&quot;slide10&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Unified Language Model Pre-training for Natural Language Understanding and Generation pdf</summary></entry><entry><title type="html">논문 리뷰_grammatical Error Correction</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_Grammatical-Error-Correction/" rel="alternate" type="text/html" title="논문 리뷰_grammatical Error Correction" /><published>2020-08-03T00:00:00+09:00</published><updated>2020-08-03T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_Grammatical-Error-Correction</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_Grammatical-Error-Correction/">&lt;h1 id=&quot;improving-grammatical-error-correction-via-pre-training-a-copy-augmented-architecture-with-unlabeled-data&quot;&gt;Improving Grammatical Error Correction via Pre-Training a Copy-Augmented Architecture with Unlabeled Data&lt;/h1&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://www.aclweb.org/anthology/N19-1014.pdf&quot;&gt;pdf&lt;/a&gt;&lt;/p&gt;
 
@@ -83,7 +195,7 @@
 
 &lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-13.png&quot; alt=&quot;slide13&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-14.png&quot; alt=&quot;slide14&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Improving Grammatical Error Correction via Pre-Training a Copy-Augmented Architecture with Unlabeled Data</summary></entry><entry><title type="html">Electra</title><link href="http://localhost:4000/electra/" rel="alternate" type="text/html" title="Electra" /><published>2020-08-03T00:00:00+09:00</published><updated>2020-08-03T00:00:00+09:00</updated><id>http://localhost:4000/electra</id><content type="html" xml:base="http://localhost:4000/electra/">&lt;h1 id=&quot;electra-pre-training-text-encoders-as-discriminators-rather-than-generaors&quot;&gt;ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generaors&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-14.png&quot; alt=&quot;slide14&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Improving Grammatical Error Correction via Pre-Training a Copy-Augmented Architecture with Unlabeled Data</summary></entry><entry><title type="html">논문 리뷰_electra</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_electra/" rel="alternate" type="text/html" title="논문 리뷰_electra" /><published>2020-08-03T00:00:00+09:00</published><updated>2020-08-03T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_electra</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_electra/">&lt;h1 id=&quot;electra-pre-training-text-encoders-as-discriminators-rather-than-generaors&quot;&gt;ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generaors&lt;/h1&gt;
 &lt;h5 id=&quot;openreview-link&quot;&gt;&lt;a href=&quot;https://openreview.net/forum?id=r1xMH1BtvB&quot;&gt;(openreview link)&lt;/a&gt;&lt;/h5&gt;
 
 &lt;p&gt;첫 글은 연구실 논문리딩그룹에서 내가 발표했던 슬라이드를 활용하기로 하였다. 시간이 있을 때 설명을 더 추가할 예정!&lt;/p&gt;
@@ -98,7 +210,7 @@
 
 &lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-5.png&quot; alt=&quot;slide5&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-6.png&quot; alt=&quot;slide6&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generaors (openreview link)</summary></entry><entry><title type="html">Reformer</title><link href="http://localhost:4000/reformer/" rel="alternate" type="text/html" title="Reformer" /><published>2020-08-03T00:00:00+09:00</published><updated>2020-08-03T00:00:00+09:00</updated><id>http://localhost:4000/reformer</id><content type="html" xml:base="http://localhost:4000/reformer/">&lt;h1 id=&quot;reformer-the-efficient-transformer&quot;&gt;Reformer: the efficient Transformer&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-6.png&quot; alt=&quot;slide6&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generaors (openreview link)</summary></entry><entry><title type="html">논문 리뷰_reformer</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_reformer/" rel="alternate" type="text/html" title="논문 리뷰_reformer" /><published>2020-08-03T00:00:00+09:00</published><updated>2020-08-03T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_reformer</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_reformer/">&lt;h1 id=&quot;reformer-the-efficient-transformer&quot;&gt;Reformer: the efficient Transformer&lt;/h1&gt;
 &lt;p&gt;&lt;a href=&quot;https://arxiv.org/pdf/2001.04451.pdf&quot;&gt;pdf&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;처음에 이 논문이 나왔을떄는 정말 놀랐다. locality-sensitive hashing을 이용해서
