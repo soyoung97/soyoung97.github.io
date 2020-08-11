@@ -12,7 +12,7 @@ var store = [{
         "teaser": null
       },{
         "title": "논문 리뷰_electra",
-        "excerpt":"ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generaors  (openreview link)   첫 글은 연구실 논문리딩그룹에서 내가 발표했던 슬라이드를 활용하기로 하였다. 시간이 있을 때 설명을 더 추가할 예정!                    ","categories": [],
+        "excerpt":"ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators  (openreview link)   첫 글은 연구실 논문리딩그룹에서 내가 발표했던 슬라이드를 활용하기로 하였다. 시간이 있을 때 설명을 더 추가할 예정!                    ","categories": [],
         "tags": [],
         "url": "http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_electra/",
         "teaser": null
@@ -39,5 +39,11 @@ var store = [{
         "excerpt":"Unified Language Model Pre-training for Natural Language Understanding and Generation  pdf                                ","categories": [],
         "tags": [],
         "url": "http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_unilm/",
+        "teaser": null
+      },{
+        "title": "Mixup 기반 메소드들",
+        "excerpt":"이번에 연구 주제와 관련되어서 mixup 기반의 논문들을 읽어보고 공부하게 되었다. 여기서 중요하다고 느꼈던 점과 읽었던 부분들을 정리해보려고 한다. 시간이 지나면 다시 까먹을 것 같아서, 미리미리 정리해두는게 좋을것 같다. (정리한 부분은 순전히 내가 읽고 받아들인 대로 적은 것이기 떄문에, 틀린 부분이 있을 수 있고, 잘못된 부분이 있다면 댓글로 알려주시면 정말 감사하겠습니다..ㅎㅎ)...","categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/Mixup-%EA%B8%B0%EB%B0%98-%EB%A9%94%EC%86%8C%EB%93%9C%EB%93%A4/",
         "teaser": null
       }]
