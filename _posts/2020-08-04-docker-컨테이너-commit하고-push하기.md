@@ -1,4 +1,4 @@
-[NSML](https://ai.nsml.navercorp.com/intro) 을 사내에서 사용하게 되면서 docker image를 띄우고, 컨테이너에 넣어서 수정하고, 다시 push해야하는 일이 생겼다.
+[NSML](https://ai.nsml.navercorp.com/intro) 을 인턴 기간 중 사용하게 되면서 docker image를 띄우고, 컨테이너에 넣어서 수정하고, 다시 push해야하는 일이 생겼다.
 나중에 까먹지 않도록, 각자 과정에 대해서 간단하게 기록해보려고 한다.
 
 기본적으로 docker run을 하게 되면 해당 container안에 있는 process가 다 돌아가게 되면 container는 exit하게 되고, 그 후에 다시 그 container를 run시킨다면 그 전에 작업했던 결과물들이 다 날라가게 된다(초기의 값으로 돌아가게 된다 TT)
