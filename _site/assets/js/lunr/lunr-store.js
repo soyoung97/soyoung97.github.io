@@ -24,7 +24,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Docker 컨테이너 Commit하고 Push하기",
-        "excerpt":"NSML 을 사내에서 사용하게 되면서 docker image를 띄우고, 컨테이너에 넣어서 수정하고, 다시 push해야하는 일이 생겼다. 나중에 까먹지 않도록, 각자 과정에 대해서 간단하게 기록해보려고 한다. 기본적으로 docker run을 하게 되면 해당 container안에 있는 process가 다 돌아가게 되면 container는 exit하게 되고, 그 후에 다시 그 container를 run시킨다면 그 전에 작업했던 결과물들이 다...","categories": [],
+        "excerpt":"NSML 을 인턴 기간 중 사용하게 되면서 docker image를 띄우고, 컨테이너에 넣어서 수정하고, 다시 push해야하는 일이 생겼다. 나중에 까먹지 않도록, 각자 과정에 대해서 간단하게 기록해보려고 한다. 기본적으로 docker run을 하게 되면 해당 container안에 있는 process가 다 돌아가게 되면 container는 exit하게 되고, 그 후에 다시 그 container를 run시킨다면 그 전에 작업했던...","categories": [],
         "tags": [],
         "url": "http://localhost:4000/docker-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-commit%ED%95%98%EA%B3%A0-push%ED%95%98%EA%B8%B0/",
         "teaser": null
