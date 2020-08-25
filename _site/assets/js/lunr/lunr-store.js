@@ -46,4 +46,10 @@ var store = [{
         "tags": [],
         "url": "http://localhost:4000/Mixup-%EA%B8%B0%EB%B0%98-%EB%A9%94%EC%86%8C%EB%93%9C%EB%93%A4/",
         "teaser": null
+      },{
+        "title": "Pytorch Model 일부 Layer만 Freeze 하기",
+        "excerpt":"task-specific한 Model training을 할 때, 기존의 pretrained model weight를 가져와서 하는 경우가 많이 있다. 여러 논문들에서도 BERT와 같이 pretrained된 대형 모델에서, layer 몇 개만 추가해주면 어떤 NLP task던 from scratch에서부터 training하는 것보다 좋은 성능을 낸다는 것을 입증하고 있다. 지금 나는 classification model을 만들고 있는데, 역시 마찬가지로 huggingface에서 공개한 pretrained model을...","categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/",
+        "teaser": null
       }]

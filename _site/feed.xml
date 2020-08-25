@@ -1,4 +1,83 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-08-14T17:39:18+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Soyoung’s blog</title><subtitle>Soyoung's blog that records about what I learned</subtitle><author><name>Soyoung Yoon</name></author><entry><title type="html">Mixup 기반 메소드들</title><link href="http://localhost:4000/Mixup-%EA%B8%B0%EB%B0%98-%EB%A9%94%EC%86%8C%EB%93%9C%EB%93%A4/" rel="alternate" type="text/html" title="Mixup 기반 메소드들" /><published>2020-08-11T00:00:00+09:00</published><updated>2020-08-11T00:00:00+09:00</updated><id>http://localhost:4000/Mixup-%EA%B8%B0%EB%B0%98-%EB%A9%94%EC%86%8C%EB%93%9C%EB%93%A4</id><content type="html" xml:base="http://localhost:4000/Mixup-%EA%B8%B0%EB%B0%98-%EB%A9%94%EC%86%8C%EB%93%9C%EB%93%A4/">&lt;p&gt;이번에 연구 주제와 관련되어서 &lt;a href=&quot;https://arxiv.org/pdf/1710.09412.pdf&quot;&gt;mixup&lt;/a&gt; 기반의 논문들을 읽어보고 공부하게 되었다.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-08-25T20:44:13+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Soyoung’s blog</title><subtitle>Soyoung's blog that records about what I learned</subtitle><author><name>Soyoung Yoon</name></author><entry><title type="html">Pytorch Model 일부 Layer만 Freeze 하기</title><link href="http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="Pytorch Model 일부 Layer만 Freeze 하기" /><published>2020-08-25T00:00:00+09:00</published><updated>2020-08-25T00:00:00+09:00</updated><id>http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/">&lt;p&gt;task-specific한 Model training을 할 때, 기존의 pretrained model weight를
+가져와서 하는 경우가 많이 있다.
+여러 논문들에서도 BERT와 같이 pretrained된 대형 모델에서, layer 몇 개만
+추가해주면 어떤 NLP task던 from scratch에서부터 training하는 것보다
+좋은 성능을 낸다는 것을 입증하고 있다.&lt;/p&gt;
+
+&lt;p&gt;지금 나는 classification model을 만들고 있는데, 역시 마찬가지로
+huggingface에서 공개한 pretrained model을 사용 중이다.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;from transformers import *
+bert = BertModel.from_pretrained('bert-base-uncased')
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;이 모델 뒤에, 간단한 linear - tanh - linear layer만 추가해서
+model ouptut로 classification에 쓰는 label을 내도록 하기 위해선&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import torch
+import torch.nn as nn
+from transformers import *
+
+class ClassificationModel(nn.Module):
+    def __init__(self, pretrained_model='bert-base-uncased', num_labels=2):
+        super(ClassificationModel, self).__init__()
+        self.bert = BertModel.from_pretrained(pretrained_model)
+        self.linear = nn.Sequential(nn.Linear(768, 128),
+                                    nn.Tanh(),
+                                    nn.Linear(128, num_labels))
+
+    def forward(self, x):
+        all_hidden, pooler = self.bert(**x)
+        pooled_output = torch.mean(all_hidden, 1)
+        predict = self.linear(pooled_output)
+        return predict
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;요런 식으로 구현하면 된다.&lt;/p&gt;
+
+&lt;p&gt;그런데!!! 문제가 생겼다.&lt;/p&gt;
+
+&lt;p&gt;model training을 진행해 보니, 첫 번째 epoch를 돈 이후가 가장 성능이 좋았고,
+그 뒤로부턴 성능이 계속계속 떨어졌다.&lt;/p&gt;
+
+&lt;p&gt;문제가 뭐일까? 생각하는 와중에,
+기존 pretrained model의 weight를 과도하게 bias시켜서(forgetting) 그런게 아닐까? 라는 생각이 들었다.&lt;/p&gt;
+
+&lt;p&gt;그래서, 기존 pretrained model의 weight는 freeze시키고, 추가한 &lt;code class=&quot;highlighter-rouge&quot;&gt;nn.Sequential&lt;/code&gt; layer의
+weight만 training해보면 어떨까 라는생각이 들었다.&lt;/p&gt;
+
+&lt;p&gt;방법은 의외로 간단했다.
+일단 위의 코드를 선언한 다음&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; model = ClassificationModel()
+&amp;gt;&amp;gt;&amp;gt; model.state_dict().keys()
+odict_keys(['bert.embeddings.word_embeddings.weight', 'bert.embeddings.position_embeddings.weight', 'bert.embeddings.token_type_embeddings.weight', 'bert.embeddings.LayerNorm.weight', 'bert.embeddings.LayerNorm.bias', 'bert.encoder.layer.0.attention.self.query.weight', 'bert.encoder.layer.0.attention.self.query.bias', 'bert.encoder.layer.0.attention.self.key.weight', 'bert.encoder.layer.0.attention.self.key.bias', 'bert.encoder.layer.0.attention.self.value.weight', 'bert.encoder.layer.0.attention.self.value.bias', 'bert.encoder.layer.0.attention.output.dense.weight',
+......'bert.encoder.layer.11.output.LayerNorm.bias', 'bert.pooler.dense.weight', 'bert.pooler.dense.bias', 'linear.0.weight', 'linear.0.bias', 'linear.2.weight', 'linear.2.bias'])
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;를 해주면, 모델 안에 선언되어있는 다양한 weight들의 key값을 볼 수 있다.&lt;/p&gt;
+
+&lt;p&gt;여기서 우리가 바꿔주고 싶은 것은 오직 &lt;code class=&quot;highlighter-rouge&quot;&gt;'linear.0.weight', 'linear.0.bias', 'linear.2.weight', 'linear.2.bias'&lt;/code&gt;이것들!&lt;/p&gt;
+
+&lt;p&gt;일단 모든 weight를 다 freeze시켜준다.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt;for para in model.parameters():
+...     para.requires_grad = False
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;그리고 해당 layer만 &lt;code class=&quot;highlighter-rouge&quot;&gt;requires_grad&lt;/code&gt;를 켜주면 끝!
+…..이라고 생각했지만 큰 오산이었다….왜냐..? 
+&lt;code class=&quot;highlighter-rouge&quot;&gt;model.linear.0.weight&lt;/code&gt;에서 0이 .. .숫자가 있어서, 저런 방식으로 접근이 불가능했기 때문ㅠㅠㅠㅠㅠ&lt;/p&gt;
+
+&lt;p&gt;만약에 이름이 &lt;code class=&quot;highlighter-rouge&quot;&gt;fc1&lt;/code&gt; 뭐 이런거였으면&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt;model.fc1.weight.requires_grad = True
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;요렇게 해결해주면 되는 간단한 문제였지만,.. 불가능했기 때문에 다른 방법을 쓰기로 했다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt;for name, param in model.named_parameters():
+&amp;gt;&amp;gt;&amp;gt;    if name in ['linear.0.weight', 'linear.2.weight']:
+&amp;gt;&amp;gt;&amp;gt;        param.requires_grad = True
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;요렇게 해서 해결하게 되었다…&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;추가: 원래 Model training할때 (꼭) 이렇게(만은) 하지는 않는다고 한다. 그리고, 내 모델은 forgetting이 되어서 성능이 내려갔다기 보다는 training data자체가 워낙 작아서,
+이미 한epoch만에 수렴을 했고, 계속 overfitting되었던게 문제였던것같다.&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">task-specific한 Model training을 할 때, 기존의 pretrained model weight를 가져와서 하는 경우가 많이 있다. 여러 논문들에서도 BERT와 같이 pretrained된 대형 모델에서, layer 몇 개만 추가해주면 어떤 NLP task던 from scratch에서부터 training하는 것보다 좋은 성능을 낸다는 것을 입증하고 있다.</summary></entry><entry><title type="html">Mixup 기반 메소드들</title><link href="http://localhost:4000/Mixup-%EA%B8%B0%EB%B0%98-%EB%A9%94%EC%86%8C%EB%93%9C%EB%93%A4/" rel="alternate" type="text/html" title="Mixup 기반 메소드들" /><published>2020-08-11T00:00:00+09:00</published><updated>2020-08-11T00:00:00+09:00</updated><id>http://localhost:4000/Mixup-%EA%B8%B0%EB%B0%98-%EB%A9%94%EC%86%8C%EB%93%9C%EB%93%A4</id><content type="html" xml:base="http://localhost:4000/Mixup-%EA%B8%B0%EB%B0%98-%EB%A9%94%EC%86%8C%EB%93%9C%EB%93%A4/">&lt;p&gt;이번에 연구 주제와 관련되어서 &lt;a href=&quot;https://arxiv.org/pdf/1710.09412.pdf&quot;&gt;mixup&lt;/a&gt; 기반의 논문들을 읽어보고 공부하게 되었다.
 여기서 중요하다고 느꼈던 점과 읽었던 부분들을 정리해보려고 한다.
 시간이 지나면 다시 까먹을 것 같아서, 미리미리 정리해두는게 좋을것 같다.
 (정리한 부분은 순전히 내가 읽고 받아들인 대로 적은 것이기 떄문에, 틀린 부분이 있을 수 있고,
@@ -26,8 +105,7 @@ empirical data에 대한 memorize를 하게 되는 방향으로 training된다�
 
 &lt;p&gt;또 여기서는 &lt;code class=&quot;highlighter-rouge&quot;&gt;manifold mixup&lt;/code&gt;라는 표현도 사용했는데, 처음에는 manifold가 무슨 뜻인지 몰라서 찾아보았다.
 manifold를 간단히 설명하자면, 두 개의 data가 eucledian distance상으로는 가까이 있지만, 사실상 비유클리디안 형태의 분포로 있기 때문에 가까운게 멀수도있고, 먼게 가까울수도 있다는 말이다.
-즉, manifold mixup이란 두 Input x1과 x2의 함수를 취한 결과값 f(x1) 과 f(x2) 두개를 위의 식과 같이 섞어준다는 간단한 말로 표현될 수 있다.
-(&lt;a href=&quot;https://mathematical-coffees.github.io/slides/mc01-courty.pdf&quot;&gt;manifold 관련 참고한 설명글&lt;/a&gt;)&lt;/p&gt;
+즉, manifold mixup이란 두 Input x1과 x2의 함수를 취한 결과값 f(x1) 과 f(x2) 두개를 위의 식과 같이 섞어준다는 간단한 말로 표현될 수 있다.&lt;/p&gt;
 
 &lt;p&gt;여기까지가 ERM, VRM, 그리고 manifold mixup term에 대해 내가 이해한 바를 정리한 글이다.&lt;/p&gt;
 
@@ -54,7 +132,8 @@ prominant syallable, language에서는 informative textual unit등이 있다고 
 &lt;p&gt;즉, 만들어진 virtual image상에서 각 픽셀에 기존의 이미지를 얼마 비율로 섞을 것인가를 의미한다. 이것이 r의 값이다.
 해당 픽셀에 r이 1/2이라면 output image는 두 Input image의 픽셀값이 골고루 둘다 들어가는 것이고, r이 0이거나 1이면
 두 이미지 중 하나의 값만 들어가게 되는 것이다. 이렇게 골고루 적절히 잘 섞이게 하여 hyperparameter를 조정하여 이미지를
-만들어낼 수 있다. 수식에서 pi에 해당하는 것은 각 이미지를 어떻게 optimal 하게 transport시킬 수 있는가에 대한 것이다.&lt;/p&gt;
+만들어낼 수 있다. 수식에서 pi에 해당하는 것은 각 이미지를 어떻게 optimal 하게 transport시킬 수 있는가에 대한 것이다.
+(&lt;a href=&quot;https://mathematical-coffees.github.io/slides/mc01-courty.pdf&quot;&gt;optimal transport 관련 참고한 설명글&lt;/a&gt;)&lt;/p&gt;
 
 &lt;p&gt;그 뒤에서 논문이 설명하는 것은 어떻게 하면 optimal transport를 빠르게 할 수 있는지(mini batch단위로 computation을 돌리는데 o(n^3)의
 time complexity를 갖고 있기 때문에 그대로 적용하기 보다는 여러 가지 증명과정을 거쳐서 approximation이 가능하다는 것을 보이고
@@ -79,7 +158,62 @@ computational cost 대비 fair comparison을 위해 추가하였다고 말하고
 hidden layer에 적용해보자! 이다. 이것은 어떻게 보면 manifold mixup의 한 형태로 볼 수 있을 것 같다.
 이 아이디어는 논문 안에 있는 도식도를 보면 바로 이해가 잘 된다. 저자들은 이것을 mixtext로 칭하고 있다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../assets/images/illustrations/mixtext.png&quot; alt=&quot;image2&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">이번에 연구 주제와 관련되어서 mixup 기반의 논문들을 읽어보고 공부하게 되었다. 여기서 중요하다고 느꼈던 점과 읽었던 부분들을 정리해보려고 한다. 시간이 지나면 다시 까먹을 것 같아서, 미리미리 정리해두는게 좋을것 같다. (정리한 부분은 순전히 내가 읽고 받아들인 대로 적은 것이기 떄문에, 틀린 부분이 있을 수 있고, 잘못된 부분이 있다면 댓글로 알려주시면 정말 감사하겠습니다..ㅎㅎ)</summary></entry><entry><title type="html">Docker 컨테이너 Commit하고 Push하기</title><link href="http://localhost:4000/docker-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-commit%ED%95%98%EA%B3%A0-push%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="Docker 컨테이너 Commit하고 Push하기" /><published>2020-08-04T00:00:00+09:00</published><updated>2020-08-04T00:00:00+09:00</updated><id>http://localhost:4000/docker-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-commit%ED%95%98%EA%B3%A0-push%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/docker-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-commit%ED%95%98%EA%B3%A0-push%ED%95%98%EA%B8%B0/">&lt;p&gt;&lt;a href=&quot;https://ai.nsml.navercorp.com/intro&quot;&gt;NSML&lt;/a&gt; 을 인턴 기간 중 사용하게 되면서 docker image를 띄우고, 컨테이너에 넣어서 수정하고, 다시 push해야하는 일이 생겼다.
+&lt;p&gt;&lt;img src=&quot;../assets/images/illustrations/mixtext.png&quot; alt=&quot;image2&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">이번에 연구 주제와 관련되어서 mixup 기반의 논문들을 읽어보고 공부하게 되었다. 여기서 중요하다고 느꼈던 점과 읽었던 부분들을 정리해보려고 한다. 시간이 지나면 다시 까먹을 것 같아서, 미리미리 정리해두는게 좋을것 같다. (정리한 부분은 순전히 내가 읽고 받아들인 대로 적은 것이기 떄문에, 틀린 부분이 있을 수 있고, 잘못된 부분이 있다면 댓글로 알려주시면 정말 감사하겠습니다..ㅎㅎ)</summary></entry><entry><title type="html">논문 리뷰_pie</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_PIE/" rel="alternate" type="text/html" title="논문 리뷰_pie" /><published>2020-08-04T00:00:00+09:00</published><updated>2020-08-04T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_PIE</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_PIE/">&lt;h1 id=&quot;parallel-iterative-edit-models-for-local-sequence-transduction&quot;&gt;Parallel Iterative Edit Models for Local Sequence Transduction&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.aclweb.org/anthology/D19-1435.pdf&quot;&gt;pdf&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-1.png&quot; alt=&quot;slide1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-2.png&quot; alt=&quot;slide2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-3.png&quot; alt=&quot;slide3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-4.png&quot; alt=&quot;slide4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-5.png&quot; alt=&quot;slide5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-6.png&quot; alt=&quot;slide6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-7.png&quot; alt=&quot;slide7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-8.png&quot; alt=&quot;slide8&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-9.png&quot; alt=&quot;slide9&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-10.png&quot; alt=&quot;slide10&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-11.png&quot; alt=&quot;slide11&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-12.png&quot; alt=&quot;slide12&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-13.png&quot; alt=&quot;slide13&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-14.png&quot; alt=&quot;slide14&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-15.png&quot; alt=&quot;slide15&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-16.png&quot; alt=&quot;slide16&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Parallel Iterative Edit Models for Local Sequence Transduction</summary></entry><entry><title type="html">논문 리뷰_unilm</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_unilm/" rel="alternate" type="text/html" title="논문 리뷰_unilm" /><published>2020-08-04T00:00:00+09:00</published><updated>2020-08-04T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_unilm</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_unilm/">&lt;h1 id=&quot;unified-language-model-pre-training-for-natural-language-understanding-and-generation&quot;&gt;Unified Language Model Pre-training for Natural Language Understanding and Generation&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://arxiv.org/pdf/1905.03197.pdf&quot;&gt;pdf&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-1.png&quot; alt=&quot;slide1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-2.png&quot; alt=&quot;slide2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-3.png&quot; alt=&quot;slide3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-4.png&quot; alt=&quot;slide4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-5.png&quot; alt=&quot;slide5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-6.png&quot; alt=&quot;slide6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-7.png&quot; alt=&quot;slide7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-8.png&quot; alt=&quot;slide8&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-9.png&quot; alt=&quot;slide9&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-10.png&quot; alt=&quot;slide10&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Unified Language Model Pre-training for Natural Language Understanding and Generation pdf</summary></entry><entry><title type="html">Docker 컨테이너 Commit하고 Push하기</title><link href="http://localhost:4000/docker-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-commit%ED%95%98%EA%B3%A0-push%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="Docker 컨테이너 Commit하고 Push하기" /><published>2020-08-04T00:00:00+09:00</published><updated>2020-08-04T00:00:00+09:00</updated><id>http://localhost:4000/docker-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-commit%ED%95%98%EA%B3%A0-push%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/docker-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-commit%ED%95%98%EA%B3%A0-push%ED%95%98%EA%B8%B0/">&lt;p&gt;&lt;a href=&quot;https://ai.nsml.navercorp.com/intro&quot;&gt;NSML&lt;/a&gt; 을 인턴 기간 중 사용하게 되면서 docker image를 띄우고, 컨테이너에 넣어서 수정하고, 다시 push해야하는 일이 생겼다.
 나중에 까먹지 않도록, 각자 과정에 대해서 간단하게 기록해보려고 한다.&lt;/p&gt;
 
 &lt;p&gt;기본적으로 docker run을 하게 되면 해당 container안에 있는 process가 다 돌아가게 되면 container는 exit하게 되고, 그 후에 다시 그 container를 run시킨다면 그 전에 작업했던 결과물들이 다 날라가게 된다(초기의 값으로 돌아가게 된다 TT)&lt;/p&gt;
@@ -191,92 +325,7 @@ start: digest: sha256:126df160f8899f7bf0bb4c21a724d41e39239afe27084229f78c06bb67
 (docker hub에 제대로 push가 된 걸 볼 수 있다.)&lt;/p&gt;
 
 &lt;p&gt;쨘!
-그리고 이 이미지를 가져오면 된다 ㅎㅎ&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">NSML 을 인턴 기간 중 사용하게 되면서 docker image를 띄우고, 컨테이너에 넣어서 수정하고, 다시 push해야하는 일이 생겼다. 나중에 까먹지 않도록, 각자 과정에 대해서 간단하게 기록해보려고 한다.</summary></entry><entry><title type="html">논문 리뷰_pie</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_PIE/" rel="alternate" type="text/html" title="논문 리뷰_pie" /><published>2020-08-04T00:00:00+09:00</published><updated>2020-08-04T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_PIE</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_PIE/">&lt;h1 id=&quot;parallel-iterative-edit-models-for-local-sequence-transduction&quot;&gt;Parallel Iterative Edit Models for Local Sequence Transduction&lt;/h1&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.aclweb.org/anthology/D19-1435.pdf&quot;&gt;pdf&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-1.png&quot; alt=&quot;slide1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-2.png&quot; alt=&quot;slide2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-3.png&quot; alt=&quot;slide3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-4.png&quot; alt=&quot;slide4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-5.png&quot; alt=&quot;slide5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-6.png&quot; alt=&quot;slide6&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-7.png&quot; alt=&quot;slide7&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-8.png&quot; alt=&quot;slide8&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-9.png&quot; alt=&quot;slide9&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-10.png&quot; alt=&quot;slide10&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-11.png&quot; alt=&quot;slide11&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-12.png&quot; alt=&quot;slide12&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-13.png&quot; alt=&quot;slide13&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-14.png&quot; alt=&quot;slide14&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-15.png&quot; alt=&quot;slide15&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-16.png&quot; alt=&quot;slide16&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Parallel Iterative Edit Models for Local Sequence Transduction</summary></entry><entry><title type="html">논문 리뷰_unilm</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_unilm/" rel="alternate" type="text/html" title="논문 리뷰_unilm" /><published>2020-08-04T00:00:00+09:00</published><updated>2020-08-04T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_unilm</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_unilm/">&lt;h1 id=&quot;unified-language-model-pre-training-for-natural-language-understanding-and-generation&quot;&gt;Unified Language Model Pre-training for Natural Language Understanding and Generation&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;https://arxiv.org/pdf/1905.03197.pdf&quot;&gt;pdf&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-1.png&quot; alt=&quot;slide1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-2.png&quot; alt=&quot;slide2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-3.png&quot; alt=&quot;slide3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-4.png&quot; alt=&quot;slide4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-5.png&quot; alt=&quot;slide5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-6.png&quot; alt=&quot;slide6&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-7.png&quot; alt=&quot;slide7&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-8.png&quot; alt=&quot;slide8&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-9.png&quot; alt=&quot;slide9&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-10.png&quot; alt=&quot;slide10&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Unified Language Model Pre-training for Natural Language Understanding and Generation pdf</summary></entry><entry><title type="html">논문 리뷰_grammatical Error Correction</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_Grammatical-Error-Correction/" rel="alternate" type="text/html" title="논문 리뷰_grammatical Error Correction" /><published>2020-08-03T00:00:00+09:00</published><updated>2020-08-03T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_Grammatical-Error-Correction</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_Grammatical-Error-Correction/">&lt;h1 id=&quot;improving-grammatical-error-correction-via-pre-training-a-copy-augmented-architecture-with-unlabeled-data&quot;&gt;Improving Grammatical Error Correction via Pre-Training a Copy-Augmented Architecture with Unlabeled Data&lt;/h1&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.aclweb.org/anthology/N19-1014.pdf&quot;&gt;pdf&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-1.png&quot; alt=&quot;slide1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-2.png&quot; alt=&quot;slide2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-3.png&quot; alt=&quot;slide3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-4.png&quot; alt=&quot;slide4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-5.png&quot; alt=&quot;slide5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-6.png&quot; alt=&quot;slide6&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-7.png&quot; alt=&quot;slide7&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-8.png&quot; alt=&quot;slide8&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-9.png&quot; alt=&quot;slide9&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-10.png&quot; alt=&quot;slide10&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-11.png&quot; alt=&quot;slide11&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-12.png&quot; alt=&quot;slide12&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-13.png&quot; alt=&quot;slide13&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-14.png&quot; alt=&quot;slide14&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Improving Grammatical Error Correction via Pre-Training a Copy-Augmented Architecture with Unlabeled Data</summary></entry><entry><title type="html">논문 리뷰_electra</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_electra/" rel="alternate" type="text/html" title="논문 리뷰_electra" /><published>2020-08-03T00:00:00+09:00</published><updated>2020-08-03T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_electra</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_electra/">&lt;h1 id=&quot;electra-pre-training-text-encoders-as-discriminators-rather-than-generators&quot;&gt;ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators&lt;/h1&gt;
+그리고 이 이미지를 가져오면 된다 ㅎㅎ&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">NSML 을 인턴 기간 중 사용하게 되면서 docker image를 띄우고, 컨테이너에 넣어서 수정하고, 다시 push해야하는 일이 생겼다. 나중에 까먹지 않도록, 각자 과정에 대해서 간단하게 기록해보려고 한다.</summary></entry><entry><title type="html">논문 리뷰_electra</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_electra/" rel="alternate" type="text/html" title="논문 리뷰_electra" /><published>2020-08-03T00:00:00+09:00</published><updated>2020-08-03T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_electra</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_electra/">&lt;h1 id=&quot;electra-pre-training-text-encoders-as-discriminators-rather-than-generators&quot;&gt;ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators&lt;/h1&gt;
 &lt;h5 id=&quot;openreview-link&quot;&gt;&lt;a href=&quot;https://openreview.net/forum?id=r1xMH1BtvB&quot;&gt;(openreview link)&lt;/a&gt;&lt;/h5&gt;
 
 &lt;p&gt;첫 글은 연구실 논문리딩그룹에서 내가 발표했던 슬라이드를 활용하기로 하였다. 시간이 있을 때 설명을 더 추가할 예정!&lt;/p&gt;
@@ -316,4 +365,34 @@ linear하게 단축시킬 수 있다니! 후속 연구가 활발히 이루어져
 
 &lt;p&gt;&lt;img src=&quot;../assets/images/slides/reformer-9.png&quot; alt=&quot;slide9&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/reformer-10.png&quot; alt=&quot;slide10&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Reformer: the efficient Transformer pdf</summary></entry><entry><title type="html">Initial Post</title><link href="http://localhost:4000/initial-post/" rel="alternate" type="text/html" title="Initial Post" /><published>2020-08-02T00:00:00+09:00</published><updated>2020-08-02T00:00:00+09:00</updated><id>http://localhost:4000/initial-post</id><content type="html" xml:base="http://localhost:4000/initial-post/">&lt;p&gt;This is the first post!&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">This is the first post!</summary></entry></feed>
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/reformer-10.png&quot; alt=&quot;slide10&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Reformer: the efficient Transformer pdf</summary></entry><entry><title type="html">논문 리뷰_grammatical Error Correction</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_Grammatical-Error-Correction/" rel="alternate" type="text/html" title="논문 리뷰_grammatical Error Correction" /><published>2020-08-03T00:00:00+09:00</published><updated>2020-08-03T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_Grammatical-Error-Correction</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_Grammatical-Error-Correction/">&lt;h1 id=&quot;improving-grammatical-error-correction-via-pre-training-a-copy-augmented-architecture-with-unlabeled-data&quot;&gt;Improving Grammatical Error Correction via Pre-Training a Copy-Augmented Architecture with Unlabeled Data&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.aclweb.org/anthology/N19-1014.pdf&quot;&gt;pdf&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-1.png&quot; alt=&quot;slide1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-2.png&quot; alt=&quot;slide2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-3.png&quot; alt=&quot;slide3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-4.png&quot; alt=&quot;slide4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-5.png&quot; alt=&quot;slide5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-6.png&quot; alt=&quot;slide6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-7.png&quot; alt=&quot;slide7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-8.png&quot; alt=&quot;slide8&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-9.png&quot; alt=&quot;slide9&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-10.png&quot; alt=&quot;slide10&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-11.png&quot; alt=&quot;slide11&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-12.png&quot; alt=&quot;slide12&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-13.png&quot; alt=&quot;slide13&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-14.png&quot; alt=&quot;slide14&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Improving Grammatical Error Correction via Pre-Training a Copy-Augmented Architecture with Unlabeled Data</summary></entry><entry><title type="html">Initial Post</title><link href="http://localhost:4000/initial-post/" rel="alternate" type="text/html" title="Initial Post" /><published>2020-08-02T00:00:00+09:00</published><updated>2020-08-02T00:00:00+09:00</updated><id>http://localhost:4000/initial-post</id><content type="html" xml:base="http://localhost:4000/initial-post/">&lt;p&gt;This is the first post!&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">This is the first post!</summary></entry></feed>

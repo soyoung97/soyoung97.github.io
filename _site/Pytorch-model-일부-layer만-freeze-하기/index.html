@@ -1,0 +1,653 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.3 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Pytorch Model 일부 Layer만 Freeze 하기 - Soyoung’s blog</title>
+<meta name="description" content="task-specific한 Model training을 할 때, 기존의 pretrained model weight를 가져와서 하는 경우가 많이 있다. 여러 논문들에서도 BERT와 같이 pretrained된 대형 모델에서, layer 몇 개만 추가해주면 어떤 NLP task던 from scratch에서부터 training하는 것보다 좋은 성능을 낸다는 것을 입증하고 있다.">
+
+
+  <meta name="author" content="Soyoung Yoon">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Soyoung's blog">
+<meta property="og:title" content="Pytorch Model 일부 Layer만 Freeze 하기">
+<meta property="og:url" content="http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/">
+
+
+  <meta property="og:description" content="task-specific한 Model training을 할 때, 기존의 pretrained model weight를 가져와서 하는 경우가 많이 있다. 여러 논문들에서도 BERT와 같이 pretrained된 대형 모델에서, layer 몇 개만 추가해주면 어떤 NLP task던 from scratch에서부터 training하는 것보다 좋은 성능을 낸다는 것을 입증하고 있다.">
+
+
+
+
+
+  <meta name="twitter:site" content="@recoprin">
+  <meta name="twitter:title" content="Pytorch Model 일부 Layer만 Freeze 하기">
+  <meta name="twitter:description" content="task-specific한 Model training을 할 때, 기존의 pretrained model weight를 가져와서 하는 경우가 많이 있다. 여러 논문들에서도 BERT와 같이 pretrained된 대형 모델에서, layer 몇 개만 추가해주면 어떤 NLP task던 from scratch에서부터 training하는 것보다 좋은 성능을 낸다는 것을 입증하고 있다.">
+  <meta name="twitter:url" content="http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2020-08-25T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Soyoung Yoon",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Soyoung's blog Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Soyoung's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://soyoung97.github.io/profile/">About Me</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/profile.png" alt="Soyoung Yoon" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Soyoung Yoon</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>KAIST CS 4th year student</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seongnam, Korea</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:soyoungyoon@kaist.ac.kr" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+            <li><a href="https://soyoung97.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://twitter.com/soyoung971030" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i><span class="label">Twitter</span></a></li>
+          
+        
+          
+            <li><a href="https://facebook.com/jenny.yoon.334" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i><span class="label">Facebook</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/soyoung97" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://instagram.com/recoprin_soyoung" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-instagram" aria-hidden="true"></i><span class="label">Instagram</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Pytorch Model 일부 Layer만 Freeze 하기">
+    <meta itemprop="description" content="task-specific한 Model training을 할 때, 기존의 pretrained model weight를가져와서 하는 경우가 많이 있다.여러 논문들에서도 BERT와 같이 pretrained된 대형 모델에서, layer 몇 개만추가해주면 어떤 NLP task던 from scratch에서부터 training하는 것보다좋은 성능을 낸다는 것을 입증하고 있다.">
+    <meta itemprop="datePublished" content="2020-08-25T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Pytorch Model 일부 Layer만 Freeze 하기
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  1 minute read
+
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>task-specific한 Model training을 할 때, 기존의 pretrained model weight를
+가져와서 하는 경우가 많이 있다.
+여러 논문들에서도 BERT와 같이 pretrained된 대형 모델에서, layer 몇 개만
+추가해주면 어떤 NLP task던 from scratch에서부터 training하는 것보다
+좋은 성능을 낸다는 것을 입증하고 있다.</p>
+
+<p>지금 나는 classification model을 만들고 있는데, 역시 마찬가지로
+huggingface에서 공개한 pretrained model을 사용 중이다.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from transformers import *
+bert = BertModel.from_pretrained('bert-base-uncased')
+</code></pre></div></div>
+<p>이 모델 뒤에, 간단한 linear - tanh - linear layer만 추가해서
+model ouptut로 classification에 쓰는 label을 내도록 하기 위해선</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import torch
+import torch.nn as nn
+from transformers import *
+
+class ClassificationModel(nn.Module):
+    def __init__(self, pretrained_model='bert-base-uncased', num_labels=2):
+        super(ClassificationModel, self).__init__()
+        self.bert = BertModel.from_pretrained(pretrained_model)
+        self.linear = nn.Sequential(nn.Linear(768, 128),
+                                    nn.Tanh(),
+                                    nn.Linear(128, num_labels))
+
+    def forward(self, x):
+        all_hidden, pooler = self.bert(**x)
+        pooled_output = torch.mean(all_hidden, 1)
+        predict = self.linear(pooled_output)
+        return predict
+</code></pre></div></div>
+
+<p>요런 식으로 구현하면 된다.</p>
+
+<p>그런데!!! 문제가 생겼다.</p>
+
+<p>model training을 진행해 보니, 첫 번째 epoch를 돈 이후가 가장 성능이 좋았고,
+그 뒤로부턴 성능이 계속계속 떨어졌다.</p>
+
+<p>문제가 뭐일까? 생각하는 와중에,
+기존 pretrained model의 weight를 과도하게 bias시켜서(forgetting) 그런게 아닐까? 라는 생각이 들었다.</p>
+
+<p>그래서, 기존 pretrained model의 weight는 freeze시키고, 추가한 <code class="highlighter-rouge">nn.Sequential</code> layer의
+weight만 training해보면 어떨까 라는생각이 들었다.</p>
+
+<p>방법은 의외로 간단했다.
+일단 위의 코드를 선언한 다음</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; model = ClassificationModel()
+&gt;&gt;&gt; model.state_dict().keys()
+odict_keys(['bert.embeddings.word_embeddings.weight', 'bert.embeddings.position_embeddings.weight', 'bert.embeddings.token_type_embeddings.weight', 'bert.embeddings.LayerNorm.weight', 'bert.embeddings.LayerNorm.bias', 'bert.encoder.layer.0.attention.self.query.weight', 'bert.encoder.layer.0.attention.self.query.bias', 'bert.encoder.layer.0.attention.self.key.weight', 'bert.encoder.layer.0.attention.self.key.bias', 'bert.encoder.layer.0.attention.self.value.weight', 'bert.encoder.layer.0.attention.self.value.bias', 'bert.encoder.layer.0.attention.output.dense.weight',
+......'bert.encoder.layer.11.output.LayerNorm.bias', 'bert.pooler.dense.weight', 'bert.pooler.dense.bias', 'linear.0.weight', 'linear.0.bias', 'linear.2.weight', 'linear.2.bias'])
+</code></pre></div></div>
+
+<p>를 해주면, 모델 안에 선언되어있는 다양한 weight들의 key값을 볼 수 있다.</p>
+
+<p>여기서 우리가 바꿔주고 싶은 것은 오직 <code class="highlighter-rouge">'linear.0.weight', 'linear.0.bias', 'linear.2.weight', 'linear.2.bias'</code>이것들!</p>
+
+<p>일단 모든 weight를 다 freeze시켜준다.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt;for para in model.parameters():
+...     para.requires_grad = False
+</code></pre></div></div>
+
+<p>그리고 해당 layer만 <code class="highlighter-rouge">requires_grad</code>를 켜주면 끝!
+…..이라고 생각했지만 큰 오산이었다….왜냐..? 
+<code class="highlighter-rouge">model.linear.0.weight</code>에서 0이 .. .숫자가 있어서, 저런 방식으로 접근이 불가능했기 때문ㅠㅠㅠㅠㅠ</p>
+
+<p>만약에 이름이 <code class="highlighter-rouge">fc1</code> 뭐 이런거였으면</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt;model.fc1.weight.requires_grad = True
+</code></pre></div></div>
+<p>요렇게 해결해주면 되는 간단한 문제였지만,.. 불가능했기 때문에 다른 방법을 쓰기로 했다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt;for name, param in model.named_parameters():
+&gt;&gt;&gt;    if name in ['linear.0.weight', 'linear.2.weight']:
+&gt;&gt;&gt;        param.requires_grad = True
+</code></pre></div></div>
+<p>요렇게 해서 해결하게 되었다…</p>
+<ul>
+  <li>추가: 원래 Model training할때 (꼭) 이렇게(만은) 하지는 않는다고 한다. 그리고, 내 모델은 forgetting이 되어서 성능이 내려갔다기 보다는 training data자체가 워낙 작아서,
+이미 한epoch만에 수렴을 했고, 계속 overfitting되었던게 문제였던것같다.</li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2020-08-25T00:00:00+09:00">August 25, 2020</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=recoprin&text=Pytorch+Model+%EC%9D%BC%EB%B6%80+Layer%EB%A7%8C+Freeze+%ED%95%98%EA%B8%B0%20http%3A%2F%2Flocalhost%3A4000%2FPytorch-model-%25EC%259D%25BC%25EB%25B6%2580-layer%25EB%25A7%258C-freeze-%25ED%2595%2598%25EA%25B8%25B0%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2FPytorch-model-%25EC%259D%25BC%25EB%25B6%2580-layer%25EB%25A7%258C-freeze-%25ED%2595%2598%25EA%25B8%25B0%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2FPytorch-model-%25EC%259D%25BC%25EB%25B6%2580-layer%25EB%25A7%258C-freeze-%25ED%2595%2598%25EA%25B8%25B0%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/Mixup-%EA%B8%B0%EB%B0%98-%EB%A9%94%EC%86%8C%EB%93%9C%EB%93%A4/" class="pagination--pager" title="Mixup 기반 메소드들
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/Mixup-%EA%B8%B0%EB%B0%98-%EB%A9%94%EC%86%8C%EB%93%9C%EB%93%A4/" rel="permalink">Mixup 기반 메소드들
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  3 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">이번에 연구 주제와 관련되어서 mixup 기반의 논문들을 읽어보고 공부하게 되었다.
+여기서 중요하다고 느꼈던 점과 읽었던 부분들을 정리해보려고 한다.
+시간이 지나면 다시 까먹을 것 같아서, 미리미리 정리해두는게 좋을것 같다.
+(정리한 부분은 순전히 내가 읽고 받아들인 대로 적은 것...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_unilm/" rel="permalink">논문 리뷰_unilm
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Unified Language Model Pre-training for Natural Language Understanding and Generation
+pdf
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_PIE/" rel="permalink">논문 리뷰_pie
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Parallel Iterative Edit Models for Local Sequence Transduction
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/docker-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-commit%ED%95%98%EA%B3%A0-push%ED%95%98%EA%B8%B0/" rel="permalink">Docker 컨테이너 Commit하고 Push하기
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  2 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">NSML 을 인턴 기간 중 사용하게 되면서 docker image를 띄우고, 컨테이너에 넣어서 수정하고, 다시 push해야하는 일이 생겼다.
+나중에 까먹지 않도록, 각자 과정에 대해서 간단하게 기록해보려고 한다.
+
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2020 Soyoung Yoon. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/Pytorch-model-일부-layer만-freeze-하기"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://soyoung97-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+<script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+
+
+  </body>
+</html>
