@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-12-01T16:47:53+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Soyoung’s blog</title><subtitle>Soyoung's blog that records about what I learned</subtitle><author><name>Soyoung Yoon</name></author><entry><title type="html">Model의 State_dict 일부분만 Load하기</title><link href="http://localhost:4000/Model%EC%9D%98-State_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="Model의 State_dict 일부분만 Load하기" /><published>2020-12-01T00:00:00+09:00</published><updated>2020-12-01T00:00:00+09:00</updated><id>http://localhost:4000/Model%EC%9D%98-State_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/Model%EC%9D%98-State_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0/">&lt;p&gt;정말 오랜만에 글을 쓰는것같다.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-12-01T16:50:52+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Soyoung’s blog</title><subtitle>Soyoung's blog that records about what I learned</subtitle><author><name>Soyoung Yoon</name></author><entry><title type="html">Model의 State_dict 일부분만 Load하기</title><link href="http://localhost:4000/Model%EC%9D%98-state_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="Model의 State_dict 일부분만 Load하기" /><published>2020-12-01T00:00:00+09:00</published><updated>2020-12-01T00:00:00+09:00</updated><id>http://localhost:4000/Model%EC%9D%98-state_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/Model%EC%9D%98-state_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0/">&lt;p&gt;정말 오랜만에 글을 쓰는것같다.
 8월부터 11월까지 너무 바빴어서, github blog posting이 소홀해졌던 것 같다.&lt;/p&gt;
 
 &lt;p&gt;오늘은 pretrained pytorch model을 loading해오려고 했는데, pytorch version과 여러 환경세팅이 맞지 않아서 모델의 state_dict에 있는 key가 matching이 되지 않아 모델의 pretrained weight가 불려오지 않는 문제가 있었다.
@@ -34,7 +34,22 @@ model.load_state_dict(checkpoint, strict=False)
 &lt;p&gt;로 바꿔주면 되는것!
 물론 이렇게 하면 &lt;code class=&quot;highlighter-rouge&quot;&gt;_IncompatibleKeys(missing_keys=['module.bert.embeddings.position_ids'], unexpected_keys=[])&lt;/code&gt; 이런 info가 print되긴 하지만…
 어쨌든 embeddings.position_ids 를 제외한 모든 key에 대한 weight를 로딩시켜올 수 있다.
-이 option이 아니면 일일이 key를 순회하면서 weight를 로딩해올뻔했다…ㅠㅠ&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">정말 오랜만에 글을 쓰는것같다. 8월부터 11월까지 너무 바빴어서, github blog posting이 소홀해졌던 것 같다.</summary></entry><entry><title type="html">Pytorch Model 일부 Layer만 Freeze 하기</title><link href="http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="Pytorch Model 일부 Layer만 Freeze 하기" /><published>2020-08-25T00:00:00+09:00</published><updated>2020-08-25T00:00:00+09:00</updated><id>http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/">&lt;p&gt;task-specific한 Model training을 할 때, 기존의 pretrained model weight를
+이 option이 아니면 일일이 key를 순회하면서 weight를 로딩해올뻔했다…ㅠㅠ&lt;/p&gt;
+
+&lt;p&gt;이렇게 로딩해온 모델이 정말 제대로 weight이 들어갔는지를 보기위해 pdb를 이용하여 직접 찍어 보았다.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(Pdb) model.state_dict()['module.classifier.weight']
+tensor([[-0.0090, -0.0031,  0.0340,  ...,  0.0068, -0.0230, -0.0238],
+        [-0.0099,  0.0067, -0.0177,  ...,  0.0013,  0.0326, -0.0063],
+        [ 0.0313, -0.0120, -0.0136,  ...,  0.0040,  0.0181,  0.0040]])
+(Pdb) model.load_state_dict(checkpoint, strict=False)
+_IncompatibleKeys(missing_keys=['module.bert.embeddings.position_ids'], unexpected_keys=[])
+(Pdb) model.state_dict()['module.classifier.weight']
+tensor([[ 0.0015,  0.0072, -0.0019,  ..., -0.0207, -0.0180,  0.0103],
+        [ 0.1731,  0.0091,  0.0032,  ...,  0.0844,  0.0104,  0.0086],
+        [-0.0104,  0.0330,  0.0011,  ..., -0.0107,  0.0184,  0.0088]])
+(Pdb)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;제대로 바뀐걸 볼 수 있다!&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">정말 오랜만에 글을 쓰는것같다. 8월부터 11월까지 너무 바빴어서, github blog posting이 소홀해졌던 것 같다.</summary></entry><entry><title type="html">Pytorch Model 일부 Layer만 Freeze 하기</title><link href="http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="Pytorch Model 일부 Layer만 Freeze 하기" /><published>2020-08-25T00:00:00+09:00</published><updated>2020-08-25T00:00:00+09:00</updated><id>http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/">&lt;p&gt;task-specific한 Model training을 할 때, 기존의 pretrained model weight를
 가져와서 하는 경우가 많이 있다.
 여러 논문들에서도 BERT와 같이 pretrained된 대형 모델에서, layer 몇 개만
 추가해주면 어떤 NLP task던 from scratch에서부터 training하는 것보다

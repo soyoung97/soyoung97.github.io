@@ -38,3 +38,19 @@ model.load_state_dict(checkpoint, strict=False)
 물론 이렇게 하면 `_IncompatibleKeys(missing_keys=['module.bert.embeddings.position_ids'], unexpected_keys=[])` 이런 info가 print되긴 하지만...
 어쨌든 embeddings.position\_ids 를 제외한 모든 key에 대한 weight를 로딩시켜올 수 있다.
 이 option이 아니면 일일이 key를 순회하면서 weight를 로딩해올뻔했다...ㅠㅠ
+
+이렇게 로딩해온 모델이 정말 제대로 weight이 들어갔는지를 보기위해 pdb를 이용하여 직접 찍어 보았다.
+```
+(Pdb) model.state_dict()['module.classifier.weight']
+tensor([[-0.0090, -0.0031,  0.0340,  ...,  0.0068, -0.0230, -0.0238],
+        [-0.0099,  0.0067, -0.0177,  ...,  0.0013,  0.0326, -0.0063],
+        [ 0.0313, -0.0120, -0.0136,  ...,  0.0040,  0.0181,  0.0040]])
+(Pdb) model.load_state_dict(checkpoint, strict=False)
+_IncompatibleKeys(missing_keys=['module.bert.embeddings.position_ids'], unexpected_keys=[])
+(Pdb) model.state_dict()['module.classifier.weight']
+tensor([[ 0.0015,  0.0072, -0.0019,  ..., -0.0207, -0.0180,  0.0103],
+        [ 0.1731,  0.0091,  0.0032,  ...,  0.0844,  0.0104,  0.0086],
+        [-0.0104,  0.0330,  0.0011,  ..., -0.0107,  0.0184,  0.0088]])
+(Pdb)
+```
+제대로 바뀐걸 볼 수 있다!

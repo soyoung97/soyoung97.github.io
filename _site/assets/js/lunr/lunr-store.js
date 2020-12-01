@@ -56,6 +56,6 @@ var store = [{
         "title": "Model의 State_dict 일부분만 Load하기",
         "excerpt":"정말 오랜만에 글을 쓰는것같다. 8월부터 11월까지 너무 바빴어서, github blog posting이 소홀해졌던 것 같다. 오늘은 pretrained pytorch model을 loading해오려고 했는데, pytorch version과 여러 환경세팅이 맞지 않아서 모델의 state_dict에 있는 key가 matching이 되지 않아 모델의 pretrained weight가 불려오지 않는 문제가 있었다. 아래는 모델을 로딩해오는 예시이다. import torch.nn as nn import torch...","categories": [],
         "tags": [],
-        "url": "http://localhost:4000/Model%EC%9D%98-State_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0/",
+        "url": "http://localhost:4000/Model%EC%9D%98-state_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0/",
         "teaser": null
       }]
