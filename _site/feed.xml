@@ -1,4 +1,40 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-08-25T20:44:13+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Soyoung’s blog</title><subtitle>Soyoung's blog that records about what I learned</subtitle><author><name>Soyoung Yoon</name></author><entry><title type="html">Pytorch Model 일부 Layer만 Freeze 하기</title><link href="http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="Pytorch Model 일부 Layer만 Freeze 하기" /><published>2020-08-25T00:00:00+09:00</published><updated>2020-08-25T00:00:00+09:00</updated><id>http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/">&lt;p&gt;task-specific한 Model training을 할 때, 기존의 pretrained model weight를
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-12-01T16:47:53+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Soyoung’s blog</title><subtitle>Soyoung's blog that records about what I learned</subtitle><author><name>Soyoung Yoon</name></author><entry><title type="html">Model의 State_dict 일부분만 Load하기</title><link href="http://localhost:4000/Model%EC%9D%98-State_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="Model의 State_dict 일부분만 Load하기" /><published>2020-12-01T00:00:00+09:00</published><updated>2020-12-01T00:00:00+09:00</updated><id>http://localhost:4000/Model%EC%9D%98-State_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/Model%EC%9D%98-State_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0/">&lt;p&gt;정말 오랜만에 글을 쓰는것같다.
+8월부터 11월까지 너무 바빴어서, github blog posting이 소홀해졌던 것 같다.&lt;/p&gt;
+
+&lt;p&gt;오늘은 pretrained pytorch model을 loading해오려고 했는데, pytorch version과 여러 환경세팅이 맞지 않아서 모델의 state_dict에 있는 key가 matching이 되지 않아 모델의 pretrained weight가 불려오지 않는 문제가 있었다.
+아래는 모델을 로딩해오는 예시이다.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;transformers&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;impoort&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;*&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;model&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BertForSequenceClassification&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from_pretrained&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'bert-base-uncased'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;model&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataParallel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;saved_checkpoint&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CHECKPOINT_PATH&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map_location&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;device&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'cpu'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load_state_dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;checkpoint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;이 코드를 실행하면 model을 train했던 환경과 local에서 돌리는 환경이 달라서 아래와 같은 에러가 나타난다…&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Traceback (most recent call last):
+  File &quot;train.py&quot;, line 182, in &amp;lt;module&amp;gt;
+    aa = Trainer(USE_NSML)
+  File &quot;train.py&quot;, line 68, in __init__
+    self.load_and_eval(path)
+  File &quot;train.py&quot;, line 178, in load_and_eval
+    model.load_state_dict(checkpoint)
+  File &quot;/Users/user/Library/Python/3.8/lib/python/site-packages/torch/nn/modules/module.py&quot;, line 1051, in load_state_dict
+    raise RuntimeError('Error(s) in loading state_dict for {}:\n\t{}'.format(
+RuntimeError: Error(s) in loading state_dict for DataParallel:
+        Missing key(s) in state_dict: &quot;module.bert.embeddings.position_ids&quot;.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;찾아보니, &lt;code class=&quot;highlighter-rouge&quot;&gt;model.load_state_dict&lt;/code&gt;를 할 때 strict하게 로딩해오지 않고 가능한것만 로딩해올수있는 좀더 flexible한 option이 있었다!
+바로 첫 코드 마지막줄을&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# model.load_state_dict(checkpoint)
+model.load_state_dict(checkpoint, strict=False)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;로 바꿔주면 되는것!
+물론 이렇게 하면 &lt;code class=&quot;highlighter-rouge&quot;&gt;_IncompatibleKeys(missing_keys=['module.bert.embeddings.position_ids'], unexpected_keys=[])&lt;/code&gt; 이런 info가 print되긴 하지만…
+어쨌든 embeddings.position_ids 를 제외한 모든 key에 대한 weight를 로딩시켜올 수 있다.
+이 option이 아니면 일일이 key를 순회하면서 weight를 로딩해올뻔했다…ㅠㅠ&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">정말 오랜만에 글을 쓰는것같다. 8월부터 11월까지 너무 바빴어서, github blog posting이 소홀해졌던 것 같다.</summary></entry><entry><title type="html">Pytorch Model 일부 Layer만 Freeze 하기</title><link href="http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="Pytorch Model 일부 Layer만 Freeze 하기" /><published>2020-08-25T00:00:00+09:00</published><updated>2020-08-25T00:00:00+09:00</updated><id>http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/">&lt;p&gt;task-specific한 Model training을 할 때, 기존의 pretrained model weight를
 가져와서 하는 경우가 많이 있다.
 여러 논문들에서도 BERT와 같이 pretrained된 대형 모델에서, layer 몇 개만
 추가해주면 어떤 NLP task던 from scratch에서부터 training하는 것보다
@@ -325,22 +361,7 @@ start: digest: sha256:126df160f8899f7bf0bb4c21a724d41e39239afe27084229f78c06bb67
 (docker hub에 제대로 push가 된 걸 볼 수 있다.)&lt;/p&gt;
 
 &lt;p&gt;쨘!
-그리고 이 이미지를 가져오면 된다 ㅎㅎ&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">NSML 을 인턴 기간 중 사용하게 되면서 docker image를 띄우고, 컨테이너에 넣어서 수정하고, 다시 push해야하는 일이 생겼다. 나중에 까먹지 않도록, 각자 과정에 대해서 간단하게 기록해보려고 한다.</summary></entry><entry><title type="html">논문 리뷰_electra</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_electra/" rel="alternate" type="text/html" title="논문 리뷰_electra" /><published>2020-08-03T00:00:00+09:00</published><updated>2020-08-03T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_electra</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_electra/">&lt;h1 id=&quot;electra-pre-training-text-encoders-as-discriminators-rather-than-generators&quot;&gt;ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators&lt;/h1&gt;
-&lt;h5 id=&quot;openreview-link&quot;&gt;&lt;a href=&quot;https://openreview.net/forum?id=r1xMH1BtvB&quot;&gt;(openreview link)&lt;/a&gt;&lt;/h5&gt;
-
-&lt;p&gt;첫 글은 연구실 논문리딩그룹에서 내가 발표했던 슬라이드를 활용하기로 하였다. 시간이 있을 때 설명을 더 추가할 예정!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-1.png&quot; alt=&quot;slide1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-2.png&quot; alt=&quot;slide2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-3.png&quot; alt=&quot;slide3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-4.png&quot; alt=&quot;slide4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-5.png&quot; alt=&quot;slide5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-6.png&quot; alt=&quot;slide6&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators (openreview link)</summary></entry><entry><title type="html">논문 리뷰_reformer</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_reformer/" rel="alternate" type="text/html" title="논문 리뷰_reformer" /><published>2020-08-03T00:00:00+09:00</published><updated>2020-08-03T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_reformer</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_reformer/">&lt;h1 id=&quot;reformer-the-efficient-transformer&quot;&gt;Reformer: the efficient Transformer&lt;/h1&gt;
+그리고 이 이미지를 가져오면 된다 ㅎㅎ&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">NSML 을 인턴 기간 중 사용하게 되면서 docker image를 띄우고, 컨테이너에 넣어서 수정하고, 다시 push해야하는 일이 생겼다. 나중에 까먹지 않도록, 각자 과정에 대해서 간단하게 기록해보려고 한다.</summary></entry><entry><title type="html">논문 리뷰_reformer</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_reformer/" rel="alternate" type="text/html" title="논문 리뷰_reformer" /><published>2020-08-03T00:00:00+09:00</published><updated>2020-08-03T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_reformer</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_reformer/">&lt;h1 id=&quot;reformer-the-efficient-transformer&quot;&gt;Reformer: the efficient Transformer&lt;/h1&gt;
 &lt;p&gt;&lt;a href=&quot;https://arxiv.org/pdf/2001.04451.pdf&quot;&gt;pdf&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;처음에 이 논문이 나왔을떄는 정말 놀랐다. locality-sensitive hashing을 이용해서
@@ -365,7 +386,22 @@ linear하게 단축시킬 수 있다니! 후속 연구가 활발히 이루어져
 
 &lt;p&gt;&lt;img src=&quot;../assets/images/slides/reformer-9.png&quot; alt=&quot;slide9&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/reformer-10.png&quot; alt=&quot;slide10&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Reformer: the efficient Transformer pdf</summary></entry><entry><title type="html">논문 리뷰_grammatical Error Correction</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_Grammatical-Error-Correction/" rel="alternate" type="text/html" title="논문 리뷰_grammatical Error Correction" /><published>2020-08-03T00:00:00+09:00</published><updated>2020-08-03T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_Grammatical-Error-Correction</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_Grammatical-Error-Correction/">&lt;h1 id=&quot;improving-grammatical-error-correction-via-pre-training-a-copy-augmented-architecture-with-unlabeled-data&quot;&gt;Improving Grammatical Error Correction via Pre-Training a Copy-Augmented Architecture with Unlabeled Data&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/reformer-10.png&quot; alt=&quot;slide10&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Reformer: the efficient Transformer pdf</summary></entry><entry><title type="html">논문 리뷰_electra</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_electra/" rel="alternate" type="text/html" title="논문 리뷰_electra" /><published>2020-08-03T00:00:00+09:00</published><updated>2020-08-03T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_electra</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_electra/">&lt;h1 id=&quot;electra-pre-training-text-encoders-as-discriminators-rather-than-generators&quot;&gt;ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators&lt;/h1&gt;
+&lt;h5 id=&quot;openreview-link&quot;&gt;&lt;a href=&quot;https://openreview.net/forum?id=r1xMH1BtvB&quot;&gt;(openreview link)&lt;/a&gt;&lt;/h5&gt;
+
+&lt;p&gt;첫 글은 연구실 논문리딩그룹에서 내가 발표했던 슬라이드를 활용하기로 하였다. 시간이 있을 때 설명을 더 추가할 예정!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-1.png&quot; alt=&quot;slide1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-2.png&quot; alt=&quot;slide2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-3.png&quot; alt=&quot;slide3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-4.png&quot; alt=&quot;slide4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-5.png&quot; alt=&quot;slide5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-6.png&quot; alt=&quot;slide6&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators (openreview link)</summary></entry><entry><title type="html">논문 리뷰_grammatical Error Correction</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_Grammatical-Error-Correction/" rel="alternate" type="text/html" title="논문 리뷰_grammatical Error Correction" /><published>2020-08-03T00:00:00+09:00</published><updated>2020-08-03T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_Grammatical-Error-Correction</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_Grammatical-Error-Correction/">&lt;h1 id=&quot;improving-grammatical-error-correction-via-pre-training-a-copy-augmented-architecture-with-unlabeled-data&quot;&gt;Improving Grammatical Error Correction via Pre-Training a Copy-Augmented Architecture with Unlabeled Data&lt;/h1&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://www.aclweb.org/anthology/N19-1014.pdf&quot;&gt;pdf&lt;/a&gt;&lt;/p&gt;
 

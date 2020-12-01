@@ -9,30 +9,30 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Soyoung's blog</title>
-<meta name="description" content="Soyoung’s blog that records about what I learned">
+<!-- begin _includes/seo.html --><title>Model의 State_dict 일부분만 Load하기 - Soyoung’s blog</title>
+<meta name="description" content="정말 오랜만에 글을 쓰는것같다. 8월부터 11월까지 너무 바빴어서, github blog posting이 소홀해졌던 것 같다.">
 
 
   <meta name="author" content="Soyoung Yoon">
 
 
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="Soyoung's blog">
-<meta property="og:title" content="Soyoung’s blog">
-<meta property="og:url" content="http://localhost:4000/">
+<meta property="og:title" content="Model의 State_dict 일부분만 Load하기">
+<meta property="og:url" content="http://localhost:4000/Model%EC%9D%98-State_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0/">
 
 
-  <meta property="og:description" content="Soyoung’s blog that records about what I learned">
+  <meta property="og:description" content="정말 오랜만에 글을 쓰는것같다. 8월부터 11월까지 너무 바빴어서, github blog posting이 소홀해졌던 것 같다.">
 
 
 
 
 
   <meta name="twitter:site" content="@recoprin">
-  <meta name="twitter:title" content="Soyoung’s blog">
-  <meta name="twitter:description" content="Soyoung’s blog that records about what I learned">
-  <meta name="twitter:url" content="http://localhost:4000/">
+  <meta name="twitter:title" content="Model의 State_dict 일부분만 Load하기">
+  <meta name="twitter:description" content="정말 오랜만에 글을 쓰는것같다. 8월부터 11월까지 너무 바빴어서, github blog posting이 소홀해졌던 것 같다.">
+  <meta name="twitter:url" content="http://localhost:4000/Model%EC%9D%98-State_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0/">
 
   
     <meta name="twitter:card" content="summary">
@@ -43,6 +43,8 @@
 
 
 
+  <meta property="article:published_time" content="2020-12-01T00:00:00+09:00">
+
 
 
 
@@ -52,11 +54,9 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/">
+<link rel="canonical" href="http://localhost:4000/Model%EC%9D%98-State_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0/">
 
 
-
-  <link rel="next" href="http://localhost:4000/page2/">
 
 
 <script type="application/ld+json">
@@ -116,7 +116,7 @@
 
   </head>
 
-  <body class="layout--home">
+  <body class="layout--single">
     <nav class="skip-links">
   <h2 class="screen-reader-text">Skip links</h2>
   <ul>
@@ -290,33 +290,19 @@
 
 
 
-  <div class="archive">
-    
-      <h1 id="page-title" class="page__title"></h1>
-    
-    
-
-<h3 class="archive__subtitle">Recent posts</h3>
-
-
-
-<div class="entries-list">
-  
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Model의 State_dict 일부분만 Load하기">
+    <meta itemprop="description" content="정말 오랜만에 글을 쓰는것같다.8월부터 11월까지 너무 바빴어서, github blog posting이 소홀해졌던 것 같다.">
+    <meta itemprop="datePublished" content="2020-12-01T00:00:00+09:00">
     
 
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
+    <div class="page__inner-wrap">
       
-        <a href="/Model%EC%9D%98-State_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0/" rel="permalink">Model의 State_dict 일부분만 Load하기
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Model의 State_dict 일부분만 Load하기
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
 
 
 
@@ -324,20 +310,104 @@
   less than 1 minute read
 
 </p>
-    
-    <p class="archive__item-excerpt" itemprop="description">정말 오랜만에 글을 쓰는것같다.
-8월부터 11월까지 너무 바빴어서, github blog posting이 소홀해졌던 것 같다.
+          
+        </header>
+      
 
-</p>
+      <section class="page__content" itemprop="text">
+        
+        <p>정말 오랜만에 글을 쓰는것같다.
+8월부터 11월까지 너무 바빴어서, github blog posting이 소홀해졌던 것 같다.</p>
+
+<p>오늘은 pretrained pytorch model을 loading해오려고 했는데, pytorch version과 여러 환경세팅이 맞지 않아서 모델의 state_dict에 있는 key가 matching이 되지 않아 모델의 pretrained weight가 불려오지 않는 문제가 있었다.
+아래는 모델을 로딩해오는 예시이다.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">import</span> <span class="n">torch</span><span class="p">.</span><span class="n">nn</span> <span class="k">as</span> <span class="n">nn</span>
+<span class="n">import</span> <span class="n">torch</span>
+<span class="k">from</span> <span class="n">transformers</span> <span class="n">impoort</span> <span class="p">*</span>
+<span class="p">...</span>
+<span class="k">model</span> <span class="p">=</span> <span class="n">BertForSequenceClassification</span><span class="p">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s1">'bert-base-uncased'</span><span class="p">)</span>
+<span class="k">model</span> <span class="p">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">DataParallel</span><span class="p">(</span><span class="k">model</span><span class="p">)</span>
+<span class="n">saved_checkpoint</span> <span class="p">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">load</span><span class="p">(</span><span class="n">CHECKPOINT_PATH</span><span class="p">,</span> <span class="n">map_location</span><span class="p">=</span><span class="n">torch</span><span class="p">.</span><span class="n">device</span><span class="p">(</span><span class="s1">'cpu'</span><span class="p">))</span>
+<span class="k">model</span><span class="p">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">)</span>
+</code></pre></div></div>
+<p>이 코드를 실행하면 model을 train했던 환경과 local에서 돌리는 환경이 달라서 아래와 같은 에러가 나타난다…</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Traceback (most recent call last):
+  File "train.py", line 182, in &lt;module&gt;
+    aa = Trainer(USE_NSML)
+  File "train.py", line 68, in __init__
+    self.load_and_eval(path)
+  File "train.py", line 178, in load_and_eval
+    model.load_state_dict(checkpoint)
+  File "/Users/user/Library/Python/3.8/lib/python/site-packages/torch/nn/modules/module.py", line 1051, in load_state_dict
+    raise RuntimeError('Error(s) in loading state_dict for {}:\n\t{}'.format(
+RuntimeError: Error(s) in loading state_dict for DataParallel:
+        Missing key(s) in state_dict: "module.bert.embeddings.position_ids".
+</code></pre></div></div>
+
+<p>찾아보니, <code class="highlighter-rouge">model.load_state_dict</code>를 할 때 strict하게 로딩해오지 않고 가능한것만 로딩해올수있는 좀더 flexible한 option이 있었다!
+바로 첫 코드 마지막줄을</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># model.load_state_dict(checkpoint)
+model.load_state_dict(checkpoint, strict=False)
+</code></pre></div></div>
+<p>로 바꿔주면 되는것!
+물론 이렇게 하면 <code class="highlighter-rouge">_IncompatibleKeys(missing_keys=['module.bert.embeddings.position_ids'], unexpected_keys=[])</code> 이런 info가 print되긴 하지만…
+어쨌든 embeddings.position_ids 를 제외한 모든 key에 대한 weight를 로딩시켜올 수 있다.
+이 option이 아니면 일일이 key를 순회하면서 weight를 로딩해올뻔했다…ㅠㅠ</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2020-12-01T00:00:00+09:00">December 1, 2020</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=recoprin&text=Model%EC%9D%98+State_dict+%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C+Load%ED%95%98%EA%B8%B0%20http%3A%2F%2Flocalhost%3A4000%2FModel%25EC%259D%2598-State_dict-%25EC%259D%25BC%25EB%25B6%2580%25EB%25B6%2584%25EB%25A7%258C-load%25ED%2595%2598%25EA%25B8%25B0%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2FModel%25EC%259D%2598-State_dict-%25EC%259D%25BC%25EB%25B6%2580%25EB%25B6%2584%25EB%25A7%258C-load%25ED%2595%2598%25EA%25B8%25B0%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2FModel%25EC%259D%2598-State_dict-%25EC%259D%25BC%25EB%25B6%2580%25EB%25B6%2584%25EB%25A7%258C-load%25ED%2595%2598%25EA%25B8%25B0%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/" class="pagination--pager" title="Pytorch Model 일부 Layer만 Freeze 하기
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
   </article>
-</div>
 
   
-    
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
 
 
 
-<div class="list__item">
+<div class="grid__item">
   <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
@@ -363,12 +433,12 @@
   </article>
 </div>
 
-  
-    
+        
+          
 
 
 
-<div class="list__item">
+<div class="grid__item">
   <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
@@ -394,12 +464,12 @@
   </article>
 </div>
 
-  
-    
+        
+          
 
 
 
-<div class="list__item">
+<div class="grid__item">
   <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
@@ -425,12 +495,12 @@ pdf
   </article>
 </div>
 
-  
-    
+        
+          
 
 
 
-<div class="list__item">
+<div class="grid__item">
   <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
@@ -455,50 +525,13 @@ pdf
   </article>
 </div>
 
+        
+      </div>
+    </div>
+  
   
 </div>
 
-
-<nav class="pagination">
-  
-  <ul>
-    
-    
-    <li><a href="#" class="disabled"><span aria-hidden="true">Previous</span></a></li>
-    
-
-    
-    
-      <li><a href="#" class="disabled current">1</a></li>
-    
-
-    
-    
-
-    
-    
-    
-
-    
-
-    
-    
-
-    
-      <li><a href="/page2/">2</a></li>
-    
-
-    
-    
-      <li><a href="/page2/">Next</a></li>
-    
-  </ul>
-</nav>
-
-
-
-  </div>
-</div>
     </div>
 
     
@@ -551,8 +584,8 @@ pdf
     
   <script>
     var disqus_config = function () {
-      this.page.url = "http://localhost:4000/";  /* Replace PAGE_URL with your page's canonical URL variable */
-      this.page.identifier = ""; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+      this.page.url = "http://localhost:4000/Model%EC%9D%98-State_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/Model의-State_dict-일부분만-load하기"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
     };
     (function() { /* DON'T EDIT BELOW THIS LINE */
       var d = document, s = d.createElement('script');
