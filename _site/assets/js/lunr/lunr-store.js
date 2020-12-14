@@ -58,4 +58,10 @@ var store = [{
         "tags": [],
         "url": "http://localhost:4000/Model%EC%9D%98-state_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0/",
         "teaser": null
+      },{
+        "title": "Nlp References",
+        "excerpt":"시간이 난다면 들어볼만한, 혹은 읽어볼만한 유익한 NLP reference들 정리.      Soundcloud NLP highlights   NLP seminar   NIPS workshop on interpreting predictions   EMNLP workshop on interpreting predictions   ","categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/NLP-references/",
+        "teaser": null
       }]
