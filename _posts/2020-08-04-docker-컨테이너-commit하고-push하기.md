@@ -109,3 +109,10 @@ start: digest: sha256:126df160f8899f7bf0bb4c21a724d41e39239afe27084229f78c06bb67
 
 쨘!
 그리고 이 이미지를 가져오면 된다 ㅎㅎ
+
+2021년 4월 3일 Update:
+docker를 nvidia가 pre-install되어있는 상대로 + GPU 사용 가능한 상태로 run하고 싶다면
+```
+$ docker run -it --device /dev/nvidia0:/dev/nvidia0 --device /dev/nvidiactl:/dev/nvidiactl --device /dev/nvidia-uvm:/dev/nvidia-uvm --gpus all [image_name] /bin/bash
+```
+요렇게 써주면 된다!
