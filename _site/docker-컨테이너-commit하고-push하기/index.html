@@ -1,0 +1,687 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.3 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Docker 컨테이너 Commit하고 Push하기 - Soyoung’s blog</title>
+<meta name="description" content="NSML 을 인턴 기간 중 사용하게 되면서 docker image를 띄우고, 컨테이너에 넣어서 수정하고, 다시 push해야하는 일이 생겼다. 나중에 까먹지 않도록, 각자 과정에 대해서 간단하게 기록해보려고 한다.">
+
+
+  <meta name="author" content="Soyoung Yoon">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Soyoung's blog">
+<meta property="og:title" content="Docker 컨테이너 Commit하고 Push하기">
+<meta property="og:url" content="http://localhost:4000/docker-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-commit%ED%95%98%EA%B3%A0-push%ED%95%98%EA%B8%B0/">
+
+
+  <meta property="og:description" content="NSML 을 인턴 기간 중 사용하게 되면서 docker image를 띄우고, 컨테이너에 넣어서 수정하고, 다시 push해야하는 일이 생겼다. 나중에 까먹지 않도록, 각자 과정에 대해서 간단하게 기록해보려고 한다.">
+
+
+
+
+
+  <meta name="twitter:site" content="@recoprin">
+  <meta name="twitter:title" content="Docker 컨테이너 Commit하고 Push하기">
+  <meta name="twitter:description" content="NSML 을 인턴 기간 중 사용하게 되면서 docker image를 띄우고, 컨테이너에 넣어서 수정하고, 다시 push해야하는 일이 생겼다. 나중에 까먹지 않도록, 각자 과정에 대해서 간단하게 기록해보려고 한다.">
+  <meta name="twitter:url" content="http://localhost:4000/docker-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-commit%ED%95%98%EA%B3%A0-push%ED%95%98%EA%B8%B0/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2020-08-04T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/docker-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-commit%ED%95%98%EA%B3%A0-push%ED%95%98%EA%B8%B0/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Soyoung Yoon",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Soyoung's blog Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Soyoung's blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://soyoung97.github.io/profile/">About Me</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/profile.png" alt="Soyoung Yoon" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Soyoung Yoon</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>KAIST CS 4th year student</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seongnam, Korea</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:soyoungyoon@kaist.ac.kr" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+            <li><a href="https://soyoung97.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://twitter.com/soyoung971030" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i><span class="label">Twitter</span></a></li>
+          
+        
+          
+            <li><a href="https://facebook.com/jenny.yoon.334" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i><span class="label">Facebook</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/soyoung97" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://instagram.com/recoprin_soyoung" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-instagram" aria-hidden="true"></i><span class="label">Instagram</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Docker 컨테이너 Commit하고 Push하기">
+    <meta itemprop="description" content="NSML 을 인턴 기간 중 사용하게 되면서 docker image를 띄우고, 컨테이너에 넣어서 수정하고, 다시 push해야하는 일이 생겼다.나중에 까먹지 않도록, 각자 과정에 대해서 간단하게 기록해보려고 한다.">
+    <meta itemprop="datePublished" content="2020-08-04T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Docker 컨테이너 Commit하고 Push하기
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  2 minute read
+
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p><a href="https://ai.nsml.navercorp.com/intro">NSML</a> 을 인턴 기간 중 사용하게 되면서 docker image를 띄우고, 컨테이너에 넣어서 수정하고, 다시 push해야하는 일이 생겼다.
+나중에 까먹지 않도록, 각자 과정에 대해서 간단하게 기록해보려고 한다.</p>
+
+<p>기본적으로 docker run을 하게 되면 해당 container안에 있는 process가 다 돌아가게 되면 container는 exit하게 되고, 그 후에 다시 그 container를 run시킨다면 그 전에 작업했던 결과물들이 다 날라가게 된다(초기의 값으로 돌아가게 된다 TT)</p>
+
+<p>따라서 나는 <code class="highlighter-rouge">docker run -it [CONTAINER_NAME] [COMMAND(보통 /bin/bash)] </code> 로 처음에 실행해놓은 docker를 <code class="highlighter-rouge">exit</code> 시키지 않고 그 쉘은 작업이 끝날때까지 놔둔다…ㅎㅎ</p>
+
+<ul>
+  <li>현재 돌고 있는 Container 확인: <code class="highlighter-rouge">docker ps -al</code></li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>user@AL01333530 ~ % docker ps -al
+CONTAINER ID        IMAGE                  COMMAND             CREATED             STATUS              PORTS               NAMES
+6eb43f8766c0        msyoon8/fairseq-nsml   "/bin/bash"         8 hours ago         Up 8 hours                              sad_buck
+</code></pre></div></div>
+
+<ul>
+  <li>해당 container “commit” 하기: <code class="highlighter-rouge">docker commit [CONTAINER_NAME] [NEW_IMAGE_NAME]</code></li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>user@AL01333530 ~ % docker commit sad_buck modified-nsml
+sha256:59e86dfa8921492b020d0d258d05c47f0049e35141c291fe6e38cde645ee0fed
+</code></pre></div></div>
+
+<ul>
+  <li>만들어진 docker image 확인: <code class="highlighter-rouge">docker images</code>를 하면 된다.</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>user@AL01333530 ~ % docker images
+REPOSITORY             TAG                                      IMAGE ID            CREATED              SIZE
+modified-nsml          latest                                   59e86dfa8921        About a minute ago   11GB
+msyoon8/new-nsml       latest                                   106f53376a55        8 hours ago          11GB
+start                  latest                                   7789300f795a        8 hours ago          10.9GB
+msyoon8/fairseq-nsml   latest                                   7789300f795a        8 hours ago          10.9GB
+&lt;none&gt;                 &lt;none&gt;                                   34ad76557739        9 hours ago          110MB
+python                 alpine                                   bcf3965d8456        4 days ago           80.3MB
+node                   12-alpine                                18f4bc975732        6 days ago           89.3MB
+nginx                  alpine                                   ecd67fe340f9        3 weeks ago          21.6MB
+msyoon8/nsml           start                                    d4cb5f857197        12 months ago        7.28GB
+nsml/ml                cuda9.0-cudnn7-tf-1.11torch1.0keras2.2   d4cb5f857197        12 months ago        7.28GB
+</code></pre></div></div>
+<p>(예시입니다)</p>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">docker login</code> 하기 (나는 했으므로 pass)</p>
+  </li>
+  <li>
+    <p>docker image에 tag 달기: <code class="highlighter-rouge">docker image tag [NEW_IMAGE_NAME]:latest [USER_NAME]/[NEW_IMAGE_NAME]:[WANTED_TAG]</code>.</p>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>user@AL01333530 ~ % docker image tag modified-nsml:latest msyoon8/modified-nsml:start
+user@AL01333530 ~ % docker images
+REPOSITORY              TAG                                      IMAGE ID            CREATED             SIZE
+msyoon8/modified-nsml   start                                    59e86dfa8921        5 minutes ago       11GB
+modified-nsml           latest                                   59e86dfa8921        5 minutes ago       11GB
+...
+</code></pre></div></div>
+
+<p>(참고: docker image tag를 지우고 싶다면 <code class="highlighter-rouge">docker rmi [IMAGE_NAME]:[TAG]</code> -&gt; actual image를 지우는건 아님)</p>
+
+<ul>
+  <li>docker hub에 push: <code class="highlighter-rouge">docker push [USER_NAME]/[IMAGE_NAME]:[TAG]</code></li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>user@AL01333530 ~ % docker push msyoon8/modified-nsml:start
+The push refers to repository [docker.io/msyoon8/modified-nsml]
+29f8768524e6: Pushing [==================================================&gt;]  24.02MB
+345828a8dc7c: Mounted from msyoon8/new-nsml
+4acf1ac205fc: Mounted from msyoon8/new-nsml
+36bc5cc3b649: Mounted from msyoon8/new-nsml
+8f4ebc5eb43a: Mounted from msyoon8/new-nsml
+ebd4ce6c3d15: Waiting
+59535ac5fd47: Waiting
+2b023f1e40f7: Waiting
+55a5c5838665: Waiting
+68297ea5d26b: Waiting
+6c0a7acf624e: Waiting
+6c5aa0fe4fdd: Waiting
+19021c46eb92: Waiting
+01f46e800c43: Waiting
+92d3f22d44f3: Waiting
+</code></pre></div></div>
+<p>시간이 조금 지나고 …..</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>user@AL01333530 ~ % docker push msyoon8/modified-nsml:start
+The push refers to repository [docker.io/msyoon8/modified-nsml]
+29f8768524e6: Pushed 
+345828a8dc7c: Mounted from msyoon8/new-nsml 
+4acf1ac205fc: Mounted from msyoon8/new-nsml 
+36bc5cc3b649: Mounted from msyoon8/new-nsml 
+8f4ebc5eb43a: Mounted from msyoon8/new-nsml 
+ebd4ce6c3d15: Mounted from msyoon8/new-nsml 
+59535ac5fd47: Mounted from msyoon8/new-nsml 
+2b023f1e40f7: Mounted from msyoon8/new-nsml 
+55a5c5838665: Mounted from msyoon8/new-nsml 
+68297ea5d26b: Mounted from msyoon8/new-nsml 
+6c0a7acf624e: Mounted from msyoon8/new-nsml 
+6c5aa0fe4fdd: Mounted from msyoon8/new-nsml 
+19021c46eb92: Mounted from msyoon8/new-nsml 
+01f46e800c43: Mounted from msyoon8/new-nsml 
+92d3f22d44f3: Mounted from msyoon8/new-nsml 
+10e46f329a25: Mounted from msyoon8/new-nsml 
+24ab7de5faec: Mounted from msyoon8/new-nsml 
+1ea5a27b0484: Mounted from msyoon8/new-nsml 
+start: digest: sha256:126df160f8899f7bf0bb4c21a724d41e39239afe27084229f78c06bb67277dcd size: 4116
+</code></pre></div></div>
+<p>요렇게 뜨면 제대로 push가 된 것이다!
+<img src="../assets/images/docker.jpg" alt="dockerhub-image" />
+(docker hub에 제대로 push가 된 걸 볼 수 있다.)</p>
+
+<p>쨘!
+그리고 이 이미지를 가져오면 된다 ㅎㅎ</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2020-08-04T00:00:00+09:00">August 4, 2020</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=recoprin&text=Docker+%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88+Commit%ED%95%98%EA%B3%A0+Push%ED%95%98%EA%B8%B0%20http%3A%2F%2Flocalhost%3A4000%2Fdocker-%25EC%25BB%25A8%25ED%2585%258C%25EC%259D%25B4%25EB%2584%2588-commit%25ED%2595%2598%25EA%25B3%25A0-push%25ED%2595%2598%25EA%25B8%25B0%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fdocker-%25EC%25BB%25A8%25ED%2585%258C%25EC%259D%25B4%25EB%2584%2588-commit%25ED%2595%2598%25EA%25B3%25A0-push%25ED%2595%2598%25EA%25B8%25B0%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fdocker-%25EC%25BB%25A8%25ED%2585%258C%25EC%259D%25B4%25EB%2584%2588-commit%25ED%2595%2598%25EA%25B3%25A0-push%25ED%2595%2598%25EA%25B8%25B0%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_reformer/" class="pagination--pager" title="논문 리뷰_reformer
+">Previous</a>
+    
+    
+      <a href="/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_PIE/" class="pagination--pager" title="논문 리뷰_pie
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/NLP-references/" rel="permalink">Nlp References
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">시간이 난다면 들어볼만한, 혹은 읽어볼만한 유익한 NLP reference들 정리.
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/Model%EC%9D%98-state_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0/" rel="permalink">Model의 State_dict 일부분만 Load하기
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  1 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">정말 오랜만에 글을 쓰는것같다.
+8월부터 11월까지 너무 바빴어서, github blog posting이 소홀해졌던 것 같다.
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/" rel="permalink">Pytorch Model 일부 Layer만 Freeze 하기
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  1 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">task-specific한 Model training을 할 때, 기존의 pretrained model weight를
+가져와서 하는 경우가 많이 있다.
+여러 논문들에서도 BERT와 같이 pretrained된 대형 모델에서, layer 몇 개만
+추가해주면 어떤 NLP task던 fro...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/Mixup-%EA%B8%B0%EB%B0%98-%EB%A9%94%EC%86%8C%EB%93%9C%EB%93%A4/" rel="permalink">Mixup 기반 메소드들
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  3 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">이번에 연구 주제와 관련되어서 mixup 기반의 논문들을 읽어보고 공부하게 되었다.
+여기서 중요하다고 느꼈던 점과 읽었던 부분들을 정리해보려고 한다.
+시간이 지나면 다시 까먹을 것 같아서, 미리미리 정리해두는게 좋을것 같다.
+(정리한 부분은 순전히 내가 읽고 받아들인 대로 적은 것...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2020 Soyoung Yoon. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/docker-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-commit%ED%95%98%EA%B3%A0-push%ED%95%98%EA%B8%B0/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/docker-컨테이너-commit하고-push하기"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://soyoung97-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+<script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+
+
+  </body>
+</html>
