@@ -76,4 +76,10 @@ var store = [{
         "tags": [],
         "url": "http://localhost:4000/Linux-%EA%BF%80%ED%8C%81%EB%93%A4-%EB%AA%A8%EC%9D%8C/",
         "teaser": null
+      },{
+        "title": "Naacl 2021 Paper Review About Semantic Parsing",
+        "excerpt":"This page is a draft page, to take notes on recent text-to-SQL methods that is accepted in NAACL 2021. The related papers are listed in random order. [1] DuoRAT: Towards Simpler Text-to-SQL Models [2] Structure-Grounded Pretraining for Text-to-SQL [3] ShadowGNN: Graph Projection Neural Network for Text-to-SQL Parser [4] Meta-Learning for...","categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/NAACL-2021-paper-review-about-semantic-parsing/",
+        "teaser": null
       }]

@@ -1,4 +1,54 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-05-31T01:32:40+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Soyoung’s blog</title><subtitle>Soyoung's blog that records about what I learned</subtitle><author><name>Soyoung Yoon</name></author><entry><title type="html">Linux 꿀팁들 모음</title><link href="http://localhost:4000/Linux-%EA%BF%80%ED%8C%81%EB%93%A4-%EB%AA%A8%EC%9D%8C/" rel="alternate" type="text/html" title="Linux 꿀팁들 모음" /><published>2021-04-05T00:00:00+09:00</published><updated>2021-04-05T00:00:00+09:00</updated><id>http://localhost:4000/Linux-%EA%BF%80%ED%8C%81%EB%93%A4-%EB%AA%A8%EC%9D%8C</id><content type="html" xml:base="http://localhost:4000/Linux-%EA%BF%80%ED%8C%81%EB%93%A4-%EB%AA%A8%EC%9D%8C/">&lt;p&gt;ㅎ.. 언젠가부터 내 블로그가 잊어먹지 않도록 글을 끄적하는 장소로 바뀌어버린 것
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-05-31T02:09:45+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Soyoung’s blog</title><subtitle>Soyoung's blog that records about what I learned</subtitle><author><name>Soyoung Yoon</name></author><entry><title type="html">Naacl 2021 Paper Review About Semantic Parsing</title><link href="http://localhost:4000/NAACL-2021-paper-review-about-semantic-parsing/" rel="alternate" type="text/html" title="Naacl 2021 Paper Review About Semantic Parsing" /><published>2021-05-31T00:00:00+09:00</published><updated>2021-05-31T00:00:00+09:00</updated><id>http://localhost:4000/NAACL-2021-paper-review-about-semantic-parsing</id><content type="html" xml:base="http://localhost:4000/NAACL-2021-paper-review-about-semantic-parsing/">&lt;p&gt;This page is a draft page, to take notes on recent text-to-SQL methods that is accepted in NAACL 2021.&lt;/p&gt;
+
+&lt;p&gt;The related papers are listed in random order.&lt;/p&gt;
+
+&lt;p&gt;[1] &lt;a href=&quot;https://www.aclweb.org/anthology/2021.naacl-main.103.pdf&quot;&gt;DuoRAT: Towards Simpler Text-to-SQL Models&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[2] &lt;a href=&quot;https://www.aclweb.org/anthology/2021.naacl-main.105.pdf&quot;&gt;Structure-Grounded Pretraining for Text-to-SQL&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[3] &lt;a href=&quot;https://www.aclweb.org/anthology/2021.naacl-main.441.pdf&quot;&gt;ShadowGNN: Graph Projection Neural Network for Text-to-SQL Parser&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[4] &lt;a href=&quot;https://www.aclweb.org/anthology/2021.naacl-main.33.pdf&quot;&gt;Meta-Learning for Domain Generalization in Semantic Parsing&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[5] &lt;a href=&quot;https://arxiv.org/pdf/2104.05819.pdf&quot;&gt;Learning from Executions for Semantic Parsing&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[6] &lt;a href=&quot;https://arxiv.org/pdf/2104.05827.pdf&quot;&gt;Learning to Synthesize Data for Semantic Parsing&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;It seems like most of the SOTA semantic parsing papers are from one person: &lt;a href=&quot;https://berlino.github.io/&quot;&gt;Berlin Wang&lt;/a&gt;. He is the author of RAT-SQL and [4], [5], and [6].&lt;/p&gt;
+
+&lt;h3 id=&quot;4&quot;&gt;[4]&lt;/h3&gt;
+
+&lt;p&gt;Intuition: &lt;em&gt;Gradient Steps&lt;/em&gt; that improve source-domain performance should also improve target-domain performance&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;DG-MAML (Domain Generalization with Model-Agnostic Meta-Learning)
+    &lt;ul&gt;
+      &lt;li&gt;a training algorithm that helps a parser acheive better domain generalization&lt;/li&gt;
+      &lt;li&gt;training domain and test(eval) domain are different.&lt;/li&gt;
+      &lt;li&gt;Meta-Train
+        &lt;ul&gt;
+          &lt;li&gt;SGD of loss from virtual source domain&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Meta-Test
+        &lt;ul&gt;
+          &lt;li&gt;compute loss from virtual target domain&lt;/li&gt;
+          &lt;li&gt;minimize the &lt;strong&gt;joint&lt;/strong&gt; loss on both source and target domain -&amp;gt; require the gradient step beneficial to target domain&lt;/li&gt;
+          &lt;li&gt;Can be viewed as regularization of gradient updates in additional to objective of conventional supervised learning&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Applying DG-MAML on RAT-SQL
+    &lt;ul&gt;
+      &lt;li&gt;evaluate on two zero-shot text-to-SQL - English/Chinese spider&lt;/li&gt;
+      &lt;li&gt;achieves near SOTA on Spider, and SOTA on Chinese spider&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Questions to ask TBU
+More notes TBU&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">This page is a draft page, to take notes on recent text-to-SQL methods that is accepted in NAACL 2021.</summary></entry><entry><title type="html">Linux 꿀팁들 모음</title><link href="http://localhost:4000/Linux-%EA%BF%80%ED%8C%81%EB%93%A4-%EB%AA%A8%EC%9D%8C/" rel="alternate" type="text/html" title="Linux 꿀팁들 모음" /><published>2021-04-05T00:00:00+09:00</published><updated>2021-04-05T00:00:00+09:00</updated><id>http://localhost:4000/Linux-%EA%BF%80%ED%8C%81%EB%93%A4-%EB%AA%A8%EC%9D%8C</id><content type="html" xml:base="http://localhost:4000/Linux-%EA%BF%80%ED%8C%81%EB%93%A4-%EB%AA%A8%EC%9D%8C/">&lt;p&gt;ㅎ.. 언젠가부터 내 블로그가 잊어먹지 않도록 글을 끄적하는 장소로 바뀌어버린 것
 같다. 논문만 된다면… 그 때 정말 제대로 된 informative한 글을 남기겠다…ㅠㅠ&lt;/p&gt;
 
 &lt;p&gt;nvidia-smi를 실시간으로 볼 수 있는 command&lt;/p&gt;
@@ -415,19 +465,4 @@ docker를 nvidia가 pre-install되어있는 상대로 + GPU 사용 가능한 상
 
 &lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-9.png&quot; alt=&quot;slide9&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-10.png&quot; alt=&quot;slide10&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Unified Language Model Pre-training for Natural Language Understanding and Generation pdf</summary></entry><entry><title type="html">논문 리뷰_electra</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_electra/" rel="alternate" type="text/html" title="논문 리뷰_electra" /><published>2020-08-03T00:00:00+09:00</published><updated>2020-08-03T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_electra</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_electra/">&lt;h1 id=&quot;electra-pre-training-text-encoders-as-discriminators-rather-than-generators&quot;&gt;ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators&lt;/h1&gt;
-&lt;h5 id=&quot;openreview-link&quot;&gt;&lt;a href=&quot;https://openreview.net/forum?id=r1xMH1BtvB&quot;&gt;(openreview link)&lt;/a&gt;&lt;/h5&gt;
-
-&lt;p&gt;첫 글은 연구실 논문리딩그룹에서 내가 발표했던 슬라이드를 활용하기로 하였다. 시간이 있을 때 설명을 더 추가할 예정!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-1.png&quot; alt=&quot;slide1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-2.png&quot; alt=&quot;slide2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-3.png&quot; alt=&quot;slide3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-4.png&quot; alt=&quot;slide4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-5.png&quot; alt=&quot;slide5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-6.png&quot; alt=&quot;slide6&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators (openreview link)</summary></entry></feed>
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-10.png&quot; alt=&quot;slide10&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Unified Language Model Pre-training for Natural Language Understanding and Generation pdf</summary></entry></feed>
