@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Mixup 기반 메소드들 - Soyoung’s blog</title>
+<!-- begin _includes/seo.html --><title>Mixup 기반 메소드들 - Soyoung’s blog</title>
 <meta name="description" content="이번에 연구 주제와 관련되어서 mixup 기반의 논문들을 읽어보고 공부하게 되었다. 여기서 중요하다고 느꼈던 점과 읽었던 부분들을 정리해보려고 한다. 시간이 지나면 다시 까먹을 것 같아서, 미리미리 정리해두는게 좋을것 같다. (정리한 부분은 순전히 내가 읽고 받아들인 대로 적은 것이기 떄문에, 틀린 부분이 있을 수 있고, 잘못된 부분이 있다면 댓글로 알려주시면 정말 감사하겠습니다..ㅎㅎ)">
 
 
@@ -19,7 +19,7 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="Soyoung's blog">
-<meta property="og:title" content="Mixup 기반 메소드들">
+<meta property="og:title" content="Mixup 기반 메소드들">
 <meta property="og:url" content="http://localhost:4000/Mixup-%EA%B8%B0%EB%B0%98-%EB%A9%94%EC%86%8C%EB%93%9C%EB%93%A4/">
 
 
@@ -30,7 +30,7 @@
 
 
   <meta name="twitter:site" content="@recoprin">
-  <meta name="twitter:title" content="Mixup 기반 메소드들">
+  <meta name="twitter:title" content="Mixup 기반 메소드들">
   <meta name="twitter:description" content="이번에 연구 주제와 관련되어서 mixup 기반의 논문들을 읽어보고 공부하게 되었다. 여기서 중요하다고 느꼈던 점과 읽었던 부분들을 정리해보려고 한다. 시간이 지나면 다시 까먹을 것 같아서, 미리미리 정리해두는게 좋을것 같다. (정리한 부분은 순전히 내가 읽고 받아들인 대로 적은 것이기 떄문에, 틀린 부분이 있을 수 있고, 잘못된 부분이 있다면 댓글로 알려주시면 정말 감사하겠습니다..ㅎㅎ)">
   <meta name="twitter:url" content="http://localhost:4000/Mixup-%EA%B8%B0%EB%B0%98-%EB%A9%94%EC%86%8C%EB%93%9C%EB%93%A4/">
 
@@ -291,7 +291,7 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Mixup 기반 메소드들">
+    <meta itemprop="headline" content="Mixup 기반 메소드들">
     <meta itemprop="description" content="이번에 연구 주제와 관련되어서 mixup 기반의 논문들을 읽어보고 공부하게 되었다.여기서 중요하다고 느꼈던 점과 읽었던 부분들을 정리해보려고 한다.시간이 지나면 다시 까먹을 것 같아서, 미리미리 정리해두는게 좋을것 같다.(정리한 부분은 순전히 내가 읽고 받아들인 대로 적은 것이기 떄문에, 틀린 부분이 있을 수 있고,잘못된 부분이 있다면 댓글로 알려주시면 정말 감사하겠습니다..ㅎㅎ)">
     <meta itemprop="datePublished" content="2020-08-11T00:00:00+09:00">
     
@@ -299,7 +299,7 @@
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">Mixup 기반 메소드들
+          <h1 id="page-title" class="page__title" itemprop="headline">Mixup 기반 메소드들
 </h1>
           
             <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
@@ -334,15 +334,15 @@
 
 <p>이렇게 하면 뭐가 좋은가?</p>
 
-<p>이전의 training 기법들은 <code class="highlighter-rouge">ERM</code>(Empirical Risk Minimization)을 중심으로 learning을 시켰다. ERM이란, 경험적으로 주어진 set X와 Y에 대해서만 risk를 최소화한다는 것으로, 이렇게 하게 된다면 Adversraial attack에 취약하게 되고, generalizaiton하는 대신
+<p>이전의 training 기법들은 <code>ERM</code>(Empirical Risk Minimization)을 중심으로 learning을 시켰다. ERM이란, 경험적으로 주어진 set X와 Y에 대해서만 risk를 최소화한다는 것으로, 이렇게 하게 된다면 Adversraial attack에 취약하게 되고, generalizaiton하는 대신
 empirical data에 대한 memorize를 하게 되는 방향으로 training된다고 볼 수 있다.
 따라서 이렇게 되는 것을 막기 위해 training data augmentation을 하게 되는데, 
-이것을 <code class="highlighter-rouge">VRM</code>(Vicinal Risk Minimization)이라고 한다.</p>
+이것을 <code>VRM</code>(Vicinal Risk Minimization)이라고 한다.</p>
 
 <p>VRM이란, empirical data의 주변부(vicinity) 분포를 적절하게 모델링하고
 이 data distribution에 대한 Risk를 minimization하는 것을 objective로 삼는 것이다. Semi-supervised learning의 한 종류로 봐도 좋을 것 같다.</p>
 
-<p>또 여기서는 <code class="highlighter-rouge">manifold mixup</code>라는 표현도 사용했는데, 처음에는 manifold가 무슨 뜻인지 몰라서 찾아보았다.
+<p>또 여기서는 <code>manifold mixup</code>라는 표현도 사용했는데, 처음에는 manifold가 무슨 뜻인지 몰라서 찾아보았다.
 manifold를 간단히 설명하자면, 두 개의 data가 eucledian distance상으로는 가까이 있지만, 사실상 비유클리디안 형태의 분포로 있기 때문에 가까운게 멀수도있고, 먼게 가까울수도 있다는 말이다.
 즉, manifold mixup이란 두 Input x1과 x2의 함수를 취한 결과값 f(x1) 과 f(x2) 두개를 위의 식과 같이 섞어준다는 간단한 말로 표현될 수 있다.</p>
 
@@ -419,7 +419,7 @@ hidden layer에 적용해보자! 이다. 이것은 어떻게 보면 manifold mix
     <h4 class="page__share-title">Share on</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?via=recoprin&text=Mixup+%EA%B8%B0%EB%B0%98+%EB%A9%94%EC%86%8C%EB%93%9C%EB%93%A4%20http%3A%2F%2Flocalhost%3A4000%2FMixup-%25EA%25B8%25B0%25EB%25B0%2598-%25EB%25A9%2594%25EC%2586%258C%25EB%2593%259C%25EB%2593%25A4%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?via=recoprin&text=Mixup+%E1%84%80%E1%85%B5%E1%84%87%E1%85%A1%E1%86%AB+%E1%84%86%E1%85%A6%E1%84%89%E1%85%A9%E1%84%83%E1%85%B3%E1%84%83%E1%85%B3%E1%86%AF%20http%3A%2F%2Flocalhost%3A4000%2FMixup-%25EA%25B8%25B0%25EB%25B0%2598-%25EB%25A9%2594%25EC%2586%258C%25EB%2593%259C%25EB%2593%25A4%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
   <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2FMixup-%25EA%25B8%25B0%25EB%25B0%2598-%25EB%25A9%2594%25EC%2586%258C%25EB%2593%259C%25EB%2593%25A4%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
@@ -430,11 +430,11 @@ hidden layer에 적용해보자! 이다. 이것은 어떻게 보면 manifold mix
       
   <nav class="pagination">
     
-      <a href="/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_unilm/" class="pagination--pager" title="논문 리뷰_unilm
+      <a href="/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_unilm/" class="pagination--pager" title="논문 리뷰_unilm
 ">Previous</a>
     
     
-      <a href="/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/" class="pagination--pager" title="Pytorch Model 일부 Layer만 Freeze 하기
+      <a href="/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/" class="pagination--pager" title="Pytorch Model 일부 Layer만 Freeze 하기
 ">Next</a>
     
   </nav>
@@ -449,6 +449,66 @@ hidden layer에 적용해보자! 이다. 이것은 어떻게 보면 manifold mix
     <div class="page__related">
       <h4 class="page__related-title">You may also enjoy</h4>
       <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/Linux-%EA%BF%80%ED%8C%81%EB%93%A4-%EB%AA%A8%EC%9D%8C/" rel="permalink">Linux 꿀팁들 모음
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">ㅎ.. 언젠가부터 내 블로그가 잊어먹지 않도록 글을 끄적하는 장소로 바뀌어버린 것
+같다. 논문만 된다면… 그 때 정말 제대로 된 informative한 글을 남기겠다…ㅠㅠ
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/Semantic-Parsing-references/" rel="permalink">Semantic Parsing References
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Semantic Parsing References:
+Spider explanation: https://medium.com/@tao.yu/spider-one-more-step-towards-natural-language-interfaces-to-databases-62298dc6df3...</p>
+  </article>
+</div>
+
         
           
 
@@ -489,7 +549,7 @@ hidden layer에 적용해보자! 이다. 이것은 어떻게 보면 manifold mix
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/Model%EC%9D%98-state_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0/" rel="permalink">Model의 State_dict 일부분만 Load하기
+        <a href="/Model%EC%9D%98-state_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0/" rel="permalink">Model의 State_dict 일부분만 Load하기
 </a>
       
     </h2>
@@ -505,68 +565,6 @@ hidden layer에 적용해보자! 이다. 이것은 어떻게 보면 manifold mix
     
     <p class="archive__item-excerpt" itemprop="description">정말 오랜만에 글을 쓰는것같다.
 8월부터 11월까지 너무 바빴어서, github blog posting이 소홀해졌던 것 같다.
-
-</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/" rel="permalink">Pytorch Model 일부 Layer만 Freeze 하기
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
-
-
-
-
-  1 minute read
-
-</p>
-    
-    <p class="archive__item-excerpt" itemprop="description">task-specific한 Model training을 할 때, 기존의 pretrained model weight를
-가져와서 하는 경우가 많이 있다.
-여러 논문들에서도 BERT와 같이 pretrained된 대형 모델에서, layer 몇 개만
-추가해주면 어떤 NLP task던 fro...</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_unilm/" rel="permalink">논문 리뷰_unilm
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
-
-
-
-
-  less than 1 minute read
-
-</p>
-    
-    <p class="archive__item-excerpt" itemprop="description">Unified Language Model Pre-training for Natural Language Understanding and Generation
-pdf
 
 </p>
   </article>
@@ -614,7 +612,7 @@ pdf
   </ul>
 </div>
 
-<div class="page__footer-copyright">&copy; 2020 Soyoung Yoon. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+<div class="page__footer-copyright">&copy; 2021 Soyoung Yoon. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
 
       </footer>
     </div>
@@ -632,7 +630,7 @@ pdf
   <script>
     var disqus_config = function () {
       this.page.url = "http://localhost:4000/Mixup-%EA%B8%B0%EB%B0%98-%EB%A9%94%EC%86%8C%EB%93%9C%EB%93%A4/";  /* Replace PAGE_URL with your page's canonical URL variable */
-      this.page.identifier = "/Mixup-기반-메소드들"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+      this.page.identifier = "/Mixup-기반-메소드들"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
     };
     (function() { /* DON'T EDIT BELOW THIS LINE */
       var d = document, s = d.createElement('script');

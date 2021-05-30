@@ -1,26 +1,52 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-12-14T21:43:01+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Soyoung’s blog</title><subtitle>Soyoung's blog that records about what I learned</subtitle><author><name>Soyoung Yoon</name></author><entry><title type="html">Nlp References</title><link href="http://localhost:4000/NLP-references/" rel="alternate" type="text/html" title="Nlp References" /><published>2020-12-14T00:00:00+09:00</published><updated>2020-12-14T00:00:00+09:00</updated><id>http://localhost:4000/NLP-references</id><content type="html" xml:base="http://localhost:4000/NLP-references/">&lt;p&gt;시간이 난다면 들어볼만한, 혹은 읽어볼만한 유익한 NLP reference들 정리.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-05-31T01:32:40+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Soyoung’s blog</title><subtitle>Soyoung's blog that records about what I learned</subtitle><author><name>Soyoung Yoon</name></author><entry><title type="html">Linux 꿀팁들 모음</title><link href="http://localhost:4000/Linux-%EA%BF%80%ED%8C%81%EB%93%A4-%EB%AA%A8%EC%9D%8C/" rel="alternate" type="text/html" title="Linux 꿀팁들 모음" /><published>2021-04-05T00:00:00+09:00</published><updated>2021-04-05T00:00:00+09:00</updated><id>http://localhost:4000/Linux-%EA%BF%80%ED%8C%81%EB%93%A4-%EB%AA%A8%EC%9D%8C</id><content type="html" xml:base="http://localhost:4000/Linux-%EA%BF%80%ED%8C%81%EB%93%A4-%EB%AA%A8%EC%9D%8C/">&lt;p&gt;ㅎ.. 언젠가부터 내 블로그가 잊어먹지 않도록 글을 끄적하는 장소로 바뀌어버린 것
+같다. 논문만 된다면… 그 때 정말 제대로 된 informative한 글을 남기겠다…ㅠㅠ&lt;/p&gt;
+
+&lt;p&gt;nvidia-smi를 실시간으로 볼 수 있는 command&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;watch -n0.1 nvidia-smi
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Recursively list all subdirectories inside list&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ls -LR
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;check disk size and path&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;lsblk
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Github crediential 저장&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git config credential.helper store --global
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Colorscheme and color problem solved by terminfo&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get install ncurses-term
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Remove __pycache__files into git&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git rm -r --cached . &amp;amp;&amp;amp; git add . &amp;amp;&amp;amp; git commit -m &quot;fixing .gitignore&quot;
+&lt;/code&gt;&lt;/pre&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">ㅎ.. 언젠가부터 내 블로그가 잊어먹지 않도록 글을 끄적하는 장소로 바뀌어버린 것 같다. 논문만 된다면… 그 때 정말 제대로 된 informative한 글을 남기겠다…ㅠㅠ</summary></entry><entry><title type="html">Semantic Parsing References</title><link href="http://localhost:4000/Semantic-Parsing-references/" rel="alternate" type="text/html" title="Semantic Parsing References" /><published>2021-03-12T00:00:00+09:00</published><updated>2021-03-12T00:00:00+09:00</updated><id>http://localhost:4000/Semantic-Parsing-references</id><content type="html" xml:base="http://localhost:4000/Semantic-Parsing-references/">&lt;p&gt;Semantic Parsing References:
+Spider explanation: https://medium.com/@tao.yu/spider-one-more-step-towards-natural-language-interfaces-to-databases-62298dc6df3c, https://arxiv.org/pdf/1809.08887.pdf
+Spider recent/official: https://arxiv.org/pdf/2012.12627.pdf https://arxiv.org/pdf/2012.10309v1.pdf
+WikiTableQuestions 1st: https://arxiv.org/pdf/2005.08314v1.pdf
+WikiSQL: https://arxiv.org/pdf/1910.07179v5.pdf
+SQLova: https://arxiv.org/pdf/1902.01069.pdf
+evaluation: https://arxiv.org/pdf/2010.02840.pdf&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Semantic Parsing References: Spider explanation: https://medium.com/@tao.yu/spider-one-more-step-towards-natural-language-interfaces-to-databases-62298dc6df3c, https://arxiv.org/pdf/1809.08887.pdf Spider recent/official: https://arxiv.org/pdf/2012.12627.pdf https://arxiv.org/pdf/2012.10309v1.pdf WikiTableQuestions 1st: https://arxiv.org/pdf/2005.08314v1.pdf WikiSQL: https://arxiv.org/pdf/1910.07179v5.pdf SQLova: https://arxiv.org/pdf/1902.01069.pdf evaluation: https://arxiv.org/pdf/2010.02840.pdf</summary></entry><entry><title type="html">Nlp References</title><link href="http://localhost:4000/NLP-references/" rel="alternate" type="text/html" title="Nlp References" /><published>2020-12-14T00:00:00+09:00</published><updated>2020-12-14T00:00:00+09:00</updated><id>http://localhost:4000/NLP-references</id><content type="html" xml:base="http://localhost:4000/NLP-references/">&lt;p&gt;시간이 난다면 들어볼만한, 혹은 읽어볼만한 유익한 NLP reference들 정리.&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;https://soundcloud.com/nlp-highlights&quot;&gt;Soundcloud NLP highlights&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://nlpwithfriends.com/&quot;&gt;NLP seminar&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=EbpU4p_0hes&quot;&gt;NIPS workshop on interpreting predictions&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=gprIzglUW1s&amp;amp;t=6921s&quot;&gt;EMNLP workshop on interpreting predictions&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">시간이 난다면 들어볼만한, 혹은 읽어볼만한 유익한 NLP reference들 정리.</summary></entry><entry><title type="html">Model의 State_dict 일부분만 Load하기</title><link href="http://localhost:4000/Model%EC%9D%98-state_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="Model의 State_dict 일부분만 Load하기" /><published>2020-12-01T00:00:00+09:00</published><updated>2020-12-01T00:00:00+09:00</updated><id>http://localhost:4000/Model%EC%9D%98-state_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/Model%EC%9D%98-state_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0/">&lt;p&gt;정말 오랜만에 글을 쓰는것같다.
+&lt;/ol&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">시간이 난다면 들어볼만한, 혹은 읽어볼만한 유익한 NLP reference들 정리.</summary></entry><entry><title type="html">Model의 State_dict 일부분만 Load하기</title><link href="http://localhost:4000/Model%EC%9D%98-state_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="Model의 State_dict 일부분만 Load하기" /><published>2020-12-01T00:00:00+09:00</published><updated>2020-12-01T00:00:00+09:00</updated><id>http://localhost:4000/Model%EC%9D%98-state_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/Model%EC%9D%98-state_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0/">&lt;p&gt;정말 오랜만에 글을 쓰는것같다.
 8월부터 11월까지 너무 바빴어서, github blog posting이 소홀해졌던 것 같다.&lt;/p&gt;
 
 &lt;p&gt;오늘은 pretrained pytorch model을 loading해오려고 했는데, pytorch version과 여러 환경세팅이 맞지 않아서 모델의 state_dict에 있는 key가 matching이 되지 않아 모델의 pretrained weight가 불려오지 않는 문제가 있었다.
 아래는 모델을 로딩해오는 예시이다.&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;transformers&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;impoort&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;*&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;model&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BertForSequenceClassification&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from_pretrained&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'bert-base-uncased'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;model&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataParallel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;saved_checkpoint&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CHECKPOINT_PATH&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map_location&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;device&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'cpu'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load_state_dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;checkpoint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;pre&gt;&lt;code&gt;import torch.nn as nn
+import torch
+from transformers impoort *
+...
+model = BertForSequenceClassification.from_pretrained('bert-base-uncased')
+model = nn.DataParallel(model)
+saved_checkpoint = torch.load(CHECKPOINT_PATH, map_location=torch.device('cpu'))
+model.load_state_dict(checkpoint)
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;이 코드를 실행하면 model을 train했던 환경과 local에서 돌리는 환경이 달라서 아래와 같은 에러가 나타난다…&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Traceback (most recent call last):
+&lt;pre&gt;&lt;code&gt;Traceback (most recent call last):
   File &quot;train.py&quot;, line 182, in &amp;lt;module&amp;gt;
     aa = Trainer(USE_NSML)
   File &quot;train.py&quot;, line 68, in __init__
@@ -31,20 +57,20 @@
     raise RuntimeError('Error(s) in loading state_dict for {}:\n\t{}'.format(
 RuntimeError: Error(s) in loading state_dict for DataParallel:
         Missing key(s) in state_dict: &quot;module.bert.embeddings.position_ids&quot;.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;찾아보니, &lt;code class=&quot;highlighter-rouge&quot;&gt;model.load_state_dict&lt;/code&gt;를 할 때 strict하게 로딩해오지 않고 가능한것만 로딩해올수있는 좀더 flexible한 option이 있었다!
+&lt;p&gt;찾아보니, &lt;code&gt;model.load_state_dict&lt;/code&gt;를 할 때 strict하게 로딩해오지 않고 가능한것만 로딩해올수있는 좀더 flexible한 option이 있었다!
 바로 첫 코드 마지막줄을&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# model.load_state_dict(checkpoint)
+&lt;pre&gt;&lt;code&gt;# model.load_state_dict(checkpoint)
 model.load_state_dict(checkpoint, strict=False)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;로 바꿔주면 되는것!
-물론 이렇게 하면 &lt;code class=&quot;highlighter-rouge&quot;&gt;_IncompatibleKeys(missing_keys=['module.bert.embeddings.position_ids'], unexpected_keys=[])&lt;/code&gt; 이런 info가 print되긴 하지만…
+물론 이렇게 하면 &lt;code&gt;_IncompatibleKeys(missing_keys=['module.bert.embeddings.position_ids'], unexpected_keys=[])&lt;/code&gt; 이런 info가 print되긴 하지만…
 어쨌든 embeddings.position_ids 를 제외한 모든 key에 대한 weight를 로딩시켜올 수 있다.
 이 option이 아니면 일일이 key를 순회하면서 weight를 로딩해올뻔했다…ㅠㅠ&lt;/p&gt;
 
 &lt;p&gt;이렇게 로딩해온 모델이 정말 제대로 weight이 들어갔는지를 보기위해 pdb를 이용하여 직접 찍어 보았다.&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(Pdb) model.state_dict()['module.classifier.weight']
+&lt;pre&gt;&lt;code&gt;(Pdb) model.state_dict()['module.classifier.weight']
 tensor([[-0.0090, -0.0031,  0.0340,  ...,  0.0068, -0.0230, -0.0238],
         [-0.0099,  0.0067, -0.0177,  ...,  0.0013,  0.0326, -0.0063],
         [ 0.0313, -0.0120, -0.0136,  ...,  0.0040,  0.0181,  0.0040]])
@@ -55,8 +81,8 @@ tensor([[ 0.0015,  0.0072, -0.0019,  ..., -0.0207, -0.0180,  0.0103],
         [ 0.1731,  0.0091,  0.0032,  ...,  0.0844,  0.0104,  0.0086],
         [-0.0104,  0.0330,  0.0011,  ..., -0.0107,  0.0184,  0.0088]])
 (Pdb)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;제대로 바뀐걸 볼 수 있다!&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">정말 오랜만에 글을 쓰는것같다. 8월부터 11월까지 너무 바빴어서, github blog posting이 소홀해졌던 것 같다.</summary></entry><entry><title type="html">Pytorch Model 일부 Layer만 Freeze 하기</title><link href="http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="Pytorch Model 일부 Layer만 Freeze 하기" /><published>2020-08-25T00:00:00+09:00</published><updated>2020-08-25T00:00:00+09:00</updated><id>http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/">&lt;p&gt;task-specific한 Model training을 할 때, 기존의 pretrained model weight를
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;제대로 바뀐걸 볼 수 있다!&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">정말 오랜만에 글을 쓰는것같다. 8월부터 11월까지 너무 바빴어서, github blog posting이 소홀해졌던 것 같다.</summary></entry><entry><title type="html">Pytorch Model 일부 Layer만 Freeze 하기</title><link href="http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="Pytorch Model 일부 Layer만 Freeze 하기" /><published>2020-08-25T00:00:00+09:00</published><updated>2020-08-25T00:00:00+09:00</updated><id>http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/">&lt;p&gt;task-specific한 Model training을 할 때, 기존의 pretrained model weight를
 가져와서 하는 경우가 많이 있다.
 여러 논문들에서도 BERT와 같이 pretrained된 대형 모델에서, layer 몇 개만
 추가해주면 어떤 NLP task던 from scratch에서부터 training하는 것보다
@@ -64,12 +90,12 @@ tensor([[ 0.0015,  0.0072, -0.0019,  ..., -0.0207, -0.0180,  0.0103],
 
 &lt;p&gt;지금 나는 classification model을 만들고 있는데, 역시 마찬가지로
 huggingface에서 공개한 pretrained model을 사용 중이다.&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;from transformers import *
+&lt;pre&gt;&lt;code&gt;from transformers import *
 bert = BertModel.from_pretrained('bert-base-uncased')
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;이 모델 뒤에, 간단한 linear - tanh - linear layer만 추가해서
 model ouptut로 classification에 쓰는 label을 내도록 하기 위해선&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import torch
+&lt;pre&gt;&lt;code&gt;import torch
 import torch.nn as nn
 from transformers import *
 
@@ -86,7 +112,7 @@ class ClassificationModel(nn.Module):
         pooled_output = torch.mean(all_hidden, 1)
         predict = self.linear(pooled_output)
         return predict
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;요런 식으로 구현하면 된다.&lt;/p&gt;
 
@@ -98,44 +124,44 @@ class ClassificationModel(nn.Module):
 &lt;p&gt;문제가 뭐일까? 생각하는 와중에,
 기존 pretrained model의 weight를 과도하게 bias시켜서(forgetting) 그런게 아닐까? 라는 생각이 들었다.&lt;/p&gt;
 
-&lt;p&gt;그래서, 기존 pretrained model의 weight는 freeze시키고, 추가한 &lt;code class=&quot;highlighter-rouge&quot;&gt;nn.Sequential&lt;/code&gt; layer의
+&lt;p&gt;그래서, 기존 pretrained model의 weight는 freeze시키고, 추가한 &lt;code&gt;nn.Sequential&lt;/code&gt; layer의
 weight만 training해보면 어떨까 라는생각이 들었다.&lt;/p&gt;
 
 &lt;p&gt;방법은 의외로 간단했다.
 일단 위의 코드를 선언한 다음&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; model = ClassificationModel()
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; model = ClassificationModel()
 &amp;gt;&amp;gt;&amp;gt; model.state_dict().keys()
 odict_keys(['bert.embeddings.word_embeddings.weight', 'bert.embeddings.position_embeddings.weight', 'bert.embeddings.token_type_embeddings.weight', 'bert.embeddings.LayerNorm.weight', 'bert.embeddings.LayerNorm.bias', 'bert.encoder.layer.0.attention.self.query.weight', 'bert.encoder.layer.0.attention.self.query.bias', 'bert.encoder.layer.0.attention.self.key.weight', 'bert.encoder.layer.0.attention.self.key.bias', 'bert.encoder.layer.0.attention.self.value.weight', 'bert.encoder.layer.0.attention.self.value.bias', 'bert.encoder.layer.0.attention.output.dense.weight',
 ......'bert.encoder.layer.11.output.LayerNorm.bias', 'bert.pooler.dense.weight', 'bert.pooler.dense.bias', 'linear.0.weight', 'linear.0.bias', 'linear.2.weight', 'linear.2.bias'])
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;를 해주면, 모델 안에 선언되어있는 다양한 weight들의 key값을 볼 수 있다.&lt;/p&gt;
 
-&lt;p&gt;여기서 우리가 바꿔주고 싶은 것은 오직 &lt;code class=&quot;highlighter-rouge&quot;&gt;'linear.0.weight', 'linear.0.bias', 'linear.2.weight', 'linear.2.bias'&lt;/code&gt;이것들!&lt;/p&gt;
+&lt;p&gt;여기서 우리가 바꿔주고 싶은 것은 오직 &lt;code&gt;'linear.0.weight', 'linear.0.bias', 'linear.2.weight', 'linear.2.bias'&lt;/code&gt;이것들!&lt;/p&gt;
 
 &lt;p&gt;일단 모든 weight를 다 freeze시켜준다.&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt;for para in model.parameters():
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt;for para in model.parameters():
 ...     para.requires_grad = False
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;그리고 해당 layer만 &lt;code class=&quot;highlighter-rouge&quot;&gt;requires_grad&lt;/code&gt;를 켜주면 끝!
+&lt;p&gt;그리고 해당 layer만 &lt;code&gt;requires_grad&lt;/code&gt;를 켜주면 끝!
 …..이라고 생각했지만 큰 오산이었다….왜냐..? 
-&lt;code class=&quot;highlighter-rouge&quot;&gt;model.linear.0.weight&lt;/code&gt;에서 0이 .. .숫자가 있어서, 저런 방식으로 접근이 불가능했기 때문ㅠㅠㅠㅠㅠ&lt;/p&gt;
+&lt;code&gt;model.linear.0.weight&lt;/code&gt;에서 0이 .. .숫자가 있어서, 저런 방식으로 접근이 불가능했기 때문ㅠㅠㅠㅠㅠ&lt;/p&gt;
 
-&lt;p&gt;만약에 이름이 &lt;code class=&quot;highlighter-rouge&quot;&gt;fc1&lt;/code&gt; 뭐 이런거였으면&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt;model.fc1.weight.requires_grad = True
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;만약에 이름이 &lt;code&gt;fc1&lt;/code&gt; 뭐 이런거였으면&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt;model.fc1.weight.requires_grad = True
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;요렇게 해결해주면 되는 간단한 문제였지만,.. 불가능했기 때문에 다른 방법을 쓰기로 했다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt;for name, param in model.named_parameters():
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt;for name, param in model.named_parameters():
 &amp;gt;&amp;gt;&amp;gt;    if name in ['linear.0.weight', 'linear.2.weight']:
 &amp;gt;&amp;gt;&amp;gt;        param.requires_grad = True
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;요렇게 해서 해결하게 되었다…&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;추가: 원래 Model training할때 (꼭) 이렇게(만은) 하지는 않는다고 한다. 그리고, 내 모델은 forgetting이 되어서 성능이 내려갔다기 보다는 training data자체가 워낙 작아서,
 이미 한epoch만에 수렴을 했고, 계속 overfitting되었던게 문제였던것같다.&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">task-specific한 Model training을 할 때, 기존의 pretrained model weight를 가져와서 하는 경우가 많이 있다. 여러 논문들에서도 BERT와 같이 pretrained된 대형 모델에서, layer 몇 개만 추가해주면 어떤 NLP task던 from scratch에서부터 training하는 것보다 좋은 성능을 낸다는 것을 입증하고 있다.</summary></entry><entry><title type="html">Mixup 기반 메소드들</title><link href="http://localhost:4000/Mixup-%EA%B8%B0%EB%B0%98-%EB%A9%94%EC%86%8C%EB%93%9C%EB%93%A4/" rel="alternate" type="text/html" title="Mixup 기반 메소드들" /><published>2020-08-11T00:00:00+09:00</published><updated>2020-08-11T00:00:00+09:00</updated><id>http://localhost:4000/Mixup-%EA%B8%B0%EB%B0%98-%EB%A9%94%EC%86%8C%EB%93%9C%EB%93%A4</id><content type="html" xml:base="http://localhost:4000/Mixup-%EA%B8%B0%EB%B0%98-%EB%A9%94%EC%86%8C%EB%93%9C%EB%93%A4/">&lt;p&gt;이번에 연구 주제와 관련되어서 &lt;a href=&quot;https://arxiv.org/pdf/1710.09412.pdf&quot;&gt;mixup&lt;/a&gt; 기반의 논문들을 읽어보고 공부하게 되었다.
+&lt;/ul&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">task-specific한 Model training을 할 때, 기존의 pretrained model weight를 가져와서 하는 경우가 많이 있다. 여러 논문들에서도 BERT와 같이 pretrained된 대형 모델에서, layer 몇 개만 추가해주면 어떤 NLP task던 from scratch에서부터 training하는 것보다 좋은 성능을 낸다는 것을 입증하고 있다.</summary></entry><entry><title type="html">Mixup 기반 메소드들</title><link href="http://localhost:4000/Mixup-%EA%B8%B0%EB%B0%98-%EB%A9%94%EC%86%8C%EB%93%9C%EB%93%A4/" rel="alternate" type="text/html" title="Mixup 기반 메소드들" /><published>2020-08-11T00:00:00+09:00</published><updated>2020-08-11T00:00:00+09:00</updated><id>http://localhost:4000/Mixup-%EA%B8%B0%EB%B0%98-%EB%A9%94%EC%86%8C%EB%93%9C%EB%93%A4</id><content type="html" xml:base="http://localhost:4000/Mixup-%EA%B8%B0%EB%B0%98-%EB%A9%94%EC%86%8C%EB%93%9C%EB%93%A4/">&lt;p&gt;이번에 연구 주제와 관련되어서 &lt;a href=&quot;https://arxiv.org/pdf/1710.09412.pdf&quot;&gt;mixup&lt;/a&gt; 기반의 논문들을 읽어보고 공부하게 되었다.
 여기서 중요하다고 느꼈던 점과 읽었던 부분들을 정리해보려고 한다.
 시간이 지나면 다시 까먹을 것 같아서, 미리미리 정리해두는게 좋을것 같다.
 (정리한 부분은 순전히 내가 읽고 받아들인 대로 적은 것이기 떄문에, 틀린 부분이 있을 수 있고,
@@ -153,15 +179,15 @@ odict_keys(['bert.embeddings.word_embeddings.weight', 'bert.embeddings.position_
 
 &lt;p&gt;이렇게 하면 뭐가 좋은가?&lt;/p&gt;
 
-&lt;p&gt;이전의 training 기법들은 &lt;code class=&quot;highlighter-rouge&quot;&gt;ERM&lt;/code&gt;(Empirical Risk Minimization)을 중심으로 learning을 시켰다. ERM이란, 경험적으로 주어진 set X와 Y에 대해서만 risk를 최소화한다는 것으로, 이렇게 하게 된다면 Adversraial attack에 취약하게 되고, generalizaiton하는 대신
+&lt;p&gt;이전의 training 기법들은 &lt;code&gt;ERM&lt;/code&gt;(Empirical Risk Minimization)을 중심으로 learning을 시켰다. ERM이란, 경험적으로 주어진 set X와 Y에 대해서만 risk를 최소화한다는 것으로, 이렇게 하게 된다면 Adversraial attack에 취약하게 되고, generalizaiton하는 대신
 empirical data에 대한 memorize를 하게 되는 방향으로 training된다고 볼 수 있다.
 따라서 이렇게 되는 것을 막기 위해 training data augmentation을 하게 되는데, 
-이것을 &lt;code class=&quot;highlighter-rouge&quot;&gt;VRM&lt;/code&gt;(Vicinal Risk Minimization)이라고 한다.&lt;/p&gt;
+이것을 &lt;code&gt;VRM&lt;/code&gt;(Vicinal Risk Minimization)이라고 한다.&lt;/p&gt;
 
 &lt;p&gt;VRM이란, empirical data의 주변부(vicinity) 분포를 적절하게 모델링하고
 이 data distribution에 대한 Risk를 minimization하는 것을 objective로 삼는 것이다. Semi-supervised learning의 한 종류로 봐도 좋을 것 같다.&lt;/p&gt;
 
-&lt;p&gt;또 여기서는 &lt;code class=&quot;highlighter-rouge&quot;&gt;manifold mixup&lt;/code&gt;라는 표현도 사용했는데, 처음에는 manifold가 무슨 뜻인지 몰라서 찾아보았다.
+&lt;p&gt;또 여기서는 &lt;code&gt;manifold mixup&lt;/code&gt;라는 표현도 사용했는데, 처음에는 manifold가 무슨 뜻인지 몰라서 찾아보았다.
 manifold를 간단히 설명하자면, 두 개의 data가 eucledian distance상으로는 가까이 있지만, 사실상 비유클리디안 형태의 분포로 있기 때문에 가까운게 멀수도있고, 먼게 가까울수도 있다는 말이다.
 즉, manifold mixup이란 두 Input x1과 x2의 함수를 취한 결과값 f(x1) 과 f(x2) 두개를 위의 식과 같이 섞어준다는 간단한 말로 표현될 수 있다.&lt;/p&gt;
 
@@ -216,35 +242,35 @@ computational cost 대비 fair comparison을 위해 추가하였다고 말하고
 hidden layer에 적용해보자! 이다. 이것은 어떻게 보면 manifold mixup의 한 형태로 볼 수 있을 것 같다.
 이 아이디어는 논문 안에 있는 도식도를 보면 바로 이해가 잘 된다. 저자들은 이것을 mixtext로 칭하고 있다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../assets/images/illustrations/mixtext.png&quot; alt=&quot;image2&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">이번에 연구 주제와 관련되어서 mixup 기반의 논문들을 읽어보고 공부하게 되었다. 여기서 중요하다고 느꼈던 점과 읽었던 부분들을 정리해보려고 한다. 시간이 지나면 다시 까먹을 것 같아서, 미리미리 정리해두는게 좋을것 같다. (정리한 부분은 순전히 내가 읽고 받아들인 대로 적은 것이기 떄문에, 틀린 부분이 있을 수 있고, 잘못된 부분이 있다면 댓글로 알려주시면 정말 감사하겠습니다..ㅎㅎ)</summary></entry><entry><title type="html">Docker 컨테이너 Commit하고 Push하기</title><link href="http://localhost:4000/docker-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-commit%ED%95%98%EA%B3%A0-push%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="Docker 컨테이너 Commit하고 Push하기" /><published>2020-08-04T00:00:00+09:00</published><updated>2020-08-04T00:00:00+09:00</updated><id>http://localhost:4000/docker-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-commit%ED%95%98%EA%B3%A0-push%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/docker-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-commit%ED%95%98%EA%B3%A0-push%ED%95%98%EA%B8%B0/">&lt;p&gt;&lt;a href=&quot;https://ai.nsml.navercorp.com/intro&quot;&gt;NSML&lt;/a&gt; 을 인턴 기간 중 사용하게 되면서 docker image를 띄우고, 컨테이너에 넣어서 수정하고, 다시 push해야하는 일이 생겼다.
+&lt;p&gt;&lt;img src=&quot;../assets/images/illustrations/mixtext.png&quot; alt=&quot;image2&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">이번에 연구 주제와 관련되어서 mixup 기반의 논문들을 읽어보고 공부하게 되었다. 여기서 중요하다고 느꼈던 점과 읽었던 부분들을 정리해보려고 한다. 시간이 지나면 다시 까먹을 것 같아서, 미리미리 정리해두는게 좋을것 같다. (정리한 부분은 순전히 내가 읽고 받아들인 대로 적은 것이기 떄문에, 틀린 부분이 있을 수 있고, 잘못된 부분이 있다면 댓글로 알려주시면 정말 감사하겠습니다..ㅎㅎ)</summary></entry><entry><title type="html">Docker 컨테이너 Commit하고 Push하기</title><link href="http://localhost:4000/docker-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-commit%ED%95%98%EA%B3%A0-push%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="Docker 컨테이너 Commit하고 Push하기" /><published>2020-08-04T00:00:00+09:00</published><updated>2020-08-04T00:00:00+09:00</updated><id>http://localhost:4000/docker-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-commit%ED%95%98%EA%B3%A0-push%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/docker-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-commit%ED%95%98%EA%B3%A0-push%ED%95%98%EA%B8%B0/">&lt;p&gt;&lt;a href=&quot;https://ai.nsml.navercorp.com/intro&quot;&gt;NSML&lt;/a&gt; 을 인턴 기간 중 사용하게 되면서 docker image를 띄우고, 컨테이너에 넣어서 수정하고, 다시 push해야하는 일이 생겼다.
 나중에 까먹지 않도록, 각자 과정에 대해서 간단하게 기록해보려고 한다.&lt;/p&gt;
 
 &lt;p&gt;기본적으로 docker run을 하게 되면 해당 container안에 있는 process가 다 돌아가게 되면 container는 exit하게 되고, 그 후에 다시 그 container를 run시킨다면 그 전에 작업했던 결과물들이 다 날라가게 된다(초기의 값으로 돌아가게 된다 TT)&lt;/p&gt;
 
-&lt;p&gt;따라서 나는 &lt;code class=&quot;highlighter-rouge&quot;&gt;docker run -it [CONTAINER_NAME] [COMMAND(보통 /bin/bash)] &lt;/code&gt; 로 처음에 실행해놓은 docker를 &lt;code class=&quot;highlighter-rouge&quot;&gt;exit&lt;/code&gt; 시키지 않고 그 쉘은 작업이 끝날때까지 놔둔다…ㅎㅎ&lt;/p&gt;
+&lt;p&gt;따라서 나는 &lt;code&gt;docker run -it [CONTAINER_NAME] [COMMAND(보통 /bin/bash)] &lt;/code&gt; 로 처음에 실행해놓은 docker를 &lt;code&gt;exit&lt;/code&gt; 시키지 않고 그 쉘은 작업이 끝날때까지 놔둔다…ㅎㅎ&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;현재 돌고 있는 Container 확인: &lt;code class=&quot;highlighter-rouge&quot;&gt;docker ps -al&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;현재 돌고 있는 Container 확인: &lt;code&gt;docker ps -al&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;user@AL01333530 ~ % docker ps -al
+&lt;pre&gt;&lt;code&gt;user@AL01333530 ~ % docker ps -al
 CONTAINER ID        IMAGE                  COMMAND             CREATED             STATUS              PORTS               NAMES
 6eb43f8766c0        msyoon8/fairseq-nsml   &quot;/bin/bash&quot;         8 hours ago         Up 8 hours                              sad_buck
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;해당 container “commit” 하기: &lt;code class=&quot;highlighter-rouge&quot;&gt;docker commit [CONTAINER_NAME] [NEW_IMAGE_NAME]&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;해당 container “commit” 하기: &lt;code&gt;docker commit [CONTAINER_NAME] [NEW_IMAGE_NAME]&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;user@AL01333530 ~ % docker commit sad_buck modified-nsml
+&lt;pre&gt;&lt;code&gt;user@AL01333530 ~ % docker commit sad_buck modified-nsml
 sha256:59e86dfa8921492b020d0d258d05c47f0049e35141c291fe6e38cde645ee0fed
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;만들어진 docker image 확인: &lt;code class=&quot;highlighter-rouge&quot;&gt;docker images&lt;/code&gt;를 하면 된다.&lt;/li&gt;
+  &lt;li&gt;만들어진 docker image 확인: &lt;code&gt;docker images&lt;/code&gt;를 하면 된다.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;user@AL01333530 ~ % docker images
+&lt;pre&gt;&lt;code&gt;user@AL01333530 ~ % docker images
 REPOSITORY             TAG                                      IMAGE ID            CREATED              SIZE
 modified-nsml          latest                                   59e86dfa8921        About a minute ago   11GB
 msyoon8/new-nsml       latest                                   106f53376a55        8 hours ago          11GB
@@ -256,33 +282,33 @@ node                   12-alpine                                18f4bc975732    
 nginx                  alpine                                   ecd67fe340f9        3 weeks ago          21.6MB
 msyoon8/nsml           start                                    d4cb5f857197        12 months ago        7.28GB
 nsml/ml                cuda9.0-cudnn7-tf-1.11torch1.0keras2.2   d4cb5f857197        12 months ago        7.28GB
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;(예시입니다)&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;docker login&lt;/code&gt; 하기 (나는 했으므로 pass)&lt;/p&gt;
+    &lt;p&gt;&lt;code&gt;docker login&lt;/code&gt; 하기 (나는 했으므로 pass)&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;docker image에 tag 달기: &lt;code class=&quot;highlighter-rouge&quot;&gt;docker image tag [NEW_IMAGE_NAME]:latest [USER_NAME]/[NEW_IMAGE_NAME]:[WANTED_TAG]&lt;/code&gt;.&lt;/p&gt;
+    &lt;p&gt;docker image에 tag 달기: &lt;code&gt;docker image tag [NEW_IMAGE_NAME]:latest [USER_NAME]/[NEW_IMAGE_NAME]:[WANTED_TAG]&lt;/code&gt;.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;user@AL01333530 ~ % docker image tag modified-nsml:latest msyoon8/modified-nsml:start
+&lt;pre&gt;&lt;code&gt;user@AL01333530 ~ % docker image tag modified-nsml:latest msyoon8/modified-nsml:start
 user@AL01333530 ~ % docker images
 REPOSITORY              TAG                                      IMAGE ID            CREATED             SIZE
 msyoon8/modified-nsml   start                                    59e86dfa8921        5 minutes ago       11GB
 modified-nsml           latest                                   59e86dfa8921        5 minutes ago       11GB
 ...
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;(참고: docker image tag를 지우고 싶다면 &lt;code class=&quot;highlighter-rouge&quot;&gt;docker rmi [IMAGE_NAME]:[TAG]&lt;/code&gt; -&amp;gt; actual image를 지우는건 아님)&lt;/p&gt;
+&lt;p&gt;(참고: docker image tag를 지우고 싶다면 &lt;code&gt;docker rmi [IMAGE_NAME]:[TAG]&lt;/code&gt; -&amp;gt; actual image를 지우는건 아님)&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;docker hub에 push: &lt;code class=&quot;highlighter-rouge&quot;&gt;docker push [USER_NAME]/[IMAGE_NAME]:[TAG]&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;docker hub에 push: &lt;code&gt;docker push [USER_NAME]/[IMAGE_NAME]:[TAG]&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;user@AL01333530 ~ % docker push msyoon8/modified-nsml:start
+&lt;pre&gt;&lt;code&gt;user@AL01333530 ~ % docker push msyoon8/modified-nsml:start
 The push refers to repository [docker.io/msyoon8/modified-nsml]
 29f8768524e6: Pushing [==================================================&amp;gt;]  24.02MB
 345828a8dc7c: Mounted from msyoon8/new-nsml
@@ -299,9 +325,9 @@ ebd4ce6c3d15: Waiting
 19021c46eb92: Waiting
 01f46e800c43: Waiting
 92d3f22d44f3: Waiting
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;시간이 조금 지나고 …..&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;user@AL01333530 ~ % docker push msyoon8/modified-nsml:start
+&lt;pre&gt;&lt;code&gt;user@AL01333530 ~ % docker push msyoon8/modified-nsml:start
 The push refers to repository [docker.io/msyoon8/modified-nsml]
 29f8768524e6: Pushed 
 345828a8dc7c: Mounted from msyoon8/new-nsml 
@@ -322,34 +348,19 @@ ebd4ce6c3d15: Mounted from msyoon8/new-nsml
 24ab7de5faec: Mounted from msyoon8/new-nsml 
 1ea5a27b0484: Mounted from msyoon8/new-nsml 
 start: digest: sha256:126df160f8899f7bf0bb4c21a724d41e39239afe27084229f78c06bb67277dcd size: 4116
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;요렇게 뜨면 제대로 push가 된 것이다!
 &lt;img src=&quot;../assets/images/docker.jpg&quot; alt=&quot;dockerhub-image&quot; /&gt;
 (docker hub에 제대로 push가 된 걸 볼 수 있다.)&lt;/p&gt;
 
 &lt;p&gt;쨘!
-그리고 이 이미지를 가져오면 된다 ㅎㅎ&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">NSML 을 인턴 기간 중 사용하게 되면서 docker image를 띄우고, 컨테이너에 넣어서 수정하고, 다시 push해야하는 일이 생겼다. 나중에 까먹지 않도록, 각자 과정에 대해서 간단하게 기록해보려고 한다.</summary></entry><entry><title type="html">논문 리뷰_unilm</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_unilm/" rel="alternate" type="text/html" title="논문 리뷰_unilm" /><published>2020-08-04T00:00:00+09:00</published><updated>2020-08-04T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_unilm</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_unilm/">&lt;h1 id=&quot;unified-language-model-pre-training-for-natural-language-understanding-and-generation&quot;&gt;Unified Language Model Pre-training for Natural Language Understanding and Generation&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;https://arxiv.org/pdf/1905.03197.pdf&quot;&gt;pdf&lt;/a&gt;&lt;/p&gt;
+그리고 이 이미지를 가져오면 된다 ㅎㅎ&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-1.png&quot; alt=&quot;slide1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-2.png&quot; alt=&quot;slide2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-3.png&quot; alt=&quot;slide3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-4.png&quot; alt=&quot;slide4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-5.png&quot; alt=&quot;slide5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-6.png&quot; alt=&quot;slide6&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-7.png&quot; alt=&quot;slide7&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-8.png&quot; alt=&quot;slide8&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-9.png&quot; alt=&quot;slide9&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-10.png&quot; alt=&quot;slide10&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Unified Language Model Pre-training for Natural Language Understanding and Generation pdf</summary></entry><entry><title type="html">논문 리뷰_pie</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_PIE/" rel="alternate" type="text/html" title="논문 리뷰_pie" /><published>2020-08-04T00:00:00+09:00</published><updated>2020-08-04T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_PIE</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_PIE/">&lt;h1 id=&quot;parallel-iterative-edit-models-for-local-sequence-transduction&quot;&gt;Parallel Iterative Edit Models for Local Sequence Transduction&lt;/h1&gt;
+&lt;p&gt;2021년 4월 3일 Update:
+docker를 nvidia가 pre-install되어있는 상대로 + GPU 사용 가능한 상태로 run하고 싶다면&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ docker run -it --device /dev/nvidia0:/dev/nvidia0 --device /dev/nvidiactl:/dev/nvidiactl --device /dev/nvidia-uvm:/dev/nvidia-uvm --gpus all [image_name] /bin/bash
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;요렇게 써주면 된다!&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">NSML 을 인턴 기간 중 사용하게 되면서 docker image를 띄우고, 컨테이너에 넣어서 수정하고, 다시 push해야하는 일이 생겼다. 나중에 까먹지 않도록, 각자 과정에 대해서 간단하게 기록해보려고 한다.</summary></entry><entry><title type="html">논문 리뷰_pie</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_PIE/" rel="alternate" type="text/html" title="논문 리뷰_pie" /><published>2020-08-04T00:00:00+09:00</published><updated>2020-08-04T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_PIE</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_PIE/">&lt;h1 id=&quot;parallel-iterative-edit-models-for-local-sequence-transduction&quot;&gt;Parallel Iterative Edit Models for Local Sequence Transduction&lt;/h1&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://www.aclweb.org/anthology/D19-1435.pdf&quot;&gt;pdf&lt;/a&gt;&lt;/p&gt;
 
@@ -383,7 +394,28 @@ start: digest: sha256:126df160f8899f7bf0bb4c21a724d41e39239afe27084229f78c06bb67
 
 &lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-15.png&quot; alt=&quot;slide15&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-16.png&quot; alt=&quot;slide16&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Parallel Iterative Edit Models for Local Sequence Transduction</summary></entry><entry><title type="html">논문 리뷰_electra</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_electra/" rel="alternate" type="text/html" title="논문 리뷰_electra" /><published>2020-08-03T00:00:00+09:00</published><updated>2020-08-03T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_electra</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_electra/">&lt;h1 id=&quot;electra-pre-training-text-encoders-as-discriminators-rather-than-generators&quot;&gt;ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-16.png&quot; alt=&quot;slide16&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Parallel Iterative Edit Models for Local Sequence Transduction</summary></entry><entry><title type="html">논문 리뷰_unilm</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_unilm/" rel="alternate" type="text/html" title="논문 리뷰_unilm" /><published>2020-08-04T00:00:00+09:00</published><updated>2020-08-04T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_unilm</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_unilm/">&lt;h1 id=&quot;unified-language-model-pre-training-for-natural-language-understanding-and-generation&quot;&gt;Unified Language Model Pre-training for Natural Language Understanding and Generation&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://arxiv.org/pdf/1905.03197.pdf&quot;&gt;pdf&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-1.png&quot; alt=&quot;slide1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-2.png&quot; alt=&quot;slide2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-3.png&quot; alt=&quot;slide3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-4.png&quot; alt=&quot;slide4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-5.png&quot; alt=&quot;slide5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-6.png&quot; alt=&quot;slide6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-7.png&quot; alt=&quot;slide7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-8.png&quot; alt=&quot;slide8&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-9.png&quot; alt=&quot;slide9&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-10.png&quot; alt=&quot;slide10&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Unified Language Model Pre-training for Natural Language Understanding and Generation pdf</summary></entry><entry><title type="html">논문 리뷰_electra</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_electra/" rel="alternate" type="text/html" title="논문 리뷰_electra" /><published>2020-08-03T00:00:00+09:00</published><updated>2020-08-03T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_electra</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_electra/">&lt;h1 id=&quot;electra-pre-training-text-encoders-as-discriminators-rather-than-generators&quot;&gt;ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators&lt;/h1&gt;
 &lt;h5 id=&quot;openreview-link&quot;&gt;&lt;a href=&quot;https://openreview.net/forum?id=r1xMH1BtvB&quot;&gt;(openreview link)&lt;/a&gt;&lt;/h5&gt;
 
 &lt;p&gt;첫 글은 연구실 논문리딩그룹에서 내가 발표했던 슬라이드를 활용하기로 하였다. 시간이 있을 때 설명을 더 추가할 예정!&lt;/p&gt;
@@ -398,59 +430,4 @@ start: digest: sha256:126df160f8899f7bf0bb4c21a724d41e39239afe27084229f78c06bb67
 
 &lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-5.png&quot; alt=&quot;slide5&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-6.png&quot; alt=&quot;slide6&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators (openreview link)</summary></entry><entry><title type="html">논문 리뷰_grammatical Error Correction</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_Grammatical-Error-Correction/" rel="alternate" type="text/html" title="논문 리뷰_grammatical Error Correction" /><published>2020-08-03T00:00:00+09:00</published><updated>2020-08-03T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_Grammatical-Error-Correction</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_Grammatical-Error-Correction/">&lt;h1 id=&quot;improving-grammatical-error-correction-via-pre-training-a-copy-augmented-architecture-with-unlabeled-data&quot;&gt;Improving Grammatical Error Correction via Pre-Training a Copy-Augmented Architecture with Unlabeled Data&lt;/h1&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.aclweb.org/anthology/N19-1014.pdf&quot;&gt;pdf&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-1.png&quot; alt=&quot;slide1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-2.png&quot; alt=&quot;slide2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-3.png&quot; alt=&quot;slide3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-4.png&quot; alt=&quot;slide4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-5.png&quot; alt=&quot;slide5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-6.png&quot; alt=&quot;slide6&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-7.png&quot; alt=&quot;slide7&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-8.png&quot; alt=&quot;slide8&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-9.png&quot; alt=&quot;slide9&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-10.png&quot; alt=&quot;slide10&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-11.png&quot; alt=&quot;slide11&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-12.png&quot; alt=&quot;slide12&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-13.png&quot; alt=&quot;slide13&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/copyattn-14.png&quot; alt=&quot;slide14&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Improving Grammatical Error Correction via Pre-Training a Copy-Augmented Architecture with Unlabeled Data</summary></entry><entry><title type="html">논문 리뷰_reformer</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_reformer/" rel="alternate" type="text/html" title="논문 리뷰_reformer" /><published>2020-08-03T00:00:00+09:00</published><updated>2020-08-03T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_reformer</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_reformer/">&lt;h1 id=&quot;reformer-the-efficient-transformer&quot;&gt;Reformer: the efficient Transformer&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;https://arxiv.org/pdf/2001.04451.pdf&quot;&gt;pdf&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;처음에 이 논문이 나왔을떄는 정말 놀랐다. locality-sensitive hashing을 이용해서
-원래 sequence length의 제곱에 비례하는 attention 과정의 time complexity를
-linear하게 단축시킬 수 있다니! 후속 연구가 활발히 이루어져서 더 발전되었으면 좋겠다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/reformer-1.png&quot; alt=&quot;slide1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/reformer-2.png&quot; alt=&quot;slide2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/reformer-3.png&quot; alt=&quot;slide3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/reformer-4.png&quot; alt=&quot;slide4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/reformer-5.png&quot; alt=&quot;slide5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/reformer-6.png&quot; alt=&quot;slide6&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/reformer-7.png&quot; alt=&quot;slide7&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/reformer-8.png&quot; alt=&quot;slide8&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/reformer-9.png&quot; alt=&quot;slide9&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/reformer-10.png&quot; alt=&quot;slide10&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Reformer: the efficient Transformer pdf</summary></entry></feed>
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/electra-6.png&quot; alt=&quot;slide6&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators (openreview link)</summary></entry></feed>

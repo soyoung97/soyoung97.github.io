@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Pytorch Model 일부 Layer만 Freeze 하기 - Soyoung’s blog</title>
+<!-- begin _includes/seo.html --><title>Pytorch Model 일부 Layer만 Freeze 하기 - Soyoung’s blog</title>
 <meta name="description" content="task-specific한 Model training을 할 때, 기존의 pretrained model weight를 가져와서 하는 경우가 많이 있다. 여러 논문들에서도 BERT와 같이 pretrained된 대형 모델에서, layer 몇 개만 추가해주면 어떤 NLP task던 from scratch에서부터 training하는 것보다 좋은 성능을 낸다는 것을 입증하고 있다.">
 
 
@@ -19,7 +19,7 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="Soyoung's blog">
-<meta property="og:title" content="Pytorch Model 일부 Layer만 Freeze 하기">
+<meta property="og:title" content="Pytorch Model 일부 Layer만 Freeze 하기">
 <meta property="og:url" content="http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/">
 
 
@@ -30,7 +30,7 @@
 
 
   <meta name="twitter:site" content="@recoprin">
-  <meta name="twitter:title" content="Pytorch Model 일부 Layer만 Freeze 하기">
+  <meta name="twitter:title" content="Pytorch Model 일부 Layer만 Freeze 하기">
   <meta name="twitter:description" content="task-specific한 Model training을 할 때, 기존의 pretrained model weight를 가져와서 하는 경우가 많이 있다. 여러 논문들에서도 BERT와 같이 pretrained된 대형 모델에서, layer 몇 개만 추가해주면 어떤 NLP task던 from scratch에서부터 training하는 것보다 좋은 성능을 낸다는 것을 입증하고 있다.">
   <meta name="twitter:url" content="http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/">
 
@@ -291,7 +291,7 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Pytorch Model 일부 Layer만 Freeze 하기">
+    <meta itemprop="headline" content="Pytorch Model 일부 Layer만 Freeze 하기">
     <meta itemprop="description" content="task-specific한 Model training을 할 때, 기존의 pretrained model weight를가져와서 하는 경우가 많이 있다.여러 논문들에서도 BERT와 같이 pretrained된 대형 모델에서, layer 몇 개만추가해주면 어떤 NLP task던 from scratch에서부터 training하는 것보다좋은 성능을 낸다는 것을 입증하고 있다.">
     <meta itemprop="datePublished" content="2020-08-25T00:00:00+09:00">
     
@@ -299,7 +299,7 @@
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">Pytorch Model 일부 Layer만 Freeze 하기
+          <h1 id="page-title" class="page__title" itemprop="headline">Pytorch Model 일부 Layer만 Freeze 하기
 </h1>
           
             <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
@@ -324,12 +324,12 @@
 
 <p>지금 나는 classification model을 만들고 있는데, 역시 마찬가지로
 huggingface에서 공개한 pretrained model을 사용 중이다.</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from transformers import *
+<pre><code>from transformers import *
 bert = BertModel.from_pretrained('bert-base-uncased')
-</code></pre></div></div>
+</code></pre>
 <p>이 모델 뒤에, 간단한 linear - tanh - linear layer만 추가해서
 model ouptut로 classification에 쓰는 label을 내도록 하기 위해선</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import torch
+<pre><code>import torch
 import torch.nn as nn
 from transformers import *
 
@@ -346,7 +346,7 @@ class ClassificationModel(nn.Module):
         pooled_output = torch.mean(all_hidden, 1)
         predict = self.linear(pooled_output)
         return predict
-</code></pre></div></div>
+</code></pre>
 
 <p>요런 식으로 구현하면 된다.</p>
 
@@ -358,39 +358,39 @@ class ClassificationModel(nn.Module):
 <p>문제가 뭐일까? 생각하는 와중에,
 기존 pretrained model의 weight를 과도하게 bias시켜서(forgetting) 그런게 아닐까? 라는 생각이 들었다.</p>
 
-<p>그래서, 기존 pretrained model의 weight는 freeze시키고, 추가한 <code class="highlighter-rouge">nn.Sequential</code> layer의
+<p>그래서, 기존 pretrained model의 weight는 freeze시키고, 추가한 <code>nn.Sequential</code> layer의
 weight만 training해보면 어떨까 라는생각이 들었다.</p>
 
 <p>방법은 의외로 간단했다.
 일단 위의 코드를 선언한 다음</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; model = ClassificationModel()
+<pre><code>&gt;&gt;&gt; model = ClassificationModel()
 &gt;&gt;&gt; model.state_dict().keys()
 odict_keys(['bert.embeddings.word_embeddings.weight', 'bert.embeddings.position_embeddings.weight', 'bert.embeddings.token_type_embeddings.weight', 'bert.embeddings.LayerNorm.weight', 'bert.embeddings.LayerNorm.bias', 'bert.encoder.layer.0.attention.self.query.weight', 'bert.encoder.layer.0.attention.self.query.bias', 'bert.encoder.layer.0.attention.self.key.weight', 'bert.encoder.layer.0.attention.self.key.bias', 'bert.encoder.layer.0.attention.self.value.weight', 'bert.encoder.layer.0.attention.self.value.bias', 'bert.encoder.layer.0.attention.output.dense.weight',
 ......'bert.encoder.layer.11.output.LayerNorm.bias', 'bert.pooler.dense.weight', 'bert.pooler.dense.bias', 'linear.0.weight', 'linear.0.bias', 'linear.2.weight', 'linear.2.bias'])
-</code></pre></div></div>
+</code></pre>
 
 <p>를 해주면, 모델 안에 선언되어있는 다양한 weight들의 key값을 볼 수 있다.</p>
 
-<p>여기서 우리가 바꿔주고 싶은 것은 오직 <code class="highlighter-rouge">'linear.0.weight', 'linear.0.bias', 'linear.2.weight', 'linear.2.bias'</code>이것들!</p>
+<p>여기서 우리가 바꿔주고 싶은 것은 오직 <code>'linear.0.weight', 'linear.0.bias', 'linear.2.weight', 'linear.2.bias'</code>이것들!</p>
 
 <p>일단 모든 weight를 다 freeze시켜준다.</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt;for para in model.parameters():
+<pre><code>&gt;&gt;&gt;for para in model.parameters():
 ...     para.requires_grad = False
-</code></pre></div></div>
+</code></pre>
 
-<p>그리고 해당 layer만 <code class="highlighter-rouge">requires_grad</code>를 켜주면 끝!
+<p>그리고 해당 layer만 <code>requires_grad</code>를 켜주면 끝!
 …..이라고 생각했지만 큰 오산이었다….왜냐..? 
-<code class="highlighter-rouge">model.linear.0.weight</code>에서 0이 .. .숫자가 있어서, 저런 방식으로 접근이 불가능했기 때문ㅠㅠㅠㅠㅠ</p>
+<code>model.linear.0.weight</code>에서 0이 .. .숫자가 있어서, 저런 방식으로 접근이 불가능했기 때문ㅠㅠㅠㅠㅠ</p>
 
-<p>만약에 이름이 <code class="highlighter-rouge">fc1</code> 뭐 이런거였으면</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt;model.fc1.weight.requires_grad = True
-</code></pre></div></div>
+<p>만약에 이름이 <code>fc1</code> 뭐 이런거였으면</p>
+<pre><code>&gt;&gt;&gt;model.fc1.weight.requires_grad = True
+</code></pre>
 <p>요렇게 해결해주면 되는 간단한 문제였지만,.. 불가능했기 때문에 다른 방법을 쓰기로 했다.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt;for name, param in model.named_parameters():
+<pre><code>&gt;&gt;&gt;for name, param in model.named_parameters():
 &gt;&gt;&gt;    if name in ['linear.0.weight', 'linear.2.weight']:
 &gt;&gt;&gt;        param.requires_grad = True
-</code></pre></div></div>
+</code></pre>
 <p>요렇게 해서 해결하게 되었다…</p>
 <ul>
   <li>추가: 원래 Model training할때 (꼭) 이렇게(만은) 하지는 않는다고 한다. 그리고, 내 모델은 forgetting이 되어서 성능이 내려갔다기 보다는 training data자체가 워낙 작아서,
@@ -416,7 +416,7 @@ odict_keys(['bert.embeddings.word_embeddings.weight', 'bert.embeddings.position_
     <h4 class="page__share-title">Share on</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?via=recoprin&text=Pytorch+Model+%EC%9D%BC%EB%B6%80+Layer%EB%A7%8C+Freeze+%ED%95%98%EA%B8%B0%20http%3A%2F%2Flocalhost%3A4000%2FPytorch-model-%25EC%259D%25BC%25EB%25B6%2580-layer%25EB%25A7%258C-freeze-%25ED%2595%2598%25EA%25B8%25B0%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?via=recoprin&text=Pytorch+Model+%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%87%E1%85%AE+Layer%E1%84%86%E1%85%A1%E1%86%AB+Freeze+%E1%84%92%E1%85%A1%E1%84%80%E1%85%B5%20http%3A%2F%2Flocalhost%3A4000%2FPytorch-model-%25EC%259D%25BC%25EB%25B6%2580-layer%25EB%25A7%258C-freeze-%25ED%2595%2598%25EA%25B8%25B0%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
   <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2FPytorch-model-%25EC%259D%25BC%25EB%25B6%2580-layer%25EB%25A7%258C-freeze-%25ED%2595%2598%25EA%25B8%25B0%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
@@ -427,11 +427,11 @@ odict_keys(['bert.embeddings.word_embeddings.weight', 'bert.embeddings.position_
       
   <nav class="pagination">
     
-      <a href="/Mixup-%EA%B8%B0%EB%B0%98-%EB%A9%94%EC%86%8C%EB%93%9C%EB%93%A4/" class="pagination--pager" title="Mixup 기반 메소드들
+      <a href="/Mixup-%EA%B8%B0%EB%B0%98-%EB%A9%94%EC%86%8C%EB%93%9C%EB%93%A4/" class="pagination--pager" title="Mixup 기반 메소드들
 ">Previous</a>
     
     
-      <a href="/Model%EC%9D%98-state_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0/" class="pagination--pager" title="Model의 State_dict 일부분만 Load하기
+      <a href="/Model%EC%9D%98-state_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0/" class="pagination--pager" title="Model의 State_dict 일부분만 Load하기
 ">Next</a>
     
   </nav>
@@ -446,6 +446,66 @@ odict_keys(['bert.embeddings.word_embeddings.weight', 'bert.embeddings.position_
     <div class="page__related">
       <h4 class="page__related-title">You may also enjoy</h4>
       <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/Linux-%EA%BF%80%ED%8C%81%EB%93%A4-%EB%AA%A8%EC%9D%8C/" rel="permalink">Linux 꿀팁들 모음
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">ㅎ.. 언젠가부터 내 블로그가 잊어먹지 않도록 글을 끄적하는 장소로 바뀌어버린 것
+같다. 논문만 된다면… 그 때 정말 제대로 된 informative한 글을 남기겠다…ㅠㅠ
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/Semantic-Parsing-references/" rel="permalink">Semantic Parsing References
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Semantic Parsing References:
+Spider explanation: https://medium.com/@tao.yu/spider-one-more-step-towards-natural-language-interfaces-to-databases-62298dc6df3...</p>
+  </article>
+</div>
+
         
           
 
@@ -486,7 +546,7 @@ odict_keys(['bert.embeddings.word_embeddings.weight', 'bert.embeddings.position_
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/Model%EC%9D%98-state_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0/" rel="permalink">Model의 State_dict 일부분만 Load하기
+        <a href="/Model%EC%9D%98-state_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0/" rel="permalink">Model의 State_dict 일부분만 Load하기
 </a>
       
     </h2>
@@ -502,68 +562,6 @@ odict_keys(['bert.embeddings.word_embeddings.weight', 'bert.embeddings.position_
     
     <p class="archive__item-excerpt" itemprop="description">정말 오랜만에 글을 쓰는것같다.
 8월부터 11월까지 너무 바빴어서, github blog posting이 소홀해졌던 것 같다.
-
-</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/Mixup-%EA%B8%B0%EB%B0%98-%EB%A9%94%EC%86%8C%EB%93%9C%EB%93%A4/" rel="permalink">Mixup 기반 메소드들
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
-
-
-
-
-  3 minute read
-
-</p>
-    
-    <p class="archive__item-excerpt" itemprop="description">이번에 연구 주제와 관련되어서 mixup 기반의 논문들을 읽어보고 공부하게 되었다.
-여기서 중요하다고 느꼈던 점과 읽었던 부분들을 정리해보려고 한다.
-시간이 지나면 다시 까먹을 것 같아서, 미리미리 정리해두는게 좋을것 같다.
-(정리한 부분은 순전히 내가 읽고 받아들인 대로 적은 것...</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_unilm/" rel="permalink">논문 리뷰_unilm
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
-
-
-
-
-  less than 1 minute read
-
-</p>
-    
-    <p class="archive__item-excerpt" itemprop="description">Unified Language Model Pre-training for Natural Language Understanding and Generation
-pdf
 
 </p>
   </article>
@@ -611,7 +609,7 @@ pdf
   </ul>
 </div>
 
-<div class="page__footer-copyright">&copy; 2020 Soyoung Yoon. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+<div class="page__footer-copyright">&copy; 2021 Soyoung Yoon. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
 
       </footer>
     </div>
@@ -629,7 +627,7 @@ pdf
   <script>
     var disqus_config = function () {
       this.page.url = "http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/";  /* Replace PAGE_URL with your page's canonical URL variable */
-      this.page.identifier = "/Pytorch-model-일부-layer만-freeze-하기"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+      this.page.identifier = "/Pytorch-model-일부-layer만-freeze-하기"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
     };
     (function() { /* DON'T EDIT BELOW THIS LINE */
       var d = document, s = d.createElement('script');
