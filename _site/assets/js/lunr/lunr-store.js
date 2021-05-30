@@ -41,19 +41,19 @@ var store = [{
         "url": "http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_unilm/",
         "teaser": null
       },{
-        "title": "Mixup 기반 메소드들",
+        "title": "Methods Related To Mixup",
         "excerpt":"이번에 연구 주제와 관련되어서 mixup 기반의 논문들을 읽어보고 공부하게 되었다. 여기서 중요하다고 느꼈던 점과 읽었던 부분들을 정리해보려고 한다. 시간이 지나면 다시 까먹을 것 같아서, 미리미리 정리해두는게 좋을것 같다. (정리한 부분은 순전히 내가 읽고 받아들인 대로 적은 것이기 떄문에, 틀린 부분이 있을 수 있고, 잘못된 부분이 있다면 댓글로 알려주시면 정말 감사하겠습니다..ㅎㅎ)...","categories": [],
         "tags": [],
-        "url": "http://localhost:4000/Mixup-%EA%B8%B0%EB%B0%98-%EB%A9%94%EC%86%8C%EB%93%9C%EB%93%A4/",
+        "url": "http://localhost:4000/methods-related-to-mixup/",
         "teaser": null
       },{
-        "title": "Pytorch Model 일부 Layer만 Freeze 하기",
+        "title": "Pytorch Model 일부 Layer만 Freeze 하기",
         "excerpt":"task-specific한 Model training을 할 때, 기존의 pretrained model weight를 가져와서 하는 경우가 많이 있다. 여러 논문들에서도 BERT와 같이 pretrained된 대형 모델에서, layer 몇 개만 추가해주면 어떤 NLP task던 from scratch에서부터 training하는 것보다 좋은 성능을 낸다는 것을 입증하고 있다. 지금 나는 classification model을 만들고 있는데, 역시 마찬가지로 huggingface에서 공개한 pretrained model을...","categories": [],
         "tags": [],
-        "url": "http://localhost:4000/Pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/",
+        "url": "http://localhost:4000/pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/",
         "teaser": null
       },{
-        "title": "Model의 State_dict 일부분만 Load하기",
+        "title": "Model의 State_dict 일부분만 Load하기",
         "excerpt":"정말 오랜만에 글을 쓰는것같다. 8월부터 11월까지 너무 바빴어서, github blog posting이 소홀해졌던 것 같다. 오늘은 pretrained pytorch model을 loading해오려고 했는데, pytorch version과 여러 환경세팅이 맞지 않아서 모델의 state_dict에 있는 key가 matching이 되지 않아 모델의 pretrained weight가 불려오지 않는 문제가 있었다. 아래는 모델을 로딩해오는 예시이다. import torch.nn as nn import torch...","categories": [],
         "tags": [],
         "url": "http://localhost:4000/Model%EC%9D%98-state_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0/",
@@ -71,10 +71,10 @@ var store = [{
         "url": "http://localhost:4000/Semantic-Parsing-references/",
         "teaser": null
       },{
-        "title": "Linux 꿀팁들 모음",
+        "title": "Linux Tips And Notes",
         "excerpt":"ㅎ.. 언젠가부터 내 블로그가 잊어먹지 않도록 글을 끄적하는 장소로 바뀌어버린 것 같다. 논문만 된다면… 그 때 정말 제대로 된 informative한 글을 남기겠다…ㅠㅠ nvidia-smi를 실시간으로 볼 수 있는 command watch -n0.1 nvidia-smi Recursively list all subdirectories inside list ls -LR check disk size and path lsblk Github crediential 저장 git config...","categories": [],
         "tags": [],
-        "url": "http://localhost:4000/Linux-%EA%BF%80%ED%8C%81%EB%93%A4-%EB%AA%A8%EC%9D%8C/",
+        "url": "http://localhost:4000/Linux-tips-and-notes/",
         "teaser": null
       },{
         "title": "Naacl 2021 Paper Review About Semantic Parsing",
