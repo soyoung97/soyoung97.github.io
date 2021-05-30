@@ -17,7 +17,7 @@
 <lastmod>2020-08-03T00:00:00+09:00</lastmod>
 </url>
 <url>
-<loc>http://localhost:4000/docker-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-commit%ED%95%98%EA%B3%A0-push%ED%95%98%EA%B8%B0/</loc>
+<loc>http://localhost:4000/docker-container-commit%ED%95%98%EA%B3%A0-push%ED%95%98%EA%B8%B0/</loc>
 <lastmod>2020-08-04T00:00:00+09:00</lastmod>
 </url>
 <url>
@@ -34,7 +34,7 @@
 </url>
 <url>
 <loc>http://localhost:4000/pytorch-model-%EC%9D%BC%EB%B6%80-layer%EB%A7%8C-freeze-%ED%95%98%EA%B8%B0/</loc>
-<lastmod>2020-08-25T00:00:00+09:00</lastmod>
+<lastmod>2020-08-24T00:00:00+09:00</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/Model%EC%9D%98-state_dict-%EC%9D%BC%EB%B6%80%EB%B6%84%EB%A7%8C-load%ED%95%98%EA%B8%B0/</loc>
