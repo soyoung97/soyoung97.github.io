@@ -14,7 +14,7 @@ The related papers are listed in random order.
 
 [6] [Learning to Synthesize Data for Semantic Parsing](https://arxiv.org/pdf/2104.05827.pdf)
 
-It seems like most of the SOTA semantic parsing papers are from one person: [Berlin Wang](https://berlino.github.io/). He is the author of RAT-SQL and [4], [5], and [6].
+It seems like most of the SOTA semantic parsing papers are from one person: [Bailin Wang](https://berlino.github.io/). He is the author of RAT-SQL and [4], [5], and [6].
 
 ### [4]
 
