@@ -1,4 +1,191 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-06-08T02:56:28+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Soyoung’s blog</title><subtitle>Soyoung's blog that records about what I learned</subtitle><author><name>Soyoung Yoon</name></author><entry><title type="html">Naacl 2021 Paper Review About Semantic Parsing</title><link href="http://localhost:4000/NAACL-2021-paper-review-about-semantic-parsing/" rel="alternate" type="text/html" title="Naacl 2021 Paper Review About Semantic Parsing" /><published>2021-05-31T00:00:00+09:00</published><updated>2021-05-31T00:00:00+09:00</updated><id>http://localhost:4000/NAACL-2021-paper-review-about-semantic-parsing</id><content type="html" xml:base="http://localhost:4000/NAACL-2021-paper-review-about-semantic-parsing/">&lt;p&gt;This page is a draft page, to take notes on recent text-to-SQL methods that is accepted in NAACL 2021.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-06-09T05:45:58+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Soyoung’s blog</title><subtitle>Soyoung's blog that records about what I learned</subtitle><author><name>Soyoung Yoon</name></author><entry><title type="html">Notes On Naacl 2021 Oral Presentation On Semantic Parsing</title><link href="http://localhost:4000/notes-on-NAACL-2021-oral-presentation-on-semantic-parsing/" rel="alternate" type="text/html" title="Notes On Naacl 2021 Oral Presentation On Semantic Parsing" /><published>2021-06-09T00:00:00+09:00</published><updated>2021-06-09T00:00:00+09:00</updated><id>http://localhost:4000/notes-on-NAACL-2021-oral-presentation-on-semantic-parsing</id><content type="html" xml:base="http://localhost:4000/notes-on-NAACL-2021-oral-presentation-on-semantic-parsing/">&lt;p&gt;Here are the brief notes that I took from listening to the oral presentations of great authors (mainly focused on text-to-SQL)&lt;/p&gt;
+
+&lt;h3 id=&quot;latent-compositional-representations-improve-systematic-generalization-in-grounded-answering&quot;&gt;&lt;a href=&quot;https://arxiv.org/pdf/2007.00266.pdf&quot;&gt;Latent Compositional Representations improve systematic generalization in grounded answering&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;They make trees on all latent&lt;/p&gt;
+
+&lt;p&gt;Tree helps whether the model is really correct or not.&lt;/p&gt;
+
+&lt;p&gt;Beam search can help&lt;/p&gt;
+
+&lt;h3 id=&quot;learning-from-executions-for-semantic-parsing&quot;&gt;&lt;a href=&quot;https://www.aclweb.org/anthology/2021.naacl-main.219.pdf&quot;&gt;Learning from executions for semantic parsing&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;Executable program &amp;lt;- model that only uses labeled data&lt;/p&gt;
+
+&lt;p&gt;Lower bound that uses the labeled examples&lt;/p&gt;
+
+&lt;p&gt;Grammar-based &amp;lt;- forcing at training time, more correct that you do that in test time.&lt;/p&gt;
+
+&lt;p&gt;Assume that topk is not always executable&lt;/p&gt;
+
+&lt;p&gt;Pretrained parser already has some knowledge about what is right and what is wrong -&amp;gt; have to somehow renormalize the topk items&lt;/p&gt;
+
+&lt;p&gt;Trying to utilize the unlabeled data. How are we going to do learning from that?&lt;/p&gt;
+
+&lt;p&gt;not all the programs are not executable. Assign non-executable programs have very small loss.&lt;/p&gt;
+
+&lt;p&gt;Executability is a free signal. It is weak because we don’t know the answer.&lt;/p&gt;
+
+&lt;p&gt;We maximize marginal likelihood for all possible executable programs -&amp;gt; but all is infeasible. We utilize the beam searched query.  But it seems kind of unfair. Encourage model to explore more executable models during program(motivation)&lt;/p&gt;
+
+&lt;p&gt;provide sparsity on the executable programs &amp;lt;- They can be executable but not correct(second motiviation)&lt;/p&gt;
+
+&lt;p&gt;y is our program, 0 otherwise. We want p (distribution of our parser) to be as similar as Q. Executable programs are always in this family. There is only 6 executable programs. It is discrete but the domain for executable program is continuous(?)&lt;/p&gt;
+
+&lt;p&gt;Distance metric is KL divergence. As long as p is close to Qx, we are happy. It could be anywhere to q. x&lt;/p&gt;
+
+&lt;p&gt;Grammar-based decoding &amp;lt;- Limit search space to executable programs.&lt;/p&gt;
+
+&lt;p&gt;We already do that. Grammatical != Executable difference? &amp;lt;- column type constraints?&lt;/p&gt;
+
+&lt;h3 id=&quot;compositional-generalization-for-neural-semantic-parsing-via-span-level-supervised-attention&quot;&gt;&lt;a href=&quot;https://www.aclweb.org/anthology/2021.naacl-main.225.pdf&quot;&gt;Compositional generalization for neural semantic parsing via span-level supervised attention&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/illustrations/compgen.png&quot; alt=&quot;image-20210609023241594&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;-&amp;gt; span-level supervised attention&lt;/p&gt;
+
+&lt;p&gt;encourage models with span-level alignments? Semantic parser is seq-to-seq example.&lt;/p&gt;
+
+&lt;p&gt;contains syntac-level MT limitations&lt;/p&gt;
+
+&lt;p&gt;uses the outputs from this syntactic level alignments -&amp;gt; find bounding box&lt;/p&gt;
+
+&lt;h3 id=&quot;incorporating-external-knowledge-to-enhance-tabular-reasoning&quot;&gt;&lt;a href=&quot;https://www.aclweb.org/anthology/2021.naacl-main.224.pdf&quot;&gt;Incorporating external knowledge to enhance tabular reasoning&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;how do you represent tabular data to text? Can we incoporate external knowledge to model?&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;poor representation of tabular information&lt;/li&gt;
+  &lt;li&gt;Implicit lexical knowledge&lt;/li&gt;
+  &lt;li&gt;presensce of distracting&lt;/li&gt;
+  &lt;li&gt;missing domain knowledge about keys&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;We use entity types for better table representation. Prune table according to it.&lt;/p&gt;
+
+&lt;p&gt;Preprocessing helps on alpha1 and alpha3.&lt;/p&gt;
+
+&lt;h3 id=&quot;learning-to-synthesize-data-for-semantic-parsing&quot;&gt;&lt;a href=&quot;https://www.aclweb.org/anthology/2021.naacl-main.220.pdf&quot;&gt;Learning to synthesize data for semantic parsing&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;similar to back translation&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/illustrations/synsemparse.png&quot; alt=&quot;image-3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Hand-crafting rules are not very good objective -&amp;gt; you don’t know what the dataset will look like.&lt;/p&gt;
+
+&lt;p&gt;Utterance doesn’t make sense, but maybe the model can learn from the correspondance.&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Here are the brief notes that I took from listening to the oral presentations of great authors (mainly focused on text-to-SQL)</summary></entry><entry><title type="html">Notes On Getting Into Grad School Naacl 2021</title><link href="http://localhost:4000/Notes-on-getting-into-grad-school-NAACL-2021/" rel="alternate" type="text/html" title="Notes On Getting Into Grad School Naacl 2021" /><published>2021-06-09T00:00:00+09:00</published><updated>2021-06-09T00:00:00+09:00</updated><id>http://localhost:4000/Notes-on-getting-into-grad-school-NAACL-2021</id><content type="html" xml:base="http://localhost:4000/Notes-on-getting-into-grad-school-NAACL-2021/">&lt;h2 id=&quot;notes-on-webminar-getting-into-grad-school-naacl-2021&quot;&gt;Notes on Webminar: Getting into grad school (NAACL 2021)&lt;/h2&gt;
+
+&lt;h3 id=&quot;what-do-you-think-sets-apart-a-strong-application-for-graduate-study&quot;&gt;What do you think sets apart a strong application for graduate study?&lt;/h3&gt;
+
+&lt;p&gt;Vlad Nicule) Differs so much&lt;/p&gt;
+
+&lt;p&gt;Motivation / Recommendation letters matter so much&lt;/p&gt;
+
+&lt;p&gt;Good Letter? Relevant papers that shows your field of NLP&lt;/p&gt;
+
+&lt;h3 id=&quot;what-are-the-criteria-to-keep-in-mind-while-choosing-a-grad-school-a-research-group-and-a-phd-advisor&quot;&gt;What are the criteria to keep in mind while choosing a grad school, a research group and a PhD advisor?&lt;/h3&gt;
+
+&lt;p&gt;Elizabeth Nielsen) 2 things to look for:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;How they are to work with? -&amp;gt; more important, hard to figure out&lt;/li&gt;
+  &lt;li&gt;How well do they do research?&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Is your supervisor overfed with work? what kind of dynamics are they included? competitive? Find single-author papers / How well do they explain? It’s a good indicator of great advisor(?)&lt;/p&gt;
+
+&lt;h3 id=&quot;how-do-you-structure-statement-of-purpose--research-proposal&quot;&gt;How do you structure statement of purpose / research proposal?&lt;/h3&gt;
+
+&lt;p&gt;Nick McKenna) Statement of purpose is very important. To convince reader that you have an idea of project that is useful / can do that. Motivation of problem - State of field - How you would approach your problem. Not have to be exact, but more thoughtthrough it is, more convincing it would be. It’s just like who you are, because each of us have a different story. And definately tell your story!&lt;/p&gt;
+
+&lt;h3 id=&quot;what-were-the-most-useful-resources-in-getting-into-grad-school&quot;&gt;What were the most useful resources in getting into grad school?&lt;/h3&gt;
+
+&lt;p&gt;Salomon Kabongo Kabenamualu) Twitter is valuable! (GOOD~~)&lt;/p&gt;
+
+&lt;h3 id=&quot;how-did-you-face-imposter-syndrome-during-grad-school-and-your-application-process&quot;&gt;How did you face imposter syndrome, during grad school and your application process?&lt;/h3&gt;
+
+&lt;p&gt;Sian Gooding)&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;External ) You compell yourself to people around you&lt;/li&gt;
+  &lt;li&gt;Internal ) You doubt your skills  &amp;lt;- Effected more highly&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;For 1 - Anti-savi &amp;lt;- Do it reversely - If they didn’t get this intern, didn’t get this paper accepted…&lt;/p&gt;
+
+&lt;p&gt;You’re seeing the best path of the people you look on twitter. You keep that on mind (being inspired v.s. being intimidated) &amp;lt;- Parallelized on how am I going to get to this&lt;/p&gt;
+
+&lt;p&gt;For 2 -Try not to be a perfectionist &amp;lt;- become one of it because you’re so self-critical. Be kind to yourself.&lt;/p&gt;
+
+&lt;p&gt;Nick) I face that myself a lot. Other than papers &amp;amp; application process. There are other things you can do that you can show that you are good at research. (e.g. participating at a reading group. Able to show up every week, do discussion, talk about papers - good way to get a feel for the field. And got good recommendation letters by that.)&lt;/p&gt;
+
+&lt;p&gt;Even if it doesn’t make it to paper, it is still a good progress.&lt;/p&gt;
+
+&lt;h3 id=&quot;what-aspects-of-the-labor-environment-should-i-keep-an-eye-out-for&quot;&gt;What aspects of the labor environment should I keep an eye out for?&lt;/h3&gt;
+
+&lt;p&gt;Vlad Niculae) Group dynamics, healthy environment with collegues…&lt;/p&gt;
+
+&lt;p&gt;Also, environment is important (very different from country to country and school to school)&lt;/p&gt;
+
+&lt;p&gt;Having a contract &amp;lt;- expectations are clear. Cannot do what is not asked&lt;/p&gt;
+
+&lt;p&gt;Are you going to be an employee in the University? or not? This is very important.&lt;/p&gt;
+
+&lt;p&gt;Pension? Visa aspects? Technical error in a corner? Immigrant? Salary’s differnt. Is there a grad student union? If you face injustice, where can you go to? &amp;lt;- So different. &amp;amp; Important&lt;/p&gt;
+
+&lt;p&gt;Can you change advisors? Is there a history of this?&lt;/p&gt;
+
+&lt;p&gt;Mental health resources at university?&lt;/p&gt;
+
+&lt;h3 id=&quot;how-do-you-conduct-or-manage-online-research-collaborations-especially-under-current-circumstances&quot;&gt;How do you conduct or manage online research collaborations, especially under current circumstances?&lt;/h3&gt;
+
+&lt;p&gt;Sebastian Ruder ) Just be kind to your collaborators.&lt;/p&gt;
+
+&lt;p&gt;Regarding broad research collaboration - most collabo was remotely done. I think communications is more important. Writing one more email / one more chat is important (to sync with each other)&lt;/p&gt;
+
+&lt;h3 id=&quot;how-does-one-keep-up-with-the-latest-research-and-papers&quot;&gt;How does one keep up with the latest research and papers?&lt;/h3&gt;
+
+&lt;p&gt;Nick McKenna) 3 things you can do&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Going out and find research papers yourself&lt;/li&gt;
+  &lt;li&gt;Mining by google scholar - targeted searches. Getting researches sent to you (news feed by arxiv, semantic scholar on keywords)&lt;/li&gt;
+  &lt;li&gt;Form a peer group, share some interests. Meet together and discuss a paper.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;when-and-how-did-you-get-into-nlp-research&quot;&gt;When and how did you get into NLP research?&lt;/h3&gt;
+
+&lt;p&gt;Salomon Kabongo Kabenamualu) Opportunity - wasn’t able to search for a mathmatician job - got ML job - … Why didn’t I see this option before?!?!&lt;/p&gt;
+
+&lt;h3 id=&quot;how-to-approach-potential-research-mentors&quot;&gt;How to approach potential research mentors?&lt;/h3&gt;
+
+&lt;p&gt;Elizabeth Nielsen) Read their website first and read the instructions.&lt;/p&gt;
+
+&lt;p&gt;Reach them first (e.g. conference and so on) and then email.&lt;/p&gt;
+
+&lt;p&gt;Make your email easier to read. Good sharp students that can help students they can enjoy advising. Don’t ask super open-ended questions….&lt;/p&gt;
+
+&lt;p&gt;Stay away from open-ended questions / vague questions / long emails…. &amp;lt;- This doesn’t make people think that you can make their life easier..&lt;/p&gt;
+
+&lt;h3 id=&quot;how-was-your-first-publication-process-looked--experience-like&quot;&gt;How was your first publication process looked / experience like?&lt;/h3&gt;
+
+&lt;p&gt;Sian Gooding) Had no idea what I was doing. Once done once, it becomes so much easier next time. Checking it hundred times because I was so nervous. It is very normal to get papers rejected. That is NOT the end of life. Peer review is amazing and you can learn a lot from it. It’s okay for it to be rejected. It can make the paper a lot better.&lt;/p&gt;
+
+&lt;h3 id=&quot;what-pre-doctoral-research-experiences-you-think-could-better-prepare-a-student-for-graduate-study&quot;&gt;What pre-doctoral research experiences you think could better prepare a student for graduate study?&lt;/h3&gt;
+
+&lt;p&gt;Reading a bunch of research. Learn to judge papers. Learn to look at paper and see what you can do after this research. How can I actually come up with research questions that I can &lt;strong&gt;test&lt;/strong&gt;? (It’s not like I want to study NLG.)&lt;/p&gt;
+
+&lt;p&gt;….. My hand hurts…&lt;/p&gt;
+
+&lt;h3 id=&quot;what-career-experiences-do-you-think-are-most-fruitful-for-building-a-professional-identity-in-nlp&quot;&gt;What career experiences do you think are most fruitful for building a professional identity in NLP?&lt;/h3&gt;
+
+&lt;p&gt;internal identity / research taste / What are your personal preferences? (beautiful theory / Useful practice / … / writing beautiful papers?) &amp;lt;- how you work yourself. Useful in finding your collaborators - who can do complementary things&lt;/p&gt;
+
+&lt;p&gt;Figure out what your overall research area is. Communicate more on surveys/blog posts.&lt;/p&gt;
+
+&lt;h3 id=&quot;how-do-you-grapple-with-the-ethical-implications-of-developing-nlp-including-biases-in-algorithms-and-data&quot;&gt;How do you grapple with the ethical implications of developing NLP, including biases in algorithms and data?&lt;/h3&gt;
+
+&lt;p&gt;Careful not just on relying on GLEU score.&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Notes on Webminar: Getting into grad school (NAACL 2021)</summary></entry><entry><title type="html">Naacl 2021 Paper Review About Semantic Parsing</title><link href="http://localhost:4000/NAACL-2021-paper-review-about-semantic-parsing/" rel="alternate" type="text/html" title="Naacl 2021 Paper Review About Semantic Parsing" /><published>2021-05-31T00:00:00+09:00</published><updated>2021-05-31T00:00:00+09:00</updated><id>http://localhost:4000/NAACL-2021-paper-review-about-semantic-parsing</id><content type="html" xml:base="http://localhost:4000/NAACL-2021-paper-review-about-semantic-parsing/">&lt;p&gt;This page is a draft page, to take notes on recent text-to-SQL methods that is accepted in NAACL 2021.&lt;/p&gt;
 
 &lt;p&gt;The related papers are listed in random order.&lt;/p&gt;
 
@@ -292,125 +479,7 @@ computational cost 대비 fair comparison을 위해 추가하였다고 말하고
 hidden layer에 적용해보자! 이다. 이것은 어떻게 보면 manifold mixup의 한 형태로 볼 수 있을 것 같다.
 이 아이디어는 논문 안에 있는 도식도를 보면 바로 이해가 잘 된다. 저자들은 이것을 mixtext로 칭하고 있다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../assets/images/illustrations/mixtext.png&quot; alt=&quot;image2&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">이번에 연구 주제와 관련되어서 mixup 기반의 논문들을 읽어보고 공부하게 되었다. 여기서 중요하다고 느꼈던 점과 읽었던 부분들을 정리해보려고 한다. 시간이 지나면 다시 까먹을 것 같아서, 미리미리 정리해두는게 좋을것 같다. (정리한 부분은 순전히 내가 읽고 받아들인 대로 적은 것이기 떄문에, 틀린 부분이 있을 수 있고, 잘못된 부분이 있다면 댓글로 알려주시면 정말 감사하겠습니다..ㅎㅎ)</summary></entry><entry><title type="html">Docker Container Commit하고 Push하기</title><link href="http://localhost:4000/docker-container-commit%ED%95%98%EA%B3%A0-push%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="Docker Container Commit하고 Push하기" /><published>2020-08-04T00:00:00+09:00</published><updated>2020-08-04T00:00:00+09:00</updated><id>http://localhost:4000/docker-container-commit%ED%95%98%EA%B3%A0-push%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/docker-container-commit%ED%95%98%EA%B3%A0-push%ED%95%98%EA%B8%B0/">&lt;p&gt;&lt;a href=&quot;https://ai.nsml.navercorp.com/intro&quot;&gt;NSML&lt;/a&gt; 을 인턴 기간 중 사용하게 되면서 docker image를 띄우고, 컨테이너에 넣어서 수정하고, 다시 push해야하는 일이 생겼다.
-나중에 까먹지 않도록, 각자 과정에 대해서 간단하게 기록해보려고 한다.&lt;/p&gt;
-
-&lt;p&gt;기본적으로 docker run을 하게 되면 해당 container안에 있는 process가 다 돌아가게 되면 container는 exit하게 되고, 그 후에 다시 그 container를 run시킨다면 그 전에 작업했던 결과물들이 다 날라가게 된다(초기의 값으로 돌아가게 된다 TT)&lt;/p&gt;
-
-&lt;p&gt;따라서 나는 &lt;code&gt;docker run -it [CONTAINER_NAME] [COMMAND(보통 /bin/bash)] &lt;/code&gt; 로 처음에 실행해놓은 docker를 &lt;code&gt;exit&lt;/code&gt; 시키지 않고 그 쉘은 작업이 끝날때까지 놔둔다…ㅎㅎ&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;현재 돌고 있는 Container 확인: &lt;code&gt;docker ps -al&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;user@AL01333530 ~ % docker ps -al
-CONTAINER ID        IMAGE                  COMMAND             CREATED             STATUS              PORTS               NAMES
-6eb43f8766c0        msyoon8/fairseq-nsml   &quot;/bin/bash&quot;         8 hours ago         Up 8 hours                              sad_buck
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;해당 container “commit” 하기: &lt;code&gt;docker commit [CONTAINER_NAME] [NEW_IMAGE_NAME]&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;user@AL01333530 ~ % docker commit sad_buck modified-nsml
-sha256:59e86dfa8921492b020d0d258d05c47f0049e35141c291fe6e38cde645ee0fed
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;만들어진 docker image 확인: &lt;code&gt;docker images&lt;/code&gt;를 하면 된다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;user@AL01333530 ~ % docker images
-REPOSITORY             TAG                                      IMAGE ID            CREATED              SIZE
-modified-nsml          latest                                   59e86dfa8921        About a minute ago   11GB
-msyoon8/new-nsml       latest                                   106f53376a55        8 hours ago          11GB
-start                  latest                                   7789300f795a        8 hours ago          10.9GB
-msyoon8/fairseq-nsml   latest                                   7789300f795a        8 hours ago          10.9GB
-&amp;lt;none&amp;gt;                 &amp;lt;none&amp;gt;                                   34ad76557739        9 hours ago          110MB
-python                 alpine                                   bcf3965d8456        4 days ago           80.3MB
-node                   12-alpine                                18f4bc975732        6 days ago           89.3MB
-nginx                  alpine                                   ecd67fe340f9        3 weeks ago          21.6MB
-msyoon8/nsml           start                                    d4cb5f857197        12 months ago        7.28GB
-nsml/ml                cuda9.0-cudnn7-tf-1.11torch1.0keras2.2   d4cb5f857197        12 months ago        7.28GB
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;(예시입니다)&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code&gt;docker login&lt;/code&gt; 하기 (나는 했으므로 pass)&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;docker image에 tag 달기: &lt;code&gt;docker image tag [NEW_IMAGE_NAME]:latest [USER_NAME]/[NEW_IMAGE_NAME]:[WANTED_TAG]&lt;/code&gt;.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;user@AL01333530 ~ % docker image tag modified-nsml:latest msyoon8/modified-nsml:start
-user@AL01333530 ~ % docker images
-REPOSITORY              TAG                                      IMAGE ID            CREATED             SIZE
-msyoon8/modified-nsml   start                                    59e86dfa8921        5 minutes ago       11GB
-modified-nsml           latest                                   59e86dfa8921        5 minutes ago       11GB
-...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;(참고: docker image tag를 지우고 싶다면 &lt;code&gt;docker rmi [IMAGE_NAME]:[TAG]&lt;/code&gt; -&amp;gt; actual image를 지우는건 아님)&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;docker hub에 push: &lt;code&gt;docker push [USER_NAME]/[IMAGE_NAME]:[TAG]&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;user@AL01333530 ~ % docker push msyoon8/modified-nsml:start
-The push refers to repository [docker.io/msyoon8/modified-nsml]
-29f8768524e6: Pushing [==================================================&amp;gt;]  24.02MB
-345828a8dc7c: Mounted from msyoon8/new-nsml
-4acf1ac205fc: Mounted from msyoon8/new-nsml
-36bc5cc3b649: Mounted from msyoon8/new-nsml
-8f4ebc5eb43a: Mounted from msyoon8/new-nsml
-ebd4ce6c3d15: Waiting
-59535ac5fd47: Waiting
-2b023f1e40f7: Waiting
-55a5c5838665: Waiting
-68297ea5d26b: Waiting
-6c0a7acf624e: Waiting
-6c5aa0fe4fdd: Waiting
-19021c46eb92: Waiting
-01f46e800c43: Waiting
-92d3f22d44f3: Waiting
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;시간이 조금 지나고 …..&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;user@AL01333530 ~ % docker push msyoon8/modified-nsml:start
-The push refers to repository [docker.io/msyoon8/modified-nsml]
-29f8768524e6: Pushed 
-345828a8dc7c: Mounted from msyoon8/new-nsml 
-4acf1ac205fc: Mounted from msyoon8/new-nsml 
-36bc5cc3b649: Mounted from msyoon8/new-nsml 
-8f4ebc5eb43a: Mounted from msyoon8/new-nsml 
-ebd4ce6c3d15: Mounted from msyoon8/new-nsml 
-59535ac5fd47: Mounted from msyoon8/new-nsml 
-2b023f1e40f7: Mounted from msyoon8/new-nsml 
-55a5c5838665: Mounted from msyoon8/new-nsml 
-68297ea5d26b: Mounted from msyoon8/new-nsml 
-6c0a7acf624e: Mounted from msyoon8/new-nsml 
-6c5aa0fe4fdd: Mounted from msyoon8/new-nsml 
-19021c46eb92: Mounted from msyoon8/new-nsml 
-01f46e800c43: Mounted from msyoon8/new-nsml 
-92d3f22d44f3: Mounted from msyoon8/new-nsml 
-10e46f329a25: Mounted from msyoon8/new-nsml 
-24ab7de5faec: Mounted from msyoon8/new-nsml 
-1ea5a27b0484: Mounted from msyoon8/new-nsml 
-start: digest: sha256:126df160f8899f7bf0bb4c21a724d41e39239afe27084229f78c06bb67277dcd size: 4116
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;요렇게 뜨면 제대로 push가 된 것이다!
-&lt;img src=&quot;../assets/images/docker.jpg&quot; alt=&quot;dockerhub-image&quot; /&gt;
-(docker hub에 제대로 push가 된 걸 볼 수 있다.)&lt;/p&gt;
-
-&lt;p&gt;쨘!
-그리고 이 이미지를 가져오면 된다 ㅎㅎ&lt;/p&gt;
-
-&lt;p&gt;2021년 4월 3일 Update:
-docker를 nvidia가 pre-install되어있는 상대로 + GPU 사용 가능한 상태로 run하고 싶다면&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ docker run -it --device /dev/nvidia0:/dev/nvidia0 --device /dev/nvidiactl:/dev/nvidiactl --device /dev/nvidia-uvm:/dev/nvidia-uvm --gpus all [image_name] /bin/bash
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;요렇게 써주면 된다!&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">NSML 을 인턴 기간 중 사용하게 되면서 docker image를 띄우고, 컨테이너에 넣어서 수정하고, 다시 push해야하는 일이 생겼다. 나중에 까먹지 않도록, 각자 과정에 대해서 간단하게 기록해보려고 한다.</summary></entry><entry><title type="html">논문 리뷰_pie</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_PIE/" rel="alternate" type="text/html" title="논문 리뷰_pie" /><published>2020-08-04T00:00:00+09:00</published><updated>2020-08-04T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_PIE</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_PIE/">&lt;h1 id=&quot;parallel-iterative-edit-models-for-local-sequence-transduction&quot;&gt;Parallel Iterative Edit Models for Local Sequence Transduction&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;../assets/images/illustrations/mixtext.png&quot; alt=&quot;image2&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">이번에 연구 주제와 관련되어서 mixup 기반의 논문들을 읽어보고 공부하게 되었다. 여기서 중요하다고 느꼈던 점과 읽었던 부분들을 정리해보려고 한다. 시간이 지나면 다시 까먹을 것 같아서, 미리미리 정리해두는게 좋을것 같다. (정리한 부분은 순전히 내가 읽고 받아들인 대로 적은 것이기 떄문에, 틀린 부분이 있을 수 있고, 잘못된 부분이 있다면 댓글로 알려주시면 정말 감사하겠습니다..ㅎㅎ)</summary></entry><entry><title type="html">논문 리뷰_pie</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_PIE/" rel="alternate" type="text/html" title="논문 리뷰_pie" /><published>2020-08-04T00:00:00+09:00</published><updated>2020-08-04T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_PIE</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_PIE/">&lt;h1 id=&quot;parallel-iterative-edit-models-for-local-sequence-transduction&quot;&gt;Parallel Iterative Edit Models for Local Sequence Transduction&lt;/h1&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://www.aclweb.org/anthology/D19-1435.pdf&quot;&gt;pdf&lt;/a&gt;&lt;/p&gt;
 
@@ -444,25 +513,4 @@ docker를 nvidia가 pre-install되어있는 상대로 + GPU 사용 가능한 상
 
 &lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-15.png&quot; alt=&quot;slide15&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-16.png&quot; alt=&quot;slide16&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Parallel Iterative Edit Models for Local Sequence Transduction</summary></entry><entry><title type="html">논문 리뷰_unilm</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_unilm/" rel="alternate" type="text/html" title="논문 리뷰_unilm" /><published>2020-08-04T00:00:00+09:00</published><updated>2020-08-04T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_unilm</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0_unilm/">&lt;h1 id=&quot;unified-language-model-pre-training-for-natural-language-understanding-and-generation&quot;&gt;Unified Language Model Pre-training for Natural Language Understanding and Generation&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;https://arxiv.org/pdf/1905.03197.pdf&quot;&gt;pdf&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-1.png&quot; alt=&quot;slide1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-2.png&quot; alt=&quot;slide2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-3.png&quot; alt=&quot;slide3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-4.png&quot; alt=&quot;slide4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-5.png&quot; alt=&quot;slide5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-6.png&quot; alt=&quot;slide6&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-7.png&quot; alt=&quot;slide7&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-8.png&quot; alt=&quot;slide8&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-9.png&quot; alt=&quot;slide9&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/images/slides/unilm-10.png&quot; alt=&quot;slide10&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Unified Language Model Pre-training for Natural Language Understanding and Generation pdf</summary></entry></feed>
+&lt;p&gt;&lt;img src=&quot;../assets/images/slides/pie-16.png&quot; alt=&quot;slide16&quot; /&gt;&lt;/p&gt;</content><author><name>Soyoung Yoon</name></author><summary type="html">Parallel Iterative Edit Models for Local Sequence Transduction</summary></entry></feed>

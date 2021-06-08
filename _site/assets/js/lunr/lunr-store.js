@@ -82,4 +82,16 @@ var store = [{
         "tags": [],
         "url": "http://localhost:4000/NAACL-2021-paper-review-about-semantic-parsing/",
         "teaser": null
+      },{
+        "title": "Notes On Getting Into Grad School Naacl 2021",
+        "excerpt":"Notes on Webminar: Getting into grad school (NAACL 2021) What do you think sets apart a strong application for graduate study? Vlad Nicule) Differs so much Motivation / Recommendation letters matter so much Good Letter? Relevant papers that shows your field of NLP What are the criteria to keep in...","categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/Notes-on-getting-into-grad-school-NAACL-2021/",
+        "teaser": null
+      },{
+        "title": "Notes On Naacl 2021 Oral Presentation On Semantic Parsing",
+        "excerpt":"Here are the brief notes that I took from listening to the oral presentations of great authors (mainly focused on text-to-SQL) Latent Compositional Representations improve systematic generalization in grounded answering They make trees on all latent Tree helps whether the model is really correct or not. Beam search can help...","categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/notes-on-NAACL-2021-oral-presentation-on-semantic-parsing/",
+        "teaser": null
       }]
