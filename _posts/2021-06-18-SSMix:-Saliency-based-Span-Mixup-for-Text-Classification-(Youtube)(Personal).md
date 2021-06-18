@@ -15,7 +15,7 @@ However there is several things I want to emphasize.
 
 - This is an **unofficial**(personal) version of explaining my work. If you are looking for the official thing, please refer to the to-be-updated video at ACL 2021!
 
-Please enjoy!
+Please enjoy! (Please click the link)
 - [SSMix Part 1. Background and Methodology](https://youtu.be/c6GeVQ8Rvik)
 
 - [SSMix Part 2. Training Details and result analysis](https://youtu.be/f4XYIG-o7Ak)
