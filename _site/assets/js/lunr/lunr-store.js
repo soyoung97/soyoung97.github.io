@@ -94,4 +94,10 @@ var store = [{
         "tags": [],
         "url": "http://localhost:4000/notes-on-NAACL-2021-oral-presentation-on-semantic-parsing/",
         "teaser": null
+      },{
+        "title": "Ssmix: Saliency Based Span Mixup For Text Classification (youtube)(personal)",
+        "excerpt":"Paper: SSMix: Saliency-Based Span Mixup for Text Classification Code: Official repository for SSMix As I promised on the previous post, I made an additional material that fully explains about the SSMix paper, Also, as I was preparing for the 3-minute video that I need to submit for ACL 2021, I...","categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/SSMix-Saliency-based-Span-Mixup-for-Text-Classification-(Youtube)(Personal)/",
+        "teaser": null
       }]
